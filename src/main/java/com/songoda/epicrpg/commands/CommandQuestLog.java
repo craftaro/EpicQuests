@@ -31,7 +31,7 @@ public class CommandQuestLog extends AbstractCommand {
 
     @Override
     public String getPermissionNode() {
-        return "epicrpg.admin";
+        return "epicrpg.questlog";
     }
 
     @Override
