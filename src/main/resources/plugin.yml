@@ -1,0 +1,13 @@
+name: EpicRPG
+description: EpicRPG
+version: maven-version-number
+main: com.songoda.epicrpg.EpicRPG
+author: songoda
+softdepend: [ModdedCore, Citizens]
+api-version: 1.13
+commands:
+  EpicRPG:
+    description: Reloads the configuration file
+    default: true
+    aliases: [rpg]
+    usage: /epicrpg reload
