@@ -35,11 +35,11 @@ public class CommandAdmin extends AbstractCommand {
 
     @Override
     public String getSyntax() {
-        return null;
+        return "/epicrpg admin";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Open the admin panel.";
     }
 }

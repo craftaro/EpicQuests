@@ -40,11 +40,11 @@ public class CommandResetPlayer extends AbstractCommand {
 
     @Override
     public String getSyntax() {
-        return null;
+        return "/epicrpg resetplayer";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Reset a players story.";
     }
 }
