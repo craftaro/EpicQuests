@@ -49,7 +49,10 @@ public class GuiPickQuest extends Gui {
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, quest));
+                    if (quest == null)
+                        guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, quest));
+                    else
+                        guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, speech));
                 });
 
 

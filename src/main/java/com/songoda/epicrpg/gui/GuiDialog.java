@@ -22,14 +22,12 @@ import java.util.List;
 public class GuiDialog extends Gui {
 
     private final EpicRPG plugin;
-    private final DialogManager dialogManager;
     private final Dialog dialog;
     private final Player player;
     private final AttachedSpeech attachedSpeech;
 
     public GuiDialog(EpicRPG plugin, Player player, Dialog dialog, AttachedSpeech attachedSpeech) {
         this.plugin = plugin;
-        this.dialogManager = plugin.getDialogManager();
         this.dialog = dialog;
 
         this.player = player;
