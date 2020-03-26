@@ -11,6 +11,7 @@ import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.listers.EntityListeners;
 import com.songoda.epicrpg.listers.InteractListeners;
 import com.songoda.epicrpg.listers.ItemListeners;
+import com.songoda.epicrpg.settings.Settings;
 import com.songoda.epicrpg.storage.json.JsonStorage;
 import com.songoda.epicrpg.story.StoryManager;
 import com.songoda.epicrpg.story.player.PlayerManager;
@@ -47,6 +48,10 @@ public class EpicRPG extends SongodaPlugin {
 
     @Override
     public void onPluginEnable() {
+
+        // Setup Config
+        Settings.setupConfig();
+        this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         this.commandManager = new CommandManager(this);
         this.commandManager.addMainCommand("EpicRPG")
