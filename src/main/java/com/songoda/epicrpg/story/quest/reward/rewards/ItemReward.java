@@ -5,6 +5,7 @@ import com.songoda.epicrpg.gui.GuiItems;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.reward.AbstractReward;
 import com.songoda.epicrpg.story.quest.reward.RewardType;
+import com.songoda.epicrpg.utils.ItemHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ItemReward extends AbstractReward {
+public class ItemReward extends AbstractReward implements ItemHolder {
 
     private List<ItemStack> items = new ArrayList<>();
 
@@ -42,6 +43,10 @@ public class ItemReward extends AbstractReward {
 
     public List<ItemStack> getItems() {
         return Collections.unmodifiableList(items);
+    }
+
+    public void clearItems() {
+        items.clear();
     }
 
     public void addItem(ItemStack item) {
