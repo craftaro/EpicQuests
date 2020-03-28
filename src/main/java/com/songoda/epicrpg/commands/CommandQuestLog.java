@@ -36,7 +36,7 @@ public class CommandQuestLog extends AbstractCommand {
 
     @Override
     public String getSyntax() {
-        return "/epicrpg questlog";
+        return "questlog";
     }
 
     @Override

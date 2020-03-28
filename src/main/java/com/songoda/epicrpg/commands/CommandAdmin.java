@@ -35,7 +35,7 @@ public class CommandAdmin extends AbstractCommand {
 
     @Override
     public String getSyntax() {
-        return "/epicrpg admin";
+        return "admin";
     }
 
     @Override

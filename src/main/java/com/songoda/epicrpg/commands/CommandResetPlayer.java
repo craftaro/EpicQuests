@@ -40,7 +40,7 @@ public class CommandResetPlayer extends AbstractCommand {
 
     @Override
     public String getSyntax() {
-        return "/epicrpg resetplayer";
+        return "resetplayer";
     }
 
     @Override
