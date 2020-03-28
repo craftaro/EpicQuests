@@ -1,12 +1,12 @@
 package com.songoda.epicrpg.storage.json.adapters;
 
 import com.google.gson.*;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Base64;
