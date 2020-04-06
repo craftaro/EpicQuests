@@ -34,7 +34,7 @@ public class ActiveQuest {
 
         remainingObjective.completeAction(action, amount);
 
-        if (remainingObjective.getRemainingActions().size() == 0) {
+        if (remainingObjective.getRemainingActions().isEmpty()) {
             remainingObjectives.remove(objective.getUniqueId());
             return true;
         }

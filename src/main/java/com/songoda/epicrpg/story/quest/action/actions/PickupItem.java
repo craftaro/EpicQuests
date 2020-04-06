@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
 import com.songoda.core.input.ChatPrompt;
+import com.songoda.core.utils.ItemUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
@@ -46,9 +47,11 @@ public class PickupItem extends AbstractAction {
     public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
         PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
 
-        if (!event.getItem().getItemStack().isSimilar(dataStore.getItemStack())) return;
+        ItemStack item = event.getItem().getItemStack();
 
-        performAction(activeAction, event.getItem().getItemStack().getAmount(), event.getPlayer());
+        if (!item.isSimilar(dataStore.getItemStack())) return;
+
+        performAction(activeAction, item.getAmount(), event.getPlayer());
 
     }
 
