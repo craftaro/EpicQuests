@@ -70,6 +70,8 @@ public class QuestTask extends BukkitRunnable {
 
                 List<ActiveAction> activeActions = plugin.getActionManager().getActiveActionsByObjective(currentObjective);
 
+                if (activeActions.isEmpty()) continue;
+
                 double current = activeActions.get(0).getAmount() == 1 ? activeActions.size() -
                         remainingObjective.getRemainingActions().size() : activeActions.get(0).getAmount() -
                         remainingObjective.getAmount(activeActions.get(0));
