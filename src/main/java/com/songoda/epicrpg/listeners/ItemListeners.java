@@ -1,4 +1,4 @@
-package com.songoda.epicrpg.listers;
+package com.songoda.epicrpg.listeners;
 
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
