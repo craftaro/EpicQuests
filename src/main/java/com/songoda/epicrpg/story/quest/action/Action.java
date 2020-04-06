@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface Action {
 
     boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction);
 
-    void onPickup(EntityPickupItemEvent event, ActiveAction activeAction);
+    void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction);
 
     void onDrop(PlayerDropItemEvent event, ActiveAction activeAction);
 

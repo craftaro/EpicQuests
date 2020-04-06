@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
@@ -42,14 +43,12 @@ public class PickupItem extends AbstractAction {
     }
 
     @Override
-    public void onPickup(EntityPickupItemEvent event, ActiveAction activeAction) {
+    public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
         PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
-
-        if (!(event.getEntity() instanceof Player)) return;
 
         if (!event.getItem().getItemStack().isSimilar(dataStore.getItemStack())) return;
 
-        performAction(activeAction, event.getItem().getItemStack().getAmount(), (Player) event.getEntity());
+        performAction(activeAction, event.getItem().getItemStack().getAmount(), event.getPlayer());
 
     }
 

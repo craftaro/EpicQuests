@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +62,7 @@ public class KillEntityType extends AbstractAction {
     }
 
     @Override
-    public void onPickup(EntityPickupItemEvent event, ActiveAction activeAction) {
+    public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
     }
 
     @Override

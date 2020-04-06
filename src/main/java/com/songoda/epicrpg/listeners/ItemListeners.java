@@ -8,6 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 public class ItemListeners implements Listener {
 
@@ -25,8 +26,7 @@ public class ItemListeners implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onItemPickup(EntityPickupItemEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
+    public void onItemPickup(PlayerPickupItemEvent event) {
 
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
             action.getAction().onPickup(event, action);
