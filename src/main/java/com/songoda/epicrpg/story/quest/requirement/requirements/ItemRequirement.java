@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.quest.requirement.requirements;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.gui.GuiItems;
 import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.requirement.AbstractRequirement;
 import com.songoda.epicrpg.story.quest.reward.RewardType;
 import com.songoda.epicrpg.utils.ItemHolder;
@@ -29,16 +28,17 @@ public class ItemRequirement extends AbstractRequirement implements ItemHolder {
 
     @Override
     public boolean isMet(Player player) {
-        for (ItemStack item : items)
-            if (!player.getInventory().contains(item))
+        for (ItemStack item : items) {
+            if (!player.getInventory().containsAtLeast(item, item.getAmount()))
                 return false;
+        }
         return true;
     }
 
     @Override
     public void execute(Player player) {
         for (ItemStack itemStack : items)
-            player.getInventory().remove(itemStack);
+            player.getInventory().removeItem(itemStack);
     }
 
     @Override
