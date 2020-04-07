@@ -28,5 +28,8 @@ public interface Action {
 
     void onEntityKill(EntityDeathEvent event, ActiveAction activeAction);
 
+    void moveTick(Player player, ActiveAction action);
+
     ActiveAction setup(Player player, Objective objective);
+
 }

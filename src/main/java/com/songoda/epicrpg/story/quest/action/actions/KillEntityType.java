@@ -8,12 +8,10 @@ import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
-import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -77,6 +75,11 @@ public class KillEntityType extends AbstractAction {
 
         if (dataStore.getEntityType() == event.getEntityType())
             performAction(activeAction, 1, event.getEntity().getKiller());
+    }
+
+    @Override
+    public void moveTick(Player player, ActiveAction action) {
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.songoda.epicrpg.story.StoryManager;
 import com.songoda.epicrpg.story.player.PlayerManager;
 import com.songoda.epicrpg.story.quest.action.ActionManager;
 import com.songoda.epicrpg.tasks.QuestTask;
+import com.songoda.epicrpg.tasks.RegionTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -90,6 +91,7 @@ public class EpicRPG extends SongodaPlugin {
 
         // Start Tasks
         questTask = QuestTask.startTask(this);
+        RegionTask.startTask(this);
     }
 
     @Override

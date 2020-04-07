@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.story.quest.Objective;
+import com.songoda.epicrpg.story.quest.action.actions.EnterRegion;
 import com.songoda.epicrpg.story.quest.action.actions.KillEntityType;
 import com.songoda.epicrpg.story.quest.action.actions.PickupItem;
 import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizenAction;
@@ -21,6 +22,7 @@ public class ActionManager {
         if (pluginManager.isPluginEnabled("Citizens"))
             registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizenAction());
 
+        registeredActions.put("ENTER_REGION", new EnterRegion());
         registeredActions.put("PICKUP_ITEM", new PickupItem());
         registeredActions.put("KILL_ENTITY_TYPE", new KillEntityType());
     }

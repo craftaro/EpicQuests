@@ -79,6 +79,11 @@ public class RightClickCitizenAction extends AbstractAction {
     }
 
     @Override
+    public void moveTick(Player player, ActiveAction action) {
+
+    }
+
+    @Override
     public ActiveAction setup(Player player, Objective objective) {
         player.sendMessage("Right click a citizen to assign this action.");
         RightClickCitizenDataStore dataStore = new RightClickCitizenDataStore(objective);

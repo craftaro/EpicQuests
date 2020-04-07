@@ -78,6 +78,11 @@ public class PickupItem extends AbstractAction {
     }
 
     @Override
+    public void moveTick(Player player, ActiveAction action) {
+
+    }
+
+    @Override
     public ActiveAction setup(Player player, Objective objective) {
         player.sendMessage("Drop the item you would like assigned to this action.");
         PickupItemDataStore dataStore = new PickupItemDataStore(objective);

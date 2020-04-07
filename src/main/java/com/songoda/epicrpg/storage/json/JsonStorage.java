@@ -2,8 +2,8 @@ package com.songoda.epicrpg.storage.json;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.EpicRPG;
+import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.dialog.Dialog;
 import com.songoda.epicrpg.storage.json.adapters.*;
 import com.songoda.epicrpg.story.Story;
@@ -13,6 +13,7 @@ import com.songoda.epicrpg.story.quest.action.Action;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import com.songoda.epicrpg.story.quest.reward.Reward;
+import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.*;
@@ -68,6 +69,7 @@ public class JsonStorage {
 
         gsonActions = new GsonBuilder().registerTypeAdapter(Action.class, new ActionAdapter(plugin))
                 .registerTypeAdapter(Objective.class, new ObjectiveAdapter(plugin))
+                .registerTypeAdapter(Location.class, new LocationAdapter())
                 .registerTypeAdapter(ActionDataStore.class, deserializer)
                 .registerTypeAdapter(ActionDataStore.class, new ActionDataStoreAdapter())
                 .registerTypeHierarchyAdapter(ItemStack.class, new ItemStackAdapter())
