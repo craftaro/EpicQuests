@@ -39,10 +39,6 @@ public class RightClickCitizenAction extends AbstractAction {
     }
 
     @Override
-    public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
     public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
         EpicRPG plugin = EpicRPG.getInstance();
         Player player = event.getPlayer();
@@ -62,25 +58,6 @@ public class RightClickCitizenAction extends AbstractAction {
         if (CitizensAPI.getNPCRegistry().getNPC(entity).getId() == dataStore.getCitizenId())
             return performAction(activeAction, 1, player);
         return true;
-    }
-
-    @Override
-    public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
-
-    }
-
-    @Override
-    public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-
-    }
-
-    @Override
-    public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public void moveTick(Player player, ActiveAction action) {
-
     }
 
     @Override

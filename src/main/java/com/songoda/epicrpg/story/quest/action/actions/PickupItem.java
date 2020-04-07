@@ -35,15 +35,6 @@ public class PickupItem extends AbstractAction {
     }
 
     @Override
-    public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
-        return true;
-    }
-
-    @Override
     public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
         PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
 
@@ -71,15 +62,6 @@ public class PickupItem extends AbstractAction {
                     plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, dataStore.getObjective()));
                 });
         dataStore.finishSetup();
-    }
-
-    @Override
-    public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public void moveTick(Player player, ActiveAction action) {
-
     }
 
     @Override

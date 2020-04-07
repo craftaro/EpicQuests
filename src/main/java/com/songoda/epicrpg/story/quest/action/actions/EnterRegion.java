@@ -1,6 +1,5 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
-import com.songoda.core.input.ChatPrompt;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
@@ -9,14 +8,9 @@ import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,23 +49,6 @@ public class EnterRegion extends AbstractAction {
                 plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, dataStore.getObjective()));
             }
         }
-    }
-
-    @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
-        return true;
-    }
-
-    @Override
-    public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
     }
 
     @Override

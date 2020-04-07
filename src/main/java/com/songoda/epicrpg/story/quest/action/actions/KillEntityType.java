@@ -35,10 +35,6 @@ public class KillEntityType extends AbstractAction {
     }
 
     @Override
-    public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
     public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
         EpicRPG plugin = EpicRPG.getInstance();
         Player player = event.getPlayer();
@@ -60,14 +56,6 @@ public class KillEntityType extends AbstractAction {
     }
 
     @Override
-    public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
-    public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-    }
-
-    @Override
     public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
         KillEntityTypeDataStore dataStore = (KillEntityTypeDataStore) activeAction.getActionDataStore();
         Player player = event.getEntity().getKiller();
@@ -75,11 +63,6 @@ public class KillEntityType extends AbstractAction {
 
         if (dataStore.getEntityType() == event.getEntityType())
             performAction(activeAction, 1, event.getEntity().getKiller());
-    }
-
-    @Override
-    public void moveTick(Player player, ActiveAction action) {
-
     }
 
     @Override
