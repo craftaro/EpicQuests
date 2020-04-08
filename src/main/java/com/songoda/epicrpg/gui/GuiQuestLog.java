@@ -26,6 +26,8 @@ public class GuiQuestLog extends Gui {
     private final StoryPlayer storyPlayer;
     private final StoryManager storyManager;
 
+    private int storyCount = 0;
+
     public GuiQuestLog(EpicRPG plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
@@ -33,6 +35,8 @@ public class GuiQuestLog extends Gui {
         this.storyManager = plugin.getStoryManager();
         setRows(6);
         setDefaultItem(null);
+
+        storyCount = Math.toIntExact(storyManager.getStories().stream().filter(Story::isActive).count());
 
         setTitle("Quest Log");
 
@@ -44,24 +48,55 @@ public class GuiQuestLog extends Gui {
             inventory.clear();
         setActionForRange(0, 53, null);
 
-
         List<Story> stories = storyManager.getStories();
         for (int i = 0; i < stories.size(); i++) {
             Story story = stories.get(i);
+            if (storyCount == 1) {
+                showQuests(story, false);
+                break;
+            }
             if (story.isActive())
                 setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, story.getName()),
-                        (event) -> {
-                            showQuests(story, false);
-                        });
+                        (event) -> showQuests(story, false));
         }
     }
 
     public void showQuests(Story story, boolean completed) {
-        inventory.clear();
+        if (inventory != null)
+            inventory.clear();
         setActionForRange(0, 53, null);
 
-        setButton(8, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, completed ? "Show Uncompleted" : "Show Completed"),
+        if (storyCount != 1)
+            setButton(5, 3, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, "Back"),
+                    (event) -> show());
+        setButton(5, storyCount == 1 ? 3 : 4, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Exit"),
+                (event) -> player.closeInventory());
+
+
+        long amountCompleted = story.getEnabledQuests().stream()
+                .filter(q -> storyPlayer.getCompletedQuests().contains(q.getUniqueId())).count();
+
+        List<String> lore = new ArrayList<>();
+        if (completed) {
+            lore.addAll(Arrays.asList(TextUtils.formatText("&7View quests you are"),
+                    TextUtils.formatText("&7currently working towards."),
+                    "",
+                    TextUtils.formatText("&eClick to view!")));
+        } else {
+            lore.addAll(Arrays.asList(TextUtils.formatText("&7Take a peak at the past"),
+                    TextUtils.formatText("&7and browse quests you've"),
+                    TextUtils.formatText("&7already completed."),
+                    "",
+                    TextUtils.formatText("&7Completed: &a" + amountCompleted),
+                    "",
+                    TextUtils.formatText("&eClick to view!")));
+
+        }
+
+        setButton(5, 5, GuiUtils.createButtonItem(CompatibleMaterial.BOOK,
+                TextUtils.formatText(completed ? "&aOngoing Quests" : "&aCompleted Quests"), lore),
                 (event) -> {
+                    setTitle(completed ? "Quest Log" : "Quest Log (Completed)");
                     showQuests(story, !completed);
                 });
 
@@ -71,7 +106,8 @@ public class GuiQuestLog extends Gui {
             if (completed && !questCompleted || !completed && questCompleted
                     || !storyPlayer.getActiveQuests().stream()
                     .map(ActiveQuest::getActiveQuest).collect(Collectors.toList())
-                    .contains(quest.getUniqueId()) && !storyPlayer.getCompletedQuests().contains(quest.getUniqueId())) continue;
+                    .contains(quest.getUniqueId()) && !storyPlayer.getCompletedQuests().contains(quest.getUniqueId()))
+                continue;
 
             List<Objective> objectives = new ArrayList<>();
             if (questCompleted) {
