@@ -4,9 +4,7 @@ import com.songoda.core.SongodaPlugin;
 import com.songoda.core.commands.CommandManager;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.gui.GuiManager;
-import com.songoda.epicrpg.commands.CommandAdmin;
-import com.songoda.epicrpg.commands.CommandQuestLog;
-import com.songoda.epicrpg.commands.CommandResetPlayer;
+import com.songoda.epicrpg.commands.*;
 import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.listeners.EntityListeners;
 import com.songoda.epicrpg.listeners.InteractListeners;
@@ -14,7 +12,7 @@ import com.songoda.epicrpg.listeners.ItemListeners;
 import com.songoda.epicrpg.settings.Settings;
 import com.songoda.epicrpg.storage.json.JsonStorage;
 import com.songoda.epicrpg.story.StoryManager;
-import com.songoda.epicrpg.story.player.PlayerManager;
+import com.songoda.epicrpg.story.contender.ContendentManager;
 import com.songoda.epicrpg.story.quest.action.ActionManager;
 import com.songoda.epicrpg.tasks.QuestTask;
 import com.songoda.epicrpg.tasks.RegionTask;
@@ -29,7 +27,7 @@ public class EpicRPG extends SongodaPlugin {
 
     private final GuiManager guiManager = new GuiManager(this);
     private StoryManager storyManager;
-    private PlayerManager playerManager;
+    private ContendentManager contendentManager;
     private ActionManager actionManager;
     private CommandManager commandManager;
     private DialogManager dialogManager;
@@ -54,17 +52,23 @@ public class EpicRPG extends SongodaPlugin {
         Settings.setupConfig();
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
+        // Init Managers
+        storyManager = new StoryManager();
+        contendentManager = new ContendentManager(storyManager);
+        actionManager = new ActionManager(this);
+        dialogManager = new DialogManager();
+
+        // Init Commands
         this.commandManager = new CommandManager(this);
         this.commandManager.addMainCommand("EpicRPG")
                 .addSubCommands(new CommandAdmin(this),
                         new CommandResetPlayer(this),
+                        new CommandPartyCreate(this),
+                        new CommandPartyDisband(this),
+                        new CommandPartyInvite(this, contendentManager),
+                        new CommandPartyLeave(this),
+                        new CommandResetPlayer(this),
                         new CommandQuestLog(this));
-
-        // Init Managers
-        storyManager = new StoryManager();
-        playerManager = new PlayerManager(storyManager);
-        actionManager = new ActionManager();
-        dialogManager = new DialogManager();
 
         // Init Listeners
         PluginManager pluginManager = Bukkit.getPluginManager();
@@ -116,8 +120,8 @@ public class EpicRPG extends SongodaPlugin {
         return storyManager;
     }
 
-    public PlayerManager getPlayerManager() {
-        return playerManager;
+    public ContendentManager getContendentManager() {
+        return contendentManager;
     }
 
     public ActionManager getActionManager() {
@@ -136,4 +140,7 @@ public class EpicRPG extends SongodaPlugin {
         return dialogManager;
     }
 
+    public QuestTask getQuestTask() {
+        return questTask;
+    }
 }

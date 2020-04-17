@@ -7,7 +7,9 @@ import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.Story;
 import com.songoda.epicrpg.story.StoryManager;
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.StoryContender;
+import com.songoda.epicrpg.story.contender.StoryParty;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
@@ -31,7 +33,7 @@ public class GuiQuestLog extends Gui {
     public GuiQuestLog(EpicRPG plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.storyPlayer = plugin.getPlayerManager().getPlayer(player);
+        this.storyPlayer = plugin.getContendentManager().getPlayer(player);
         this.storyManager = plugin.getStoryManager();
         setRows(6);
         setDefaultItem(null);
@@ -125,16 +127,39 @@ public class GuiQuestLog extends Gui {
                 objectivesLore.add(TextUtils.formatText(
                         (storyPlayer.isObjectiveCompleted(objective) ? "&a&l✔ &f" : "&c&l✖ &d") + objective.getTitle()));
 
-            if (storyPlayer.isFocused(quest))
-                objectivesLore.addAll(Arrays.asList("", TextUtils.formatText("&7Focused")));
+            StoryContender contender = plugin.getContendentManager().getContender(player.getUniqueId());
+            if (contender instanceof StoryParty) {
+                StoryParty party = (StoryParty) contender;
+                if (party.getActiveQuests().size() == 1) {
+                    if (party.getActiveQuests().get(0).equals(quest))
+                        objectivesLore.addAll(Arrays.asList("", TextUtils.formatText("&aYour party is doing this quest.")));
+                    else
+                        objectivesLore.addAll(Arrays.asList("", TextUtils.formatText("&aClick to swap to this quest.")));
+                } else
+                    objectivesLore.addAll(Arrays.asList("", TextUtils.formatText("&7Choose this quest.")));
+            } else {
+                if (storyPlayer.isFocused(quest))
+                    objectivesLore.addAll(Arrays.asList("", TextUtils.formatText("&7Focused")));
+            }
 
             setButton(i, GuiUtils.createButtonItem(CompatibleMaterial.PAPER,
                     TextUtils.formatText("&d" + quest.getName()),
                     objectivesLore), (event) -> {
                 if (!questCompleted) {
-                    storyPlayer.toggleAllFocusedOff();
-                    storyPlayer.toggleFocus(quest);
-                    showQuests(story, false);
+                    if (contender instanceof StoryParty) {
+                        StoryParty party = (StoryParty) contender;
+                        if (party.getActiveQuests().size() == 1) {
+                            if (!party.getActiveQuests().get(0).equals(quest))
+                                party.swapQuest(quest);
+                        } else
+                            party.addActiveQuest(quest);
+                    } else {
+                        if (!storyPlayer.isFocused(quest)) {
+                            storyPlayer.toggleAllFocusedOff();
+                            storyPlayer.toggleFocus(quest);
+                            showQuests(story, false);
+                        }
+                    }
                 }
             });
             i++;

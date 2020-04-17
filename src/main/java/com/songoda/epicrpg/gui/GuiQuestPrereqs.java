@@ -23,6 +23,7 @@ public class GuiQuestPrereqs extends Gui {
 
     public GuiQuestPrereqs(EpicRPG plugin, Player player, Quest quest) {
         this.quest = quest;
+        System.out.println(quest);
         init(plugin, player);
     }
 

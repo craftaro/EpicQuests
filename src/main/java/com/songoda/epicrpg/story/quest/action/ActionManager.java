@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.story.quest.action;
 
+import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.actions.EnterRegion;
 import com.songoda.epicrpg.story.quest.action.actions.KillEntityType;
@@ -16,15 +17,15 @@ public class ActionManager {
     private final Map<String, Action> registeredActions = new HashMap<>();
     private final Set<ActiveAction> activeActions = new HashSet<>();
 
-    public ActionManager() {
+    public ActionManager(EpicRPG plugin) {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         if (pluginManager.isPluginEnabled("Citizens"))
-            registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizenAction());
+            registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizenAction(plugin));
 
-        registeredActions.put("ENTER_REGION", new EnterRegion());
-        registeredActions.put("PICKUP_ITEM", new PickupItem());
-        registeredActions.put("KILL_ENTITY_TYPE", new KillEntityType());
+        registeredActions.put("ENTER_REGION", new EnterRegion(plugin));
+        registeredActions.put("PICKUP_ITEM", new PickupItem(plugin));
+        registeredActions.put("KILL_ENTITY_TYPE", new KillEntityType(plugin));
     }
 
     public Action getAction(String key) {

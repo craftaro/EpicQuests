@@ -1,11 +1,10 @@
 package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.dialog.Speech;
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.StoryContender;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
-import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -17,6 +16,12 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import java.util.List;
 
 public abstract class AbstractAction implements Action {
+
+    protected transient final EpicRPG plugin;
+
+    public AbstractAction(EpicRPG plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
@@ -48,10 +53,10 @@ public abstract class AbstractAction implements Action {
 
     }
 
-    public boolean performAction(ActiveAction activeAction, int amount, Player player) {
+    protected boolean performAction(ActiveAction activeAction, int amount, Player player) {
         EpicRPG plugin = EpicRPG.getInstance();
-        StoryPlayer storyPlayer = plugin.getPlayerManager().getPlayer(player);
-        for (ActiveQuest activeQuest : storyPlayer.getActiveQuests()) {
+        StoryContender contender = plugin.getContendentManager().getContender(player);
+        for (ActiveQuest activeQuest : contender.getActiveQuests()) {
             if (activeAction.getObjective() == null) {
                 plugin.getActionManager().removeActiveAction(activeAction);
                 continue;
@@ -73,7 +78,7 @@ public abstract class AbstractAction implements Action {
                 if (speech != null)
                     speech.sendMessages(player, speech.getDialog().getCitizen());
 
-            storyPlayer.toggleAllFocusedOff();
+            contender.toggleAllFocusedOff();
             activeQuest.setFocused(true);
             return false;
         }

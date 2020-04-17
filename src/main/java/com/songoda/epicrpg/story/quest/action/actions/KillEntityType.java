@@ -22,6 +22,10 @@ import java.util.List;
 
 public class KillEntityType extends AbstractAction {
 
+    public KillEntityType(EpicRPG plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getType() {
         return "KILL_ENTITY_TYPE";
@@ -36,7 +40,6 @@ public class KillEntityType extends AbstractAction {
 
     @Override
     public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
-        EpicRPG plugin = EpicRPG.getInstance();
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
 

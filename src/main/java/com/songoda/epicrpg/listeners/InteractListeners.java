@@ -3,7 +3,8 @@ package com.songoda.epicrpg.listeners;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.Dialog;
 import com.songoda.epicrpg.gui.GuiDialogs;
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.StoryContender;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
@@ -37,7 +38,7 @@ public class InteractListeners implements Listener {
             if (!action.getAction().onInteractWithEntity(event, action))
                 return;
 
-        StoryPlayer storyPlayer = plugin.getPlayerManager().getPlayer(event.getPlayer());
+        StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(event.getPlayer());
         if (event.getRightClicked().hasMetadata("NPC")) {
             NPC npc = CitizensAPI.getNPCRegistry().getNPC(event.getRightClicked());
             if (npc == null) return;
@@ -47,10 +48,11 @@ public class InteractListeners implements Listener {
                 storyPlayer.setInDialogCreation(false);
                 return;
             }
+            StoryContender storyContender = plugin.getContendentManager().getContender(event.getPlayer());
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 Dialog dialog = plugin.getDialogManager().getDialog(npc.getId());
                 if (dialog != null)
-                    dialog.sendMessages(event.getPlayer(), storyPlayer);
+                    dialog.sendMessages(event.getPlayer(), storyContender);
             }, 10L);
         }
     }

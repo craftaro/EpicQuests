@@ -23,6 +23,10 @@ import java.util.List;
 
 public class RightClickCitizenAction extends AbstractAction {
 
+    public RightClickCitizenAction(EpicRPG plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getType() {
         return "RIGHT_CLICK_CITIZEN";
@@ -40,7 +44,6 @@ public class RightClickCitizenAction extends AbstractAction {
 
     @Override
     public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
-        EpicRPG plugin = EpicRPG.getInstance();
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
 

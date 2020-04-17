@@ -39,7 +39,7 @@ public class GuiDialogs extends Gui {
         if (attachedSpeech == null) {
             setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Create Dialog"),
                     (event) -> {
-                        plugin.getPlayerManager().getPlayer(player).setInDialogCreation(true);
+                        plugin.getContendentManager().getPlayer(player).setInDialogCreation(true);
                         player.sendMessage("Click a citizen to create a new dialog.");
                         player.closeInventory();
                     });

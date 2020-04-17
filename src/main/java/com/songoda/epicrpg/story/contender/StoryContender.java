@@ -1,26 +1,20 @@
-package com.songoda.epicrpg.story.player;
+package com.songoda.epicrpg.story.contender;
 
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
-import com.songoda.epicrpg.story.quest.action.ActiveAction;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-public class StoryPlayer {
+public class StoryContender {
 
     private final UUID uniqueId;
 
-    private boolean inDialogCreation = false;
+    protected final List<ActiveQuest> activeQuests = new ArrayList<>();
+    protected final Set<UUID> completedQuests = new HashSet<>();
 
-    private final Set<ActiveQuest> activeQuests = new HashSet<>();
-    private final Set<UUID> completedQuests = new HashSet<>();
-
-    public StoryPlayer(UUID uniqueId) {
+    public StoryContender(UUID uniqueId) {
         this.uniqueId = uniqueId;
     }
 
@@ -40,12 +34,16 @@ public class StoryPlayer {
         return quest;
     }
 
-    public Set<ActiveQuest> getActiveQuests() {
-        return Collections.unmodifiableSet(activeQuests);
+    public List<ActiveQuest> getActiveQuests() {
+        return Collections.unmodifiableList(activeQuests);
     }
 
     public Set<UUID> getCompletedQuests() {
         return Collections.unmodifiableSet(completedQuests);
+    }
+
+    public boolean hasCompletedQuest(UUID uniqueId) {
+        return this.completedQuests.contains(uniqueId);
     }
 
     public ActiveQuest getActiveQuest(Quest quest) {
@@ -69,8 +67,8 @@ public class StoryPlayer {
         activeQuests.remove(active);
     }
 
-    public UUID getUniqueId() {
-        return uniqueId;
+    protected boolean addCompletedQuests(Set<UUID> completedQuests) {
+        return this.completedQuests.addAll(completedQuests);
     }
 
     public boolean isObjectiveCompleted(Objective objective) {
@@ -104,16 +102,21 @@ public class StoryPlayer {
         activeQuest.setFocused(!activeQuest.isFocused());
     }
 
-    public boolean isInDialogCreation() {
-        return inDialogCreation;
-    }
-
-    public void setInDialogCreation(boolean inDialogCreation) {
-        this.inDialogCreation = inDialogCreation;
-    }
-
     public void reset() {
         activeQuests.clear();
         completedQuests.clear();
+    }
+
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    @Override
+    public String toString() {
+        return "StoryContender{" +
+                "uniqueId=" + uniqueId +
+                ", activeQuests=" + activeQuests +
+                ", completedQuests=" + completedQuests +
+                '}';
     }
 }

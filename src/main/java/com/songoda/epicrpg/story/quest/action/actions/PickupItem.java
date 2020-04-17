@@ -23,6 +23,10 @@ import java.util.List;
 
 public class PickupItem extends AbstractAction {
 
+    public PickupItem(EpicRPG plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getType() {
         return "PICKUP_ITEM";
@@ -48,7 +52,6 @@ public class PickupItem extends AbstractAction {
 
     @Override
     public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-        EpicRPG plugin = EpicRPG.getInstance();
         Player player = event.getPlayer();
         PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
 

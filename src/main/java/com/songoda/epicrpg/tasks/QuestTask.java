@@ -2,7 +2,9 @@ package com.songoda.epicrpg.tasks;
 
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.ContendentManager;
+import com.songoda.epicrpg.story.contender.StoryContender;
+import com.songoda.epicrpg.story.contender.StoryParty;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
@@ -23,6 +25,7 @@ public class QuestTask extends BukkitRunnable {
 
     private static QuestTask instance;
     private static EpicRPG plugin;
+    private static ContendentManager contendentManager;
 
     private Map<UUID, BossBar> activeBossBars = new HashMap<>();
 
@@ -33,6 +36,7 @@ public class QuestTask extends BukkitRunnable {
 
     public static QuestTask startTask(EpicRPG plug) {
         plugin = plug;
+        contendentManager = plugin.getContendentManager();
         if (instance == null) {
             instance = new QuestTask(plugin);
             instance.runTaskTimerAsynchronously(plugin, 0, 5);
@@ -44,20 +48,36 @@ public class QuestTask extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            plugin.getPlayerManager().discoverQuests(player);
-            StoryPlayer storyPlayer = plugin.getPlayerManager().getPlayer(player);
+            StoryContender contender = contendentManager.getContender(player);
+            if (!(contender instanceof StoryParty))
+                plugin.getContendentManager().discoverQuests(contender);
             boolean updatedBossBar = false;
-            for (ActiveQuest activeQuest : new HashSet<>(storyPlayer.getActiveQuests()).stream()
+
+            List<ActiveQuest> active = contender.getActiveQuests();
+            if (active.isEmpty() && contender instanceof StoryParty) {
+                BossBar bossBar = activeBossBars.computeIfAbsent(contender.getUniqueId(),
+                        b -> Bukkit.createBossBar("title",
+                                BarColor.PINK,
+                                BarStyle.SOLID));
+                bossBar.setTitle(TextUtils.formatText("&7Party Idle..."));
+                bossBar.setProgress(1);
+                bossBar.addPlayer(player);
+                BossBar playerBar = activeBossBars.get(player.getUniqueId());
+                if (playerBar != null)
+                    playerBar.removeAll();
+            }
+            for (ActiveQuest activeQuest : new HashSet<>(active).stream()
                     .sorted(Comparator.comparing(q -> !q.isFocused()))
                     .collect(Collectors.toCollection(LinkedHashSet::new))) {
                 if (activeQuest == null) continue;
                 Quest quest = plugin.getStoryManager().getEnabledQuest(activeQuest.getActiveQuest());
 
-                if (quest == null || quest.getObjectives() == null || quest.getObjectives().size() == 0) continue;
+                if (quest == null || quest.getObjectives() == null || quest.getObjectives().size() == 0)
+                    continue;
 
                 if (activeQuest.getRemainingObjectives().isEmpty()) {
                     player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1L, 1L);
-                    storyPlayer.completeQuest(quest);
+                    contender.completeQuest(quest);
                     quest.giveRewards(player);
                     continue;
                 }
@@ -84,6 +104,11 @@ public class QuestTask extends BukkitRunnable {
                                 BarColor.PINK,
                                 BarStyle.SOLID));
                 bossBar.addPlayer(player);
+                if (contender instanceof StoryParty) {
+                    BossBar partyBar = activeBossBars.get(contender.getUniqueId());
+                    if (partyBar != null)
+                        partyBar.removeAll();
+                }
                 if (goal == 1 || goal == 0) {
                     bossBar.setTitle(title);
                     bossBar.setProgress(1);
@@ -103,5 +128,17 @@ public class QuestTask extends BukkitRunnable {
     public void flush() {
         for (BossBar bossBar : activeBossBars.values())
             bossBar.removeAll();
+    }
+
+    public void remove(StoryParty storyParty, Player player) {
+        BossBar bossBar = activeBossBars.get(storyParty.getUniqueId());
+        if (bossBar == null) return;
+        bossBar.removePlayer(player);
+    }
+
+    public void removeAll(StoryParty storyParty) {
+        BossBar bossBar = activeBossBars.get(storyParty.getUniqueId());
+        if (bossBar == null) return;
+        bossBar.removeAll();
     }
 }

@@ -17,6 +17,10 @@ import java.util.List;
 
 public class EnterRegion extends AbstractAction {
 
+    public EnterRegion(EpicRPG plugin) {
+        super(plugin);
+    }
+
     @Override
     public String getType() {
         return "ENTER_REGION";
@@ -34,7 +38,6 @@ public class EnterRegion extends AbstractAction {
 
     @Override
     public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
-        EpicRPG plugin = EpicRPG.getInstance();
         EnterRegionDataStore dataStore = (EnterRegionDataStore) activeAction.getActionDataStore();
         Player player = event.getPlayer();
         if (dataStore.isBeingSetup(player)) {

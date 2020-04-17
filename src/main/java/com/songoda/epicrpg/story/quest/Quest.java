@@ -125,4 +125,12 @@ public class Quest {
     public int hashCode() {
         return uniqueId.hashCode();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quest quest = (Quest) o;
+        return uniqueId.equals(quest.uniqueId);
+    }
 }

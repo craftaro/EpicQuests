@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.dialog;
 
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.StoryContender;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Player;
@@ -19,14 +20,14 @@ public class Dialog {
         this.citizenId = citizenId;
     }
 
-    public void sendMessages(Player player, StoryPlayer storyPlayer) {
+    public void sendMessages(Player player, StoryContender contender) {
         Speech speech = null;
         List<Speech> speeches = new ArrayList<>(messages);
         Collections.reverse(speeches);
         for (Speech s : speeches) {
             if (s.isDefaultDialog()
                     || !s.getQuestPrerequisites().isEmpty()
-                    && storyPlayer.getCompletedQuests().containsAll(s.getQuestPrerequisites())) {
+                    && contender.getCompletedQuests().containsAll(s.getQuestPrerequisites())) {
                 speech = s;
                 break;
             }

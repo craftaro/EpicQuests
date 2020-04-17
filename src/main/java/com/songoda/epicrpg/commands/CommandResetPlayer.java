@@ -2,11 +2,9 @@ package com.songoda.epicrpg.commands;
 
 import com.songoda.core.commands.AbstractCommand;
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.gui.GuiMain;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class CommandResetPlayer extends AbstractCommand {
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
-        plugin.getPlayerManager().getPlayer(offlinePlayer).reset();
+        plugin.getContendentManager().getPlayer(offlinePlayer).reset();
         return ReturnType.SUCCESS;
     }
 

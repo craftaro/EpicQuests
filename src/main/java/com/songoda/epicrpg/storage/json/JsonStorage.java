@@ -7,7 +7,7 @@ import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.dialog.Dialog;
 import com.songoda.epicrpg.storage.json.adapters.*;
 import com.songoda.epicrpg.story.Story;
-import com.songoda.epicrpg.story.player.StoryPlayer;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.Action;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
@@ -269,7 +269,7 @@ public class JsonStorage {
 
                     StoryPlayer player = gsonPlayers.fromJson(reader, StoryPlayer.class);
 
-                    plugin.getPlayerManager().addPlayer(player);
+                    plugin.getContendentManager().addPlayer(player);
                     reader.close();
 
                 } catch (IOException e) {
@@ -287,7 +287,7 @@ public class JsonStorage {
         dir.mkdir();
 
         // Save to file
-        for (StoryPlayer player : plugin.getPlayerManager().getPlayers()) {
+        for (StoryPlayer player : plugin.getContendentManager().getPlayers()) {
 
             added.add(player.getUniqueId().toString());
 
