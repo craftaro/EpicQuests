@@ -5,6 +5,7 @@ import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
+import com.songoda.epicrpg.story.quest.RemainingObjective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractAction implements Action {
@@ -61,9 +63,11 @@ public abstract class AbstractAction implements Action {
                 plugin.getActionManager().removeActiveAction(activeAction);
                 continue;
             }
-            if (!activeQuest.getRemainingObjectives().values().iterator().next().getUniqueId()
-                    .equals(activeAction.getObjective()
-                            .getUniqueId()))
+
+            Iterator<RemainingObjective> remainingObjectives
+                    = activeQuest.getRemainingObjectives().values().iterator();
+
+            if (!remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
                 continue;
             List<Requirement> requirements = activeAction.getObjective().getRequirements();
             for (Requirement requirement : requirements)
