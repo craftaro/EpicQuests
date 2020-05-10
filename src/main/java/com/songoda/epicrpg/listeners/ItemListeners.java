@@ -25,7 +25,8 @@ public class ItemListeners implements Listener {
             action.getAction().onDrop(event, action);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    // We're putting this on normal so it works with UltimateStacker
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onItemPickup(PlayerPickupItemEvent event) {
 
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
