@@ -49,7 +49,7 @@ public class RightClickCitizenAction extends AbstractAction {
 
         RightClickCitizenDataStore dataStore = (RightClickCitizenDataStore) activeAction.getActionDataStore();
 
-        if (!entity.hasMetadata("NPC")) return true;
+        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) return true;
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setCitizenId(CitizensAPI.getNPCRegistry().getNPC(entity).getId());

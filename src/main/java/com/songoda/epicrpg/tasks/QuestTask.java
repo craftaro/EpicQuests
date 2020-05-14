@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.tasks;
 
+import com.songoda.core.compatibility.CompatibleParticleHandler;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.contender.ContendentManager;
@@ -9,7 +10,10 @@ import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
+import com.songoda.epicrpg.story.quest.action.Action;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizenAction;
+import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
@@ -96,6 +100,16 @@ public class QuestTask extends BukkitRunnable {
                         remainingObjective.getRemainingActions().size() : activeActions.get(0).getAmount() -
                         remainingObjective.getAmount(activeActions.get(0));
                 int goal = activeActions.get(0).getAmount() == 1 ? activeActions.size() : activeActions.get(0).getAmount();
+
+                ActiveAction action = activeActions.get(0);
+                // Effect.
+                if (action.getAction() instanceof RightClickCitizenAction) {
+                    CompatibleParticleHandler.redstoneParticles(CitizensAPI.getNPCRegistry()
+                            .getById(((RightClickCitizenAction.RightClickCitizenDataStore)action
+                                    .getActionDataStore()).getCitizenId()).getStoredLocation()
+                            .add(0,2.5,0),
+                            255, 85,255, 1, 5, .1f, player);
+                }
 
                 String title = TextUtils.formatText("Objective: &d"
                         + currentObjective.getTitle());

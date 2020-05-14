@@ -9,6 +9,7 @@ import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -39,8 +40,9 @@ public class InteractListeners implements Listener {
                 return;
 
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(event.getPlayer());
-        if (event.getRightClicked().hasMetadata("NPC")) {
-            NPC npc = CitizensAPI.getNPCRegistry().getNPC(event.getRightClicked());
+        Entity rightClicked = event.getRightClicked();
+        if (CitizensAPI.getNPCRegistry().isNPC(rightClicked)) {
+            NPC npc = CitizensAPI.getNPCRegistry().getNPC(rightClicked);
             if (npc == null) return;
             if (storyPlayer.isInDialogCreation()) {
                 plugin.getDialogManager().addDialog(npc.getId());
