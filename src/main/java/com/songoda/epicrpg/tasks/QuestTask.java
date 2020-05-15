@@ -1,8 +1,10 @@
 package com.songoda.epicrpg.tasks;
 
 import com.songoda.core.compatibility.CompatibleParticleHandler;
+import com.songoda.core.utils.LocationUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
+import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.story.contender.ContendentManager;
 import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.contender.StoryParty;
@@ -51,6 +53,7 @@ public class QuestTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (plugin.getStoryManager().getQuests().stream().noneMatch(Quest::isActive)) return;
         for (Player player : Bukkit.getOnlinePlayers()) {
             StoryContender contender = contendentManager.getContender(player);
             if (!(contender instanceof StoryParty))
@@ -72,6 +75,11 @@ public class QuestTask extends BukkitRunnable {
             }
             for (ActiveQuest activeQuest : new HashSet<>(active).stream()
                     .sorted(Comparator.comparing(q -> !q.isFocused()))
+                    .sorted(Comparator.comparing(q-> {
+                        Region region = plugin.getStoryManager().getEnabledQuest(q.getActiveQuest()).getRegion();
+                        return region == null
+                                || !LocationUtils.isInArea(player.getLocation(), region.getPos1(), region.getPos2());
+                    }))
                     .collect(Collectors.toCollection(LinkedHashSet::new))) {
                 if (activeQuest == null) continue;
                 Quest quest = plugin.getStoryManager().getEnabledQuest(activeQuest.getActiveQuest());

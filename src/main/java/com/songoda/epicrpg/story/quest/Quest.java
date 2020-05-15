@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.story.quest;
 
+import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.story.Story;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import com.songoda.epicrpg.story.quest.reward.Reward;
@@ -16,6 +17,8 @@ public class Quest {
     private final List<UUID> questPrerequisites = new LinkedList<>();
     private final List<Reward> rewards = new LinkedList<>();
     private final List<Requirement> requirements = new LinkedList<>();
+
+    private Region region;
 
     private boolean active = false;
     private boolean ordered = false;
@@ -119,6 +122,18 @@ public class Quest {
 
     public void setOrdered(boolean ordered) {
         this.ordered = ordered;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public void clearRegion() {
+        this.region = null;
     }
 
     @Override

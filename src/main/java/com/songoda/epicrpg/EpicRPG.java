@@ -4,6 +4,7 @@ import com.songoda.core.SongodaPlugin;
 import com.songoda.core.commands.CommandManager;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.gui.GuiManager;
+import com.songoda.epicrpg.Region.SelectionManager;
 import com.songoda.epicrpg.commands.*;
 import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.listeners.EntityListeners;
@@ -16,6 +17,7 @@ import com.songoda.epicrpg.story.contender.ContendentManager;
 import com.songoda.epicrpg.story.quest.action.ActionManager;
 import com.songoda.epicrpg.tasks.QuestTask;
 import com.songoda.epicrpg.tasks.RegionTask;
+import com.songoda.epicrpg.tasks.VisualizeTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -31,6 +33,7 @@ public class EpicRPG extends SongodaPlugin {
     private ActionManager actionManager;
     private CommandManager commandManager;
     private DialogManager dialogManager;
+    private SelectionManager selectionManager;
 
     private JsonStorage jsonStorage;
 
@@ -57,6 +60,7 @@ public class EpicRPG extends SongodaPlugin {
         contendentManager = new ContendentManager(storyManager);
         actionManager = new ActionManager(this);
         dialogManager = new DialogManager();
+        selectionManager = new SelectionManager();
 
         // Init Commands
         this.commandManager = new CommandManager(this);
@@ -96,6 +100,7 @@ public class EpicRPG extends SongodaPlugin {
         // Start Tasks
         questTask = QuestTask.startTask(this);
         RegionTask.startTask(this);
+        VisualizeTask.startTask(this);
     }
 
     @Override
@@ -114,6 +119,10 @@ public class EpicRPG extends SongodaPlugin {
     @Override
     public List<Config> getExtraConfig() {
         return null;
+    }
+
+    public SelectionManager getSelectionManager() {
+        return selectionManager;
     }
 
     public StoryManager getStoryManager() {

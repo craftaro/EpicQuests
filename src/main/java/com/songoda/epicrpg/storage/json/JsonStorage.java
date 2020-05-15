@@ -82,6 +82,7 @@ public class JsonStorage {
                 .registerTypeAdapter(Reward.class, new RewardAdapter())
                 .registerTypeAdapter(Requirement.class, deserializer)
                 .registerTypeAdapter(Requirement.class, new RequirementAdapter())
+                .registerTypeAdapter(Location.class, new LocationAdapter())
                 .registerTypeHierarchyAdapter(ItemStack.class, new ItemStackAdapter())
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().create();
 

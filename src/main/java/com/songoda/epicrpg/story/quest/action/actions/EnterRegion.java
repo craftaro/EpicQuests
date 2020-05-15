@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
+import com.songoda.core.utils.LocationUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
@@ -60,7 +61,7 @@ public class EnterRegion extends AbstractAction {
         if (dataStore.getPos2() == null)
             return;
 
-        if (dataStore.isInArea(player.getLocation())) {
+        if (LocationUtils.isInArea(player.getLocation(), dataStore.pos1, dataStore.pos2)) {
             performAction(activeAction, 1, player);
         }
     }
@@ -108,19 +109,5 @@ public class EnterRegion extends AbstractAction {
             this.pos2 = pos2;
         }
 
-        public  boolean isInArea(Location l){
-
-            double x1 = Math.min(pos1.getX(), pos2.getX());
-            double y1 = Math.min(pos1.getY(), pos2.getY());
-            double z1 = Math.min(pos1.getZ(), pos2.getZ());
-
-            double x2 = Math.max(pos1.getX(), pos2.getX());
-            double y2 = Math.max(pos1.getY(), pos2.getY());
-            double z2 = Math.max(pos1.getZ(), pos2.getZ());
-
-            return l.getX() >= x1 && l.getX() <= x2 &&
-                    l.getY() >= y1 && l.getY() <= y2 &&
-                    l.getZ() >= z1 && l.getZ() <= z2;
-        }
     }
 }

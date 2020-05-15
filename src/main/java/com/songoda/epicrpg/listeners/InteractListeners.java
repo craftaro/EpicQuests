@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.listeners;
 
 import com.songoda.epicrpg.EpicRPG;
+import com.songoda.epicrpg.Region.ActiveSelection;
 import com.songoda.epicrpg.dialog.Dialog;
 import com.songoda.epicrpg.gui.GuiDialogs;
 import com.songoda.epicrpg.story.contender.StoryContender;
@@ -10,6 +11,7 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,6 +30,16 @@ public class InteractListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.OFF_HAND) return;
+
+        Player player = event.getPlayer();
+        ActiveSelection activeSelection = plugin.getSelectionManager().getActiveSelection(player);
+
+        if (activeSelection != null && event.hasBlock()) {
+            activeSelection.commit(player, event.getClickedBlock().getLocation(), plugin);
+            event.setCancelled(true);
+            return;
+        }
+
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
             action.getAction().onInteract(event, action);
     }

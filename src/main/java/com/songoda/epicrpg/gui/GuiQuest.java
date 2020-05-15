@@ -6,11 +6,16 @@ import com.songoda.core.gui.GuiUtils;
 import com.songoda.core.input.ChatPrompt;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
+import com.songoda.epicrpg.Region.ActiveView;
+import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class GuiQuest extends Gui {
@@ -66,6 +71,30 @@ public class GuiQuest extends Gui {
                 (event) -> {
                     guiManager.showGUI(player, new GuiRewards(plugin, player, quest));
                     show();
+                });
+
+        Region region = quest.getRegion();
+        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.ORANGE_DYE, "Modify Focus Region",
+                region != null ? Arrays.asList("Right-Click: to show region.", "Left-Click: to clear.")
+                        : Collections.singletonList("Click to set region.")),
+                (event) -> {
+                    if (region == null) {
+                        plugin.getSelectionManager().addActiveSelection(player, quest);
+                        close();
+                        player.sendMessage("Select your first region position.");
+                    } else {
+                        if (event.clickType == ClickType.RIGHT) {
+                            plugin.getSelectionManager().addActiveView(player, region);
+                            close();
+                            player.sendMessage("Showing region for 15 seconds.");
+                            Bukkit.getScheduler().runTaskLater(plugin, () ->
+                                    plugin.getSelectionManager().removeActiveView(player),
+                                    20 * 15);
+                        } else if (event.clickType == ClickType.LEFT) {
+                            quest.setRegion(null);
+                            show();
+                        }
+                    }
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
