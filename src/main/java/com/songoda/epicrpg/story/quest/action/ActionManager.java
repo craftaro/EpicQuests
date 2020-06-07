@@ -2,10 +2,7 @@ package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.action.actions.EnterRegion;
-import com.songoda.epicrpg.story.quest.action.actions.KillEntityType;
-import com.songoda.epicrpg.story.quest.action.actions.PickupItem;
-import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizenAction;
+import com.songoda.epicrpg.story.quest.action.actions.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -21,11 +18,12 @@ public class ActionManager {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         if (pluginManager.isPluginEnabled("Citizens"))
-            registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizenAction(plugin));
+            registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizen(plugin));
 
         registeredActions.put("ENTER_REGION", new EnterRegion(plugin));
         registeredActions.put("PICKUP_ITEM", new PickupItem(plugin));
         registeredActions.put("KILL_ENTITY_TYPE", new KillEntityType(plugin));
+        registeredActions.put("RIGHT_CLICK_BLOCK", new RightClickBlock(plugin));
     }
 
     public Action getAction(String key) {

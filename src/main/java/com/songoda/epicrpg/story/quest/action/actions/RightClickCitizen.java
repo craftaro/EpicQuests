@@ -21,9 +21,9 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import java.util.Collections;
 import java.util.List;
 
-public class RightClickCitizenAction extends AbstractAction {
+public class RightClickCitizen extends AbstractAction {
 
-    public RightClickCitizenAction(EpicRPG plugin) {
+    public RightClickCitizen(EpicRPG plugin) {
         super(plugin);
     }
 

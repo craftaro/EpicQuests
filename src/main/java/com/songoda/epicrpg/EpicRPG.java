@@ -7,6 +7,7 @@ import com.songoda.core.gui.GuiManager;
 import com.songoda.epicrpg.Region.SelectionManager;
 import com.songoda.epicrpg.commands.*;
 import com.songoda.epicrpg.dialog.DialogManager;
+import com.songoda.epicrpg.listeners.BlockListeners;
 import com.songoda.epicrpg.listeners.EntityListeners;
 import com.songoda.epicrpg.listeners.InteractListeners;
 import com.songoda.epicrpg.listeners.ItemListeners;
@@ -79,6 +80,7 @@ public class EpicRPG extends SongodaPlugin {
         pluginManager.registerEvents(new InteractListeners(this), this);
         pluginManager.registerEvents(new ItemListeners(this), this);
         pluginManager.registerEvents(new EntityListeners(this), this);
+        pluginManager.registerEvents(new BlockListeners(this), this);
 
         // Enable Auto Saving
         int timeout = 15 * 60 * 20;

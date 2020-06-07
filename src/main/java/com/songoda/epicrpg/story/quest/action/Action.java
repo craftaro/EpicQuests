@@ -3,6 +3,7 @@ package com.songoda.epicrpg.story.quest.action;
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -27,6 +28,8 @@ public interface Action {
     void onDrop(PlayerDropItemEvent event, ActiveAction activeAction);
 
     void onEntityKill(EntityDeathEvent event, ActiveAction activeAction);
+
+    void onBlockBreak(BlockBreakEvent event, ActiveAction action);
 
     void moveTick(Player player, ActiveAction action);
 

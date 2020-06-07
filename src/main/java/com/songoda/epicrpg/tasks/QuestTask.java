@@ -12,9 +12,9 @@ import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
-import com.songoda.epicrpg.story.quest.action.Action;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
-import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizenAction;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickBlock;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizen;
 import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -75,7 +75,7 @@ public class QuestTask extends BukkitRunnable {
             }
             for (ActiveQuest activeQuest : new HashSet<>(active).stream()
                     .sorted(Comparator.comparing(q -> !q.isFocused()))
-                    .sorted(Comparator.comparing(q-> {
+                    .sorted(Comparator.comparing(q -> {
                         Region region = plugin.getStoryManager().getEnabledQuest(q.getActiveQuest()).getRegion();
                         return region == null
                                 || !LocationUtils.isInArea(player.getLocation(), region.getPos1(), region.getPos2());
@@ -110,13 +110,17 @@ public class QuestTask extends BukkitRunnable {
                 int goal = activeActions.get(0).getAmount() == 1 ? activeActions.size() : activeActions.get(0).getAmount();
 
                 ActiveAction action = activeActions.get(0);
-                // Effect.
-                if (action.getAction() instanceof RightClickCitizenAction) {
+                // Effects
+                if (action.getAction() instanceof RightClickCitizen) {
                     CompatibleParticleHandler.redstoneParticles(CitizensAPI.getNPCRegistry()
-                            .getById(((RightClickCitizenAction.RightClickCitizenDataStore)action
-                                    .getActionDataStore()).getCitizenId()).getStoredLocation()
-                            .add(0,2.5,0),
-                            255, 85,255, 1, 5, .1f, player);
+                                    .getById(((RightClickCitizen.RightClickCitizenDataStore) action
+                                            .getActionDataStore()).getCitizenId()).getStoredLocation()
+                                    .add(0, 2.5, 0),
+                            255, 85, 255, 1, 5, .1f, player);
+                } else if (action.getAction() instanceof RightClickBlock) {
+                    CompatibleParticleHandler.redstoneParticles((((RightClickBlock.RightClickBlockDataStore) action
+                                    .getActionDataStore()).getLocation()).add(.5, .5, .5),
+                            255, 85, 255, 1, 10, .5f, player);
                 }
 
                 String title = TextUtils.formatText("Objective: &d"

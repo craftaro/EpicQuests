@@ -8,6 +8,7 @@ import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -47,6 +48,11 @@ public abstract class AbstractAction implements Action {
 
     @Override
     public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
+
+    }
+
+    @Override
+    public void onBlockBreak(BlockBreakEvent event, ActiveAction action) {
 
     }
 
