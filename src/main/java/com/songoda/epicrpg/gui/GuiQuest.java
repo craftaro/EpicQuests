@@ -74,7 +74,7 @@ public class GuiQuest extends Gui {
                 });
 
         Region region = quest.getRegion();
-        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.ORANGE_DYE, "Modify Focus Region",
+        setButton(0, 5, GuiUtils.createButtonItem(CompatibleMaterial.ORANGE_DYE, "Modify Focus Region",
                 region != null ? Arrays.asList("Right-Click: to show region.", "Left-Click: to clear.")
                         : Collections.singletonList("Click to set region.")),
                 (event) -> {
