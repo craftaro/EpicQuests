@@ -19,6 +19,7 @@ public class ContendentManager {
     }
 
     public void addPlayer(StoryPlayer player) {
+        if (player == null) return;
         registeredPlayers.put(player.getUniqueId(), player);
     }
 
