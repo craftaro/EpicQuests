@@ -25,6 +25,7 @@ public class ActiveSelection {
 
         quest.setRegion(new Region(pos1, location));
         player.sendMessage("Region created!");
+        plugin.getSelectionManager().removeActiveSelection(player);
         plugin.getGuiManager().showGUI(player, new GuiQuest(plugin, player, quest));
     }
 
