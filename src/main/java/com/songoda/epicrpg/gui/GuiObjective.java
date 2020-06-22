@@ -65,7 +65,7 @@ public class GuiObjective extends Gui {
 
         Speech speech = plugin.getDialogManager().getSpeech(objective.getAttachedSpeech());
         setButton(0, 3, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE, "Attach Speech",
-                TextUtils.formatText("&fAttached too: &6" + (speech == null ? "NONE" : speech.getDialog().getCitizen().getName()))),
+                TextUtils.formatText("&fAttached to: &6" + (speech == null ? "NONE" : speech.getDialog().getCitizen().getName()))),
                 (event) -> {
                     guiManager.showGUI(player, new GuiDialogs(plugin, player, objective));
                     show();
