@@ -77,6 +77,7 @@ public class RightClickBlock extends AbstractAction {
         }
 
         public Location getLocation() {
+            if (location == null) return null;
             return location.clone();
         }
 
