@@ -27,7 +27,7 @@ public class CommandPartyInvite extends AbstractCommand {
         Player player = (Player) sender;
 
         if (args[0].equals("accept")) {
-            PartyInvite partyInvite = contendentManager.getInvite(((Player) sender).getUniqueId());
+            PartyInvite partyInvite = contendentManager.getInvite(player.getUniqueId());
             if (partyInvite == null) {
                 plugin.getLocale().getMessage("command.party.invite.noinvites").sendPrefixedMessage(sender);
                 return ReturnType.FAILURE;
@@ -38,6 +38,7 @@ public class CommandPartyInvite extends AbstractCommand {
                 return ReturnType.FAILURE;
             }
             ((StoryParty) contender).addPlayer(contendentManager.getPlayer(partyInvite.getRecipient()));
+            contendentManager.removeInvite(player.getUniqueId())
             plugin.getLocale().getMessage("command.party.invite.accepted").sendPrefixedMessage(sender);
             return ReturnType.SUCCESS;
         }
@@ -76,7 +77,8 @@ public class CommandPartyInvite extends AbstractCommand {
 
         contendentManager.addInvite(storyPlayer.getUniqueId(), storyPlayerThem.getUniqueId());
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
-            if (contendentManager.removeInvite(storyPlayerThem.getUniqueId())) {
+            if (contendentManager.isInvited(storyPlayerThem)
+                    && contendentManager.removeInvite(storyPlayerThem.getUniqueId())) {
                 if (offlinePlayer.isOnline())
                     plugin.getLocale().getMessage("command.party.invite.timeout.received")
                             .processPlaceholder("player", player.getName())

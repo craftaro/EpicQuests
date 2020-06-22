@@ -76,4 +76,8 @@ public class ContendentManager {
     public PartyInvite getInvite(UUID recipient) {
         return activeInvitations.get(recipient);
     }
+
+    public boolean isInvited(StoryPlayer storyPlayer) {
+        return activeInvitations.containsKey(storyPlayer.getUniqueId());
+    }
 }
