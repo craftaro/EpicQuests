@@ -61,6 +61,6 @@ public class CommandPartyDisband extends AbstractCommand {
 
     @Override
     public String getDescription() {
-        return "Create a disband.";
+        return "Disband your party.";
     }
 }

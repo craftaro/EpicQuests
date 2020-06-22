@@ -53,16 +53,16 @@ public class CommandPartyLeave extends AbstractCommand {
 
     @Override
     public String getPermissionNode() {
-        return "epicrpg.party.disband";
+        return "epicrpg.party.leave";
     }
 
     @Override
     public String getSyntax() {
-        return "party disband";
+        return "party leave";
     }
 
     @Override
     public String getDescription() {
-        return "Create a disband.";
+        return "leave a party";
     }
 }
