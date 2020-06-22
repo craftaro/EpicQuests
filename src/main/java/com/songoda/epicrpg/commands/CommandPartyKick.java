@@ -23,6 +23,7 @@ public class CommandPartyKick extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
+        if (args.length != 2) return ReturnType.SYNTAX_ERROR;
         Player player = (Player) sender;
 
         StoryContender contender = plugin.getContendentManager().getContender(player);

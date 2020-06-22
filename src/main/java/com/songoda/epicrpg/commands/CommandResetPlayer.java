@@ -19,6 +19,7 @@ public class CommandResetPlayer extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
+        if (args.length != 2) return ReturnType.SYNTAX_ERROR;
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
