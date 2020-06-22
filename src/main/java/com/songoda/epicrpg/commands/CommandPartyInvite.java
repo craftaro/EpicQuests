@@ -82,7 +82,7 @@ public class CommandPartyInvite extends AbstractCommand {
             }
         }, 20L * 15L);
         plugin.getLocale().newMessage("&aInvite sent successfully!").sendPrefixedMessage(sender);
-        plugin.getLocale().newMessage("&7You received an invite from &6" + player.getName() + "&7. Do &6/rpg invite accept &7to join their party.").sendPrefixedMessage(offlinePlayer.getPlayer());
+        plugin.getLocale().newMessage("&7You received an invite from &6" + player.getName() + "&7. Do &6/rpg party invite accept &7to join their party.").sendPrefixedMessage(offlinePlayer.getPlayer());
         return ReturnType.SUCCESS;
     }
 
