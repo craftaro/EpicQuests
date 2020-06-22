@@ -15,15 +15,12 @@ public class ActionManager {
     private final Set<ActiveAction> activeActions = new HashSet<>();
 
     public ActionManager(EpicRPG plugin) {
-        PluginManager pluginManager = Bukkit.getPluginManager();
-
-        if (pluginManager.isPluginEnabled("Citizens"))
-            registeredActions.put("RIGHT_CLICK_CITIZEN", new RightClickCitizen(plugin));
-
-        registeredActions.put("ENTER_REGION", new EnterRegion(plugin));
-        registeredActions.put("PICKUP_ITEM", new PickupItem(plugin));
-        registeredActions.put("KILL_ENTITY_TYPE", new KillEntityType(plugin));
-        registeredActions.put("RIGHT_CLICK_BLOCK", new RightClickBlock(plugin));
+        registerActions(new RightClickCitizen(plugin),
+                new EnterRegion(plugin),
+                new PickupItem(plugin),
+                new KillEntityType(plugin),
+                new RightClickBlock(plugin),
+                new RightClickEntity(plugin));
     }
 
     public Action getAction(String key) {
@@ -40,6 +37,15 @@ public class ActionManager {
 
     public List<ActiveAction> getActiveActionsByObjective(Objective objective) {
         return activeActions.stream().filter(a -> a.getObjective() == objective).collect(Collectors.toList());
+    }
+
+    public void registerAction(AbstractAction action) {
+        registeredActions.put(action.getType(), action);
+    }
+
+    public void registerActions(AbstractAction... actions) {
+        for (AbstractAction action : actions)
+            registerAction(action);
     }
 
     public ActiveAction addActiveAction(ActiveAction activeAction) {
