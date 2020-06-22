@@ -29,7 +29,7 @@ public class CommandPartyKick extends AbstractCommand {
         StoryContender contender = plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().newMessage("&cYou are not in a party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
@@ -37,7 +37,7 @@ public class CommandPartyKick extends AbstractCommand {
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
 
         if (!storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().newMessage("&cYou must be the leader of this party to kick people from it...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 

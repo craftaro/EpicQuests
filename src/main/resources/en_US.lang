@@ -9,3 +9,24 @@ command:
   resetplayer:
     success: '&7You reset &6%player% &7successfully.'
     reset: '&cYour RPG progress has been reset!'
+  party:
+    notleader: '&cYou'''re not the leader of this party...'
+    notinparty: '&cYou'''re not in a party...'
+    invite:
+      success: '&7Your invitation has been delivered to &6%player% &7successfully!'
+      received: '&7You received an invite from &6%player%&7. Do &6/rpg party invite accept &7to join their party.'
+      timeout:
+       received: '&cThe invitation from &4%player% &chas timed out...'
+       sent: '&cThe invitation to &4%player% &chas timed out...'
+      alreadyinvited: '&cThey already have a pending invite...'
+      alreadyinparty: '&cThey are already in a party...'
+      accepted: '&aYou joined the party!'
+      noinvites: '&cYou have no pending invitations...'
+    disband:
+      success: '&cParty disbanded successfully.'
+    create:
+      success: '&aParty created successfully.'
+      already: '&cYou''re already in a party...'
+    leave:
+      success: '&aYou left the party successfully.'
+      leader: '&cYou are the leader of this party...'

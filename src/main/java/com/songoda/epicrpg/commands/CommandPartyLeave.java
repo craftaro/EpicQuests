@@ -26,7 +26,7 @@ public class CommandPartyLeave extends AbstractCommand {
         StoryContender contender = plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().newMessage("&cYou are not in a party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
@@ -34,7 +34,7 @@ public class CommandPartyLeave extends AbstractCommand {
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
 
         if (storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().newMessage("&cYou are the leader of this party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.leave.leader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
@@ -42,7 +42,7 @@ public class CommandPartyLeave extends AbstractCommand {
         storyPlayer.setParty(null);
         storyParty.removePlayer(storyPlayer);
 
-        plugin.getLocale().newMessage("&aYou left the party successfully!").sendPrefixedMessage(player);
+        plugin.getLocale().getMessage("command.party.leave.success").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

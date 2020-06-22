@@ -29,12 +29,12 @@ public class CommandPartyCreate extends AbstractCommand {
         StoryContender contender = plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryParty) {
-            plugin.getLocale().newMessage("&cYou already have a party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.create.already").sendPrefixedMessage(player);
             return ReturnType.FAILURE;
         }
 
         plugin.getContendentManager().createParty((StoryPlayer) contender);
-        plugin.getLocale().newMessage("&aParty created successfully!").sendPrefixedMessage(player);
+        plugin.getLocale().getMessage("command.party.create.success").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

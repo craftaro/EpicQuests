@@ -27,20 +27,20 @@ public class CommandPartyDisband extends AbstractCommand {
         StoryContender contender = plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().newMessage("&cYou are not in a party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
         StoryParty storyParty = storyPlayer.getParty();
 
         if (!storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().newMessage("&cYou are not the leader of this party...").sendPrefixedMessage(player);
+            plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
         plugin.getQuestTask().removeAll(storyParty);
         storyParty.disband();
-        plugin.getLocale().newMessage("&aParty created successfully!").sendPrefixedMessage(player);
+        plugin.getLocale().getMessage("command.party.disband").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

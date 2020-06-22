@@ -29,16 +29,16 @@ public class CommandPartyInvite extends AbstractCommand {
         if (args[0].equals("accept")) {
             PartyInvite partyInvite = contendentManager.getInvite(((Player) sender).getUniqueId());
             if (partyInvite == null) {
-                plugin.getLocale().newMessage("&cYou have no pending invites...").sendPrefixedMessage(sender);
+                plugin.getLocale().getMessage("command.party.invite.noinvites").sendPrefixedMessage(sender);
                 return ReturnType.FAILURE;
             }
             StoryContender contender = contendentManager.getContender(partyInvite.getSender());
             if (!(contender instanceof StoryParty)) {
-                plugin.getLocale().newMessage("&cYou have no pending invites...").sendPrefixedMessage(sender);
+                plugin.getLocale().getMessage("command.party.invite.noinvites").sendPrefixedMessage(sender);
                 return ReturnType.FAILURE;
             }
             ((StoryParty) contender).addPlayer(contendentManager.getPlayer(partyInvite.getRecipient()));
-            plugin.getLocale().newMessage("&aYou joined a party!").sendPrefixedMessage(sender);
+            plugin.getLocale().getMessage("command.party.invite.accepted").sendPrefixedMessage(sender);
             return ReturnType.SUCCESS;
         }
 
@@ -49,26 +49,28 @@ public class CommandPartyInvite extends AbstractCommand {
         StoryContender contender = contendentManager.getContender((Player) sender);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().newMessage("&cYou are not in a party...").sendPrefixedMessage(sender);
+            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
         StoryPlayer storyPlayer = contendentManager.getPlayer((Player) sender);
         StoryParty storyParty = storyPlayer.getParty();
 
         if (!storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().newMessage("&cYou are not the leader of this party...").sendPrefixedMessage(sender);
+            plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
         StoryPlayer storyPlayerThem = contendentManager.getPlayer(offlinePlayer);
         StoryParty storyPartyThem = storyPlayerThem.getParty();
 
         if (storyPartyThem != null) {
-            plugin.getLocale().newMessage("&cThey are already in a party...").sendPrefixedMessage(sender);
+            plugin.getLocale().getMessage("command.party.invite.alreadyinparty")
+                    .sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
         if (contendentManager.getInvite(storyPlayerThem.getUniqueId()) != null) {
-            plugin.getLocale().newMessage("&cThey already have a pending invite...").sendPrefixedMessage(sender);
+            plugin.getLocale().getMessage("command.party.invite.alreadyinvited")
+                    .sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
@@ -76,13 +78,22 @@ public class CommandPartyInvite extends AbstractCommand {
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
             if (contendentManager.removeInvite(storyPlayerThem.getUniqueId())) {
                 if (offlinePlayer.isOnline())
-                    plugin.getLocale().newMessage("&cYour invite has timed out...").sendPrefixedMessage(offlinePlayer.getPlayer());
+                    plugin.getLocale().getMessage("command.party.invite.timeout.received")
+                            .processPlaceholder("player", player.getName())
+                            .sendPrefixedMessage(offlinePlayer.getPlayer());
                 if (player.isOnline())
-                    plugin.getLocale().newMessage("&cYour invite has timed out...").sendPrefixedMessage(sender);
+                    plugin.getLocale().getMessage("command.party.invite.timeout.sent")
+                            .processPlaceholder("player", offlinePlayer.getName())
+                            .sendPrefixedMessage(sender);
             }
         }, 20L * 15L);
-        plugin.getLocale().newMessage("&aInvite sent successfully!").sendPrefixedMessage(sender);
-        plugin.getLocale().newMessage("&7You received an invite from &6" + player.getName() + "&7. Do &6/rpg party invite accept &7to join their party.").sendPrefixedMessage(offlinePlayer.getPlayer());
+        plugin.getLocale().getMessage("command.party.invite.success")
+                .processPlaceholder("player", offlinePlayer.getName())
+                .sendPrefixedMessage(sender);
+
+        plugin.getLocale().getMessage("command.party.invite.received")
+                .processPlaceholder("player", player.getName())
+                .sendPrefixedMessage(offlinePlayer.getPlayer());
         return ReturnType.SUCCESS;
     }
 
