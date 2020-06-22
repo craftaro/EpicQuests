@@ -4,3 +4,4 @@ dependency-reduced-pom.xml
 *.iml
 *.versionsBackup
 test/
+.DS_Store
