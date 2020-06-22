@@ -3,3 +3,9 @@
 general:
   nametag:
     prefix: '&8[&6EpicRPG&8]'
+
+
+command:
+  resetplayer:
+    success: '&7You reset &6%player% &7successfully.'
+    reset: '&cYour RPG progress has been reset!'

@@ -24,6 +24,16 @@ public class CommandResetPlayer extends AbstractCommand {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
         plugin.getContendentManager().getPlayer(offlinePlayer).reset();
+
+        plugin.getLocale().getMessage("command.resetplayer.success")
+                .processPlaceholder("player", offlinePlayer.getName())
+                .sendPrefixedMessage(sender);
+
+        if (offlinePlayer.isOnline())
+            plugin.getLocale().getMessage("command.resetplayer.reset")
+                    .sendPrefixedMessage(offlinePlayer.getPlayer());
+
+
         return ReturnType.SUCCESS;
     }
 
