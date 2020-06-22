@@ -38,7 +38,7 @@ public class CommandPartyInvite extends AbstractCommand {
                 return ReturnType.FAILURE;
             }
             ((StoryParty) contender).addPlayer(contendentManager.getPlayer(partyInvite.getRecipient()));
-            contendentManager.removeInvite(player.getUniqueId())
+            contendentManager.removeInvite(player.getUniqueId());
             plugin.getLocale().getMessage("command.party.invite.accepted").sendPrefixedMessage(sender);
             return ReturnType.SUCCESS;
         }

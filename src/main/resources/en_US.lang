@@ -10,8 +10,8 @@ command:
     success: '&7You reset &6%player% &7successfully.'
     reset: '&cYour RPG progress has been reset!'
   party:
-    notleader: '&cYou'''re not the leader of this party...'
-    notinparty: '&cYou'''re not in a party...'
+    notleader: '&cYou''re not the leader of this party...'
+    notinparty: '&cYou''re not in a party...'
     invite:
       success: '&7Your invitation has been delivered to &6%player% &7successfully!'
       received: '&7You received an invite from &6%player%&7. Do &6/rpg party invite accept &7to join their party.'
