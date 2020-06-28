@@ -2,7 +2,7 @@
     <groupId>com.songoda</groupId>
     <artifactId>EpicRPG</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>Beta-11</version>
+    <version>Beta-12</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>EpicRPG-${project.version}</finalName>
