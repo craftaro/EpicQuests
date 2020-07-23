@@ -50,8 +50,9 @@ public class InteractListeners implements Listener {
     public void onInteract(PlayerInteractAtEntityEvent event) {
         if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_9)
                 && event.getHand() == EquipmentSlot.OFF_HAND) return;
+
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
-            if (!action.getAction().onInteractWithEntity(event, action))
+            if (action.getAction().onInteractWithEntity(event, action))
                 return;
 
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(event.getPlayer());
