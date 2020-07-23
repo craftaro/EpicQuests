@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.listeners;
 
+import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.Region.ActiveSelection;
 import com.songoda.epicrpg.dialog.Dialog;
@@ -29,7 +30,8 @@ public class InteractListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent event) {
-        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_9)
+                && event.getHand() == EquipmentSlot.OFF_HAND) return;
 
         Player player = event.getPlayer();
         ActiveSelection activeSelection = plugin.getSelectionManager().getActiveSelection(player);
@@ -46,7 +48,8 @@ public class InteractListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractAtEntityEvent event) {
-        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_9)
+                && event.getHand() == EquipmentSlot.OFF_HAND) return;
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
             if (!action.getAction().onInteractWithEntity(event, action))
                 return;
