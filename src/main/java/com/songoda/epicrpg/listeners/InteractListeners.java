@@ -52,8 +52,7 @@ public class InteractListeners implements Listener {
                 && event.getHand() == EquipmentSlot.OFF_HAND) return;
 
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
-            if (action.getAction().onInteractWithEntity(event, action))
-                return;
+            action.getAction().onInteractWithEntity(event, action);
 
         StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(event.getPlayer());
         Entity rightClicked = event.getRightClicked();
