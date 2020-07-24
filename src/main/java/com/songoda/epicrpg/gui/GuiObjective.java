@@ -71,6 +71,12 @@ public class GuiObjective extends Gui {
                     show();
                 });
 
+        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.PURPLE_DYE, objective.isVisible() ? "Visible" : "Invisible"),
+                (event) -> {
+                    objective.setVisible(!objective.isVisible());
+                    show();
+                });
+
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {
                     guiManager.showGUI(player, new GuiQuest(plugin, player, objective.getQuest()));

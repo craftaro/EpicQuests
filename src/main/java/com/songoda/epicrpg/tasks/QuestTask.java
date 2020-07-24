@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.tasks;
 
 import com.songoda.core.compatibility.CompatibleParticleHandler;
+import com.songoda.core.compatibility.CompatibleSound;
 import com.songoda.core.utils.LocationUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
@@ -88,7 +89,7 @@ public class QuestTask extends BukkitRunnable {
                     continue;
 
                 if (activeQuest.getRemainingObjectives().isEmpty()) {
-                    player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1L, 1L);
+                    CompatibleSound.UI_TOAST_CHALLENGE_COMPLETE.play(player);
                     contender.completeQuest(quest);
                     quest.giveRewards(player);
                     continue;
@@ -129,7 +130,14 @@ public class QuestTask extends BukkitRunnable {
                         b -> Bukkit.createBossBar(title,
                                 BarColor.PINK,
                                 BarStyle.SOLID));
-                bossBar.addPlayer(player);
+
+                if (currentObjective.isVisible())
+                    bossBar.addPlayer(player);
+                else {
+                    bossBar.removePlayer(player);
+                    activeBossBars.remove(player.getUniqueId());
+                    bossBar.removeAll();
+                }
                 if (contender instanceof StoryParty) {
                     BossBar partyBar = activeBossBars.get(contender.getUniqueId());
                     if (partyBar != null)

@@ -12,10 +12,12 @@ public class Objective implements AttachedSpeech {
 
     private transient Quest quest;
 
-    private UUID uniqueId = UUID.randomUUID();
+    private final UUID uniqueId = UUID.randomUUID();
 
     private String title = "An Objective";
     private final List<Requirement> requirements = new LinkedList<>();
+
+    private boolean visible = true;
 
     private UUID attachedSpeech;
 
@@ -53,6 +55,14 @@ public class Objective implements AttachedSpeech {
 
     public void removeRequirement(Requirement requirement) {
         requirements.remove(requirement);
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override
