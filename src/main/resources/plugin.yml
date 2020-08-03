@@ -4,7 +4,7 @@ version: maven-version-number
 main: com.songoda.epicrpg.EpicRPG
 author: songoda
 depend: [Citizens]
-softdepend: [ModdedCore]
+softdepend: [ModdedCore, MythicMobs]
 api-version: 1.13
 commands:
   EpicRPG:

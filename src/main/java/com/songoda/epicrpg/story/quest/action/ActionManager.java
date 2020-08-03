@@ -4,7 +4,6 @@ import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.actions.*;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +20,9 @@ public class ActionManager {
                 new KillEntityType(plugin),
                 new RightClickBlock(plugin),
                 new RightClickEntity(plugin));
+
+        if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs"))
+            registerAction(new KillMythicMob(plugin));
     }
 
     public Action getAction(String key) {
