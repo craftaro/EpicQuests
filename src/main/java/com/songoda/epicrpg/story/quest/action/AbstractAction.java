@@ -73,7 +73,7 @@ public abstract class AbstractAction implements Action {
             Iterator<RemainingObjective> remainingObjectives
                     = activeQuest.getRemainingObjectives().values().iterator();
 
-            if (!remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
+            if (!remainingObjectives.hasNext() && !remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
                 continue;
             List<Requirement> requirements = activeAction.getObjective().getRequirements();
             for (Requirement requirement : requirements)
