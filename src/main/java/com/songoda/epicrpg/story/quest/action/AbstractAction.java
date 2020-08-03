@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.quest.action;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.story.contender.StoryContender;
-import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
@@ -28,12 +27,10 @@ public abstract class AbstractAction implements Action {
 
     @Override
     public void onInteract(PlayerInteractEvent event, ActiveAction activeAction) {
-
     }
 
     @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
-        return false;
+    public void onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
     }
 
     @Override
@@ -73,7 +70,7 @@ public abstract class AbstractAction implements Action {
             Iterator<RemainingObjective> remainingObjectives
                     = activeQuest.getRemainingObjectives().values().iterator();
 
-            if (!remainingObjectives.hasNext() && !remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
+            if (remainingObjectives.hasNext() && !remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
                 continue;
             List<Requirement> requirements = activeAction.getObjective().getRequirements();
             for (Requirement requirement : requirements)

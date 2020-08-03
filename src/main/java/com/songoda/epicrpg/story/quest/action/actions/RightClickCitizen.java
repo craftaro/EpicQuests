@@ -43,24 +43,23 @@ public class RightClickCitizen extends AbstractAction {
     }
 
     @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
+    public void onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
 
         RightClickCitizenDataStore dataStore = (RightClickCitizenDataStore) activeAction.getActionDataStore();
 
-        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) return true;
+        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) return;
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setCitizenId(CitizensAPI.getNPCRegistry().getNPC(entity).getId());
             plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
             dataStore.finishSetup();
-            return true;
+            return;
         }
 
         if (CitizensAPI.getNPCRegistry().getNPC(entity).getId() == dataStore.getCitizenId())
-            return performAction(activeAction, 1, player);
-        return true;
+            performAction(activeAction, 1, player);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class RightClickEntity extends AbstractAction {
     }
 
     @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
+    public void onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
 
@@ -49,12 +49,10 @@ public class RightClickEntity extends AbstractAction {
             dataStore.setEntity(entity.getUniqueId());
             plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
             dataStore.finishSetup();
-            return true;
         }
 
         if (entity.getUniqueId().equals(dataStore.getEntity()))
-            return performAction(activeAction, 1, player);
-        return true;
+            performAction(activeAction, 1, player);
     }
 
     @Override

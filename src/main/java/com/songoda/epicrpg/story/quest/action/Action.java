@@ -21,7 +21,7 @@ public interface Action {
 
     void onInteract(PlayerInteractEvent event, ActiveAction activeAction);
 
-    boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction);
+    void onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction);
 
     void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction);
 

@@ -39,7 +39,7 @@ public class KillEntityType extends AbstractAction {
     }
 
     @Override
-    public boolean onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
+    public void onInteractWithEntity(PlayerInteractAtEntityEvent event, ActiveAction activeAction) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
 
@@ -55,7 +55,6 @@ public class KillEntityType extends AbstractAction {
                     });
             dataStore.finishSetup();
         }
-        return true;
     }
 
     @Override
