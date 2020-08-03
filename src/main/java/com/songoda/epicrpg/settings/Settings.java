@@ -1,5 +1,6 @@
 package com.songoda.epicrpg.settings;
 
+import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.configuration.ConfigSetting;
 import com.songoda.epicrpg.EpicRPG;
@@ -12,16 +13,27 @@ public class Settings {
             "The enabled language file.",
             "More language files (if available) can be found in the plugins data folder.");
 
-    public static final ConfigSetting GLASS_TYPE_1 = new ConfigSetting(config, "Interfaces.Glass Type 1", 7);
-    public static final ConfigSetting GLASS_TYPE_2 = new ConfigSetting(config, "Interfaces.Glass Type 2", 11);
-    public static final ConfigSetting GLASS_TYPE_3 = new ConfigSetting(config, "Interfaces.Glass Type 3", 3);
-
-
+    public static final ConfigSetting GLASS_TYPE_1 = new ConfigSetting(config, "Interfaces.Glass Type 1", "GRAY_STAINED_GLASS_PANE");
+    public static final ConfigSetting GLASS_TYPE_2 = new ConfigSetting(config, "Interfaces.Glass Type 2", "BLUE_STAINED_GLASS_PANE");
+    public static final ConfigSetting GLASS_TYPE_3 = new ConfigSetting(config, "Interfaces.Glass Type 3", "LIGHT_BLUE_STAINED_GLASS_PANE");
+    
     /**
      * In order to set dynamic economy comment correctly, this needs to be
      * called after EconomyManager load
      */
     public static void setupConfig() {
+        // convert glass pane settings
+        int color;
+        if ((color = GLASS_TYPE_1.getInt(-1)) != -1) {
+            config.set(GLASS_TYPE_1.getKey(), CompatibleMaterial.getGlassPaneColor(color).name());
+        }
+        if ((color = GLASS_TYPE_2.getInt(-1)) != -1) {
+            config.set(GLASS_TYPE_2.getKey(), CompatibleMaterial.getGlassPaneColor(color).name());
+        }
+        if ((color = GLASS_TYPE_3.getInt(-1)) != -1) {
+            config.set(GLASS_TYPE_3.getKey(), CompatibleMaterial.getGlassPaneColor(color).name());
+        }
+
         config.saveChanges();
     }
 }
