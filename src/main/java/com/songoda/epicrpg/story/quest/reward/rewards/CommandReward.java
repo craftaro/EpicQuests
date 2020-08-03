@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CommandReward extends AbstractReward {
 
-    private List<String> commands = new ArrayList<>();
+    private final List<String> commands = new ArrayList<>();
 
     public CommandReward(Quest quest) {
         super(quest);
@@ -34,8 +34,10 @@ public class CommandReward extends AbstractReward {
     @Override
     public void give(Player player) {
         Bukkit.getScheduler().runTask(EpicRPG.getInstance(), () -> {
-            for (String command : commands.toArray(new String[0]))
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            for (String command : commands)
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),
+                        command.replace("@p", player.getName())
+                        .replace("%player%", player.getName()));
         });
     }
 
