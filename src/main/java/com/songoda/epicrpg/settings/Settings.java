@@ -4,10 +4,16 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.configuration.ConfigSetting;
 import com.songoda.epicrpg.EpicRPG;
+import org.bukkit.boss.BarColor;
 
 public class Settings {
 
     static final Config config = EpicRPG.getInstance().getCoreConfig();
+
+    public static final ConfigSetting BOSS_BAR_COLOR = new ConfigSetting(config, "General.Boss Bar Color", "PINK",
+            "What color should the boss bars we use be?",
+            "You can find a list of applicable colors here:",
+            "https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html");
 
     public static final ConfigSetting LANGUGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
             "The enabled language file.",

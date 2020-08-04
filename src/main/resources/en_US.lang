@@ -3,6 +3,10 @@
 general:
   nametag:
     prefix: '&8[&6EpicRPG&8]'
+  bossbar:
+    objective: 'Objective: &d'
+    idle: '&7Party Idle...'
+    amount: '%title% &7(&d%current%&7/&a%goal%&7)'
 
 
 command:
@@ -30,3 +34,4 @@ command:
     leave:
       success: '&aYou left the party successfully.'
       leader: '&cYou are the leader of this party...'
+

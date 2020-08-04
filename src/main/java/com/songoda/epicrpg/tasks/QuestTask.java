@@ -6,6 +6,7 @@ import com.songoda.core.utils.LocationUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.Region.Region;
+import com.songoda.epicrpg.settings.Settings;
 import com.songoda.epicrpg.story.contender.ContendentManager;
 import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.contender.StoryParty;
@@ -66,9 +67,9 @@ public class QuestTask extends BukkitRunnable {
             if (active.isEmpty() && contender instanceof StoryParty) {
                 BossBar bossBar = activeBossBars.computeIfAbsent(contender.getUniqueId(),
                         b -> Bukkit.createBossBar("title",
-                                BarColor.PINK,
+                                BarColor.valueOf(Settings.BOSS_BAR_COLOR.getString()),
                                 BarStyle.SOLID));
-                bossBar.setTitle(TextUtils.formatText("&7Party Idle..."));
+                bossBar.setTitle(plugin.getLocale().getMessage("general.bossbar.idle").getMessage());
                 bossBar.setProgress(1);
                 bossBar.addPlayer(player);
                 BossBar playerBar = activeBossBars.get(player.getUniqueId());
@@ -130,11 +131,11 @@ public class QuestTask extends BukkitRunnable {
                                 255, 85, 255, 1, 10, .5f, player);
                 }
 
-                String title = TextUtils.formatText("Objective: &d"
+                String title = TextUtils.formatText(plugin.getLocale().getMessage("general.bossbar.objective").getMessage()
                         + currentObjective.getTitle());
                 BossBar bossBar = activeBossBars.computeIfAbsent(player.getUniqueId(),
                         b -> Bukkit.createBossBar(title,
-                                BarColor.PINK,
+                                BarColor.valueOf(Settings.BOSS_BAR_COLOR.getString()),
                                 BarStyle.SOLID));
 
                 boolean silent = false;
@@ -157,7 +158,10 @@ public class QuestTask extends BukkitRunnable {
                     bossBar.setTitle(title);
                     bossBar.setProgress(1);
                 } else {
-                    bossBar.setTitle(TextUtils.formatText(title + " &7(&d" + (int) current + "&7/&a" + goal + "&7)"));
+                    bossBar.setTitle(plugin.getLocale().getMessage("general.bossbar.amount")
+                            .processPlaceholder("title", title)
+                            .processPlaceholder("current", current)
+                            .processPlaceholder("goal", goal).getMessage());
                     bossBar.setProgress(current / goal);
                 }
             }
