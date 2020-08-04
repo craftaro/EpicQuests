@@ -18,7 +18,7 @@ import com.songoda.epicrpg.story.quest.action.actions.RightClickBlock;
 import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizen;
 import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
+import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -77,7 +77,8 @@ public class QuestTask extends BukkitRunnable {
             for (ActiveQuest activeQuest : new HashSet<>(active).stream()
                     .sorted(Comparator.comparing(q -> !q.isFocused()))
                     .sorted(Comparator.comparing(q -> {
-                        Region region = plugin.getStoryManager().getEnabledQuest(q.getActiveQuest()).getRegion();
+                        Region region = plugin.getStoryManager()
+                                .getEnabledQuest(q.getActiveQuest()).getRegion();
                         return region == null
                                 || !LocationUtils.isInArea(player.getLocation(), region.getPos1(), region.getPos2());
                     }))
@@ -113,15 +114,19 @@ public class QuestTask extends BukkitRunnable {
                 ActiveAction action = activeActions.get(0);
                 // Effects
                 if (action.getAction() instanceof RightClickCitizen) {
-                    CompatibleParticleHandler.redstoneParticles(CitizensAPI.getNPCRegistry()
-                                    .getById(((RightClickCitizen.RightClickCitizenDataStore) action
-                                            .getActionDataStore()).getCitizenId()).getStoredLocation()
-                                    .add(0, 2.5, 0),
-                            255, 85, 255, 1, 5, .1f, player);
+                    Location location = CitizensAPI.getNPCRegistry()
+                            .getById(((RightClickCitizen.RightClickCitizenDataStore) action
+                                    .getActionDataStore()).getCitizenId()).getStoredLocation();
+                    if (player.getWorld() == location.getWorld())
+                        CompatibleParticleHandler.redstoneParticles(location
+                                        .add(0, 2.5, 0),
+                                255, 85, 255, 1, 5, .1f, player);
                 } else if (action.getAction() instanceof RightClickBlock) {
-                    CompatibleParticleHandler.redstoneParticles((((RightClickBlock.RightClickBlockDataStore) action
-                                    .getActionDataStore()).getLocation()).add(.5, .5, .5),
-                            255, 85, 255, 1, 10, .5f, player);
+                    Location location = (((RightClickBlock.RightClickBlockDataStore) action
+                            .getActionDataStore()).getLocation());
+                    if (player.getWorld() == location.getWorld())
+                        CompatibleParticleHandler.redstoneParticles(location.add(.5, .5, .5),
+                                255, 85, 255, 1, 10, .5f, player);
                 }
 
                 String title = TextUtils.formatText("Objective: &d"
