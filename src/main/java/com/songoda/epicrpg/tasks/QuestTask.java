@@ -9,6 +9,7 @@ import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.story.contender.ContendentManager;
 import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.contender.StoryParty;
+import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
@@ -136,7 +137,11 @@ public class QuestTask extends BukkitRunnable {
                                 BarColor.PINK,
                                 BarStyle.SOLID));
 
-                if (currentObjective.isVisible())
+                boolean silent = false;
+                if (contender instanceof StoryPlayer && ((StoryPlayer) contender).isSilent())
+                    silent = true;
+
+                if (currentObjective.isVisible() && !silent)
                     bossBar.addPlayer(player);
                 else {
                     bossBar.removePlayer(player);

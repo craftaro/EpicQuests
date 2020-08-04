@@ -6,6 +6,7 @@ public class StoryPlayer extends StoryContender {
 
     private StoryParty party;
     private boolean inDialogCreation = false;
+    private boolean silent;
 
     public StoryPlayer(UUID uniqueId) {
         super(uniqueId);
@@ -25,5 +26,13 @@ public class StoryPlayer extends StoryContender {
 
     public void setParty(StoryParty party) {
         this.party = party;
+    }
+
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 }

@@ -68,6 +68,13 @@ public class GuiQuestLog extends Gui {
             inventory.clear();
         setActionForRange(0, 53, null);
 
+        setButton(4, GuiUtils.createButtonItem(CompatibleMaterial.BELL,
+                storyPlayer.isSilent() ? "Click to show objectives." : "Click to hide objectives."),
+                (event) -> {
+                    storyPlayer.setSilent(!storyPlayer.isSilent());
+                    showQuests(story, completed);
+                });
+
         if (storyCount != 1)
             setButton(5, 3, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, "Back"),
                     (event) -> show());
