@@ -42,7 +42,7 @@ public class GuiSpeech extends Gui {
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Message"),
                 (event) -> {
                     ChatPrompt.showPrompt(plugin, player,
-                            "Enter a Message.",
+                            "Enter a Message. You may use @p to include the players name.",
                             response -> speech.addMessage(response.getMessage()))
                             .setOnClose(() -> guiManager.showGUI(player, new GuiSpeech(plugin, player, speech)));
                 });
