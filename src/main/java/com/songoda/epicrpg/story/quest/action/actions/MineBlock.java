@@ -43,8 +43,7 @@ public class MineBlock extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setMaterial(CompatibleMaterial.getMaterial(block.getType()));
-            plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
-            dataStore.finishSetup();
+            dataStore.finishSetup(plugin, player, activeAction);
             return;
         }
 

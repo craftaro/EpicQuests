@@ -47,13 +47,7 @@ public class KillEntityType extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setEntityType(entity.getType());
-            ChatPrompt.showPrompt(plugin, player,
-                    "Enter a required amount.",
-                    response -> {
-                        activeAction.setAmount(Integer.parseInt(response.getMessage()));
-                        plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, dataStore.getObjective()));
-                    });
-            dataStore.finishSetup();
+            dataStore.finishSetup(plugin, player, activeAction);
         }
     }
 

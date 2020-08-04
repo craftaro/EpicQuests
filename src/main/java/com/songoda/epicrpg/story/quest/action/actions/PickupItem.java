@@ -57,14 +57,7 @@ public class PickupItem extends AbstractAction {
 
         if (!dataStore.isBeingSetup(player)) return;
         dataStore.setItemStack(event.getItemDrop().getItemStack());
-
-        ChatPrompt.showPrompt(plugin, player,
-                "Enter a required amount.",
-                response -> {
-                    activeAction.setAmount(Integer.parseInt(response.getMessage()));
-                    plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, dataStore.getObjective()));
-                });
-        dataStore.finishSetup();
+        dataStore.finishSetup(plugin, player, activeAction);
     }
 
     @Override

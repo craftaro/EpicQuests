@@ -53,8 +53,7 @@ public class RightClickCitizen extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setCitizenId(CitizensAPI.getNPCRegistry().getNPC(entity).getId());
-            plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
-            dataStore.finishSetup();
+            dataStore.finishSetup(plugin, player, activeAction);
             return;
         }
 

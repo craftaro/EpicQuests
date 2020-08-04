@@ -47,8 +47,7 @@ public class RightClickEntity extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setEntity(entity.getUniqueId());
-            plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
-            dataStore.finishSetup();
+            dataStore.finishSetup(plugin, player, activeAction);
         }
 
         if (entity.getUniqueId().equals(dataStore.getEntity()))

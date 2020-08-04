@@ -1,7 +1,13 @@
 package com.songoda.epicrpg.data;
 
+import com.songoda.core.input.ChatPrompt;
+import com.songoda.epicrpg.EpicRPG;
+import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
+import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
@@ -35,7 +41,14 @@ public class ActionDataStore {
         return this.setter.equals(setter);
     }
 
-    public void finishSetup() {
+    public void finishSetup(EpicRPG plugin, Player player, ActiveAction activeAction) {
         setter = null;
+
+        ChatPrompt.showPrompt(plugin, player,
+                "Enter a required amount.",
+                response -> {
+                    activeAction.setAmount(Integer.parseInt(response.getMessage()));
+                    plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, getObjective()));
+                });
     }
 }

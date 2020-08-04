@@ -57,8 +57,7 @@ public class KillMythicMob extends AbstractAction {
             return;
 
         dataStore.setMobType(mobManager.getActiveMob(entity.getUniqueId()).get().getMobType());
-        plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
-        dataStore.finishSetup();
+        dataStore.finishSetup(plugin, player, activeAction);
     }
 
     @Override

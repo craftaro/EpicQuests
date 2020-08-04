@@ -51,8 +51,7 @@ public class RightClickBlock extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setLocation(block.getLocation());
-            plugin.getGuiManager().showGUI(event.getPlayer(), new GuiObjective(plugin, player, dataStore.getObjective()));
-            dataStore.finishSetup();
+            dataStore.finishSetup(plugin, player, activeAction);
             return;
         }
 

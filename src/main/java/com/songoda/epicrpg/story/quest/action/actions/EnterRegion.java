@@ -49,8 +49,7 @@ public class EnterRegion extends AbstractAction {
             } else if (dataStore.pos2 == null) {
                 dataStore.setPos2(location);
                 player.sendMessage("Setup complete!.");
-                dataStore.finishSetup();
-                plugin.getGuiManager().showGUI(player, new GuiObjective(plugin, player, dataStore.getObjective()));
+                dataStore.finishSetup(plugin, player, activeAction);
             }
         }
     }
