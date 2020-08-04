@@ -33,7 +33,7 @@ public class Speech {
             Bukkit.getScheduler().runTaskLater(EpicRPG.getInstance(), () -> {
                 String m = message.replace("@p", player.getName());
                 if (player.isOnline())
-                    player.sendMessage("[NPC] " + npc.getName() + ": " + m);
+                    EpicRPG.getInstance().getLocale().newMessage("[NPC] " + npc.getName() + ": " + m).sendMessage(player);
             }, timeout);
             timeout += 20;
         }
