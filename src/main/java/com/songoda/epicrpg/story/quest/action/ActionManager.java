@@ -19,7 +19,8 @@ public class ActionManager {
                 new PickupItem(plugin),
                 new KillEntityType(plugin),
                 new RightClickBlock(plugin),
-                new RightClickEntity(plugin));
+                new RightClickEntity(plugin),
+                new MineBlock(plugin));
 
         if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs"))
             registerAction(new KillMythicMob(plugin));
