@@ -1,7 +1,9 @@
 package com.songoda.epicrpg;
 
+import com.songoda.core.SongodaCore;
 import com.songoda.core.SongodaPlugin;
 import com.songoda.core.commands.CommandManager;
+import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.epicrpg.Region.SelectionManager;
@@ -51,6 +53,8 @@ public class EpicRPG extends SongodaPlugin {
 
     @Override
     public void onPluginEnable() {
+        // Run Songoda Updater
+        SongodaCore.registerPlugin(this, 364, CompatibleMaterial.COMPASS);
 
         // Setup Config
         Settings.setupConfig();
