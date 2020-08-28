@@ -79,6 +79,8 @@ public class QuestTask extends BukkitRunnable {
             for (ActiveQuest activeQuest : new HashSet<>(active).stream()
                     .sorted(Comparator.comparing(q -> !q.isFocused()))
                     .sorted(Comparator.comparing(q -> {
+                        if (q.getActiveQuest() == null)
+                            return false;
                         Region region = plugin.getStoryManager()
                                 .getEnabledQuest(q.getActiveQuest()).getRegion();
                         return region == null
