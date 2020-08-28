@@ -95,14 +95,6 @@ public class EpicRPG extends SongodaPlugin {
             jsonStorage.saveDialogs();
         }, timeout, timeout);
 
-        // Load from file
-        getDataFolder().mkdir();
-        this.jsonStorage = new JsonStorage(this);
-        jsonStorage.loadStories();
-        jsonStorage.loadActions();
-        jsonStorage.loadPlayers();
-        jsonStorage.loadDialogs();
-
         // Start Tasks
         questTask = QuestTask.startTask(this);
         RegionTask.startTask(this);
@@ -116,6 +108,18 @@ public class EpicRPG extends SongodaPlugin {
         jsonStorage.savePlayers();
         jsonStorage.saveDialogs();
         questTask.flush();
+    }
+
+    @Override
+    public void onDataLoad() {
+        // Load from file
+        getDataFolder().mkdir();
+        this.jsonStorage = new JsonStorage(this);
+        jsonStorage.loadStories();
+        jsonStorage.loadActions();
+        jsonStorage.loadPlayers();
+        jsonStorage.loadDialogs();
+
     }
 
     @Override
