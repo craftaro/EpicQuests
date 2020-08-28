@@ -54,10 +54,13 @@ public class GuiDialogs extends Gui {
         for (int i = 0; i < dialogs.size(); i++) {
             Dialog dialog = dialogs.get(i);
 
+            if (dialog.getCitizen() == null) {
+                dialogManager.removeDialog(dialog);
+                continue;
+            }
+
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, dialog.getCitizen().getName()),
-                    (event) -> {
-                        guiManager.showGUI(player, new GuiDialog(plugin, player, dialog, attachedSpeech));
-                    });
+                    (event) -> guiManager.showGUI(player, new GuiDialog(plugin, player, dialog, attachedSpeech)));
 
         }
     }

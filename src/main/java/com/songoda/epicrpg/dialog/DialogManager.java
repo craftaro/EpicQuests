@@ -26,6 +26,10 @@ public class DialogManager {
         registeredDialog.put(dialog.getCitizenId(), dialog);
     }
 
+    public void removeDialog(Dialog dialog) {
+        registeredDialog.remove(dialog);
+    }
+
     public Speech getSpeech(UUID uniqueId) {
         for (Dialog dialog : registeredDialog.values())
             for (Speech speech : dialog.getMessages())
