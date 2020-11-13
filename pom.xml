@@ -83,11 +83,11 @@
     <repositories>
         <repository>
             <id>private</id>
-            <url>http://repo.songoda.com/artifactory/private/</url>
+            <url>http://repo.songoda.com/repository/private/</url>
         </repository>
         <repository>
             <id>public</id>
-            <url>http://repo.songoda.com/artifactory/public/</url>
+            <url>http://repo.songoda.com/repository/public/</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
@@ -116,7 +116,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.lumine.xikage</groupId>
+            <groupId>io.lumine</groupId>
             <artifactId>MythicMobs</artifactId>
             <version>LATEST</version>
             <scope>provided</scope>
