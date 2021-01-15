@@ -2,7 +2,7 @@
     <groupId>com.songoda</groupId>
     <artifactId>EpicRPG</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.4</version>
+    <version>1.0.4b</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>EpicRPG-${project.version}</finalName>
@@ -82,10 +82,6 @@
     </build>
     <repositories>
         <repository>
-            <id>private</id>
-            <url>http://repo.songoda.com/repository/private/</url>
-        </repository>
-        <repository>
             <id>public</id>
             <url>http://repo.songoda.com/repository/public/</url>
         </repository>
@@ -112,7 +108,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.1</version>
+            <version>1.16.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
