@@ -16,13 +16,11 @@ public class GuiRewards extends Gui {
 
     private final EpicRPG plugin;
     private final Player player;
-    private final StoryManager storyManager;
     private final Quest quest;
 
     public GuiRewards(EpicRPG plugin, Player player, Quest quest) {
         this.plugin = plugin;
         this.player = player;
-        this.storyManager = plugin.getStoryManager();
         this.quest = quest;
         setRows(6);
         setDefaultItem(null);

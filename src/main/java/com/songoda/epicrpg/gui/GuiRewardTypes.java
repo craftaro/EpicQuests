@@ -36,7 +36,8 @@ public class GuiRewardTypes extends Gui {
                         player.closeInventory();
                         Reward reward = rewardType.init(quest);
                         quest.addReward(reward);
-                        reward.setup(player);
+                        if (reward != null)
+                            reward.setup(player);
                     });
         }
     }

@@ -17,13 +17,11 @@ import java.util.List;
 public class GuiSpeech extends Gui {
 
     private final EpicRPG plugin;
-    private final DialogManager dialogManager;
     private final Player player;
     private final Speech speech;
 
     public GuiSpeech(EpicRPG plugin, Player player, Speech speech) {
         this.plugin = plugin;
-        this.dialogManager = plugin.getDialogManager();
         this.player = player;
         this.speech = speech;
         setRows(6);

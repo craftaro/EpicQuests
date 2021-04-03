@@ -17,7 +17,6 @@ public class BlockListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onItemDrop(BlockBreakEvent event) {
-
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
             action.getAction().onBlockBreak(event, action);
     }

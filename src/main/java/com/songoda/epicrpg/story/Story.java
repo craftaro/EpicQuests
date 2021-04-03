@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Story {
 
-    private UUID uniqueId = UUID.randomUUID();
+    private final UUID uniqueId = UUID.randomUUID();
     private String name = "Unnamed Story";
     private final List<Quest> quests = new LinkedList<>();
 

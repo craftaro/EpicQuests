@@ -25,15 +25,15 @@ public class JsonStorage {
 
     private final EpicRPG plugin;
 
-    private String actionsDir;
-    private String storiesDir;
-    private String playersDir;
-    private String dialogDir;
+    private final String actionsDir;
+    private final String storiesDir;
+    private final String playersDir;
+    private final String dialogDir;
 
-    private Gson gsonActions;
-    private Gson gsonStories;
-    private Gson gsonPlayers;
-    private Gson gsonDialog;
+    private final Gson gsonActions;
+    private final Gson gsonStories;
+    private final Gson gsonPlayers;
+    private final Gson gsonDialog;
 
     private final List<String> actionsLast = new ArrayList<>();
     private final List<String> storiesLast = new ArrayList<>();

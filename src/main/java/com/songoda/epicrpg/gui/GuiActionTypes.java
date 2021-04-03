@@ -23,9 +23,7 @@ public class GuiActionTypes extends Gui {
         setActionForRange(0, 53, null);
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.BARRIER, "Cancel"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiObjective(plugin, player, objective));
-                });
+                (event) -> guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
 
 
         List<Action> actions = actionManager.getActions();

@@ -17,7 +17,7 @@ public class GuiItems extends Gui {
 
     private EpicRPG plugin;
     private Player player;
-    private ItemHolder holder;
+    private final ItemHolder holder;
 
     public GuiItems(EpicRPG plugin, Player player, ItemHolder holder) {
         this.holder = holder;

@@ -18,13 +18,11 @@ public class GuiRequirements extends Gui {
 
     private final EpicRPG plugin;
     private final Player player;
-    private final StoryManager storyManager;
     private final Objective objective;
 
     public GuiRequirements(EpicRPG plugin, Player player, Objective objective) {
         this.plugin = plugin;
         this.player = player;
-        this.storyManager = plugin.getStoryManager();
         this.objective = objective;
         setRows(6);
         setDefaultItem(null);

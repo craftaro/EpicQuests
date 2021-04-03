@@ -11,7 +11,7 @@ import java.util.*;
 
 public class StoryManager {
 
-    private List<Story> stories = new LinkedList<>();
+    private final List<Story> stories = new LinkedList<>();
 
     public Story addStory(Story story) {
         for (Quest quest : story.getQuests()) {

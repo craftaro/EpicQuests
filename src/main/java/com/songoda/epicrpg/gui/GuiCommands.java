@@ -5,7 +5,6 @@ import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiUtils;
 import com.songoda.core.input.ChatPrompt;
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.story.quest.requirement.requirements.ItemRequirement;
 import com.songoda.epicrpg.story.quest.reward.rewards.CommandReward;
 import com.songoda.epicrpg.utils.TextUtils;
 import org.bukkit.entity.Player;
@@ -16,7 +15,7 @@ public class GuiCommands extends Gui {
 
     private EpicRPG plugin;
     private Player player;
-    private CommandReward reward;
+    private final CommandReward reward;
 
     public GuiCommands(EpicRPG plugin, Player player, CommandReward reward) {
         this.reward = reward;
