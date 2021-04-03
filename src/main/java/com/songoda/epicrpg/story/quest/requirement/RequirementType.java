@@ -6,7 +6,8 @@ import java.lang.reflect.Constructor;
 
 public enum RequirementType {
 
-    ITEM("ItemRequirement");
+    ITEM("ItemRequirement"),
+    EQUIP("EquipRequirement");
 
     private final String className;
 

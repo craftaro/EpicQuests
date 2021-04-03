@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public interface Requirement {
 
-    RewardType getType();
+    RequirementType getType();
 
     boolean isMet(Player player);
 

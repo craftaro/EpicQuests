@@ -5,31 +5,38 @@ import com.songoda.epicrpg.gui.GuiItems;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.requirement.AbstractRequirement;
 import com.songoda.epicrpg.story.quest.requirement.RequirementType;
+import com.songoda.epicrpg.story.quest.reward.RewardType;
 import com.songoda.epicrpg.utils.ItemHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemRequirement extends AbstractRequirement implements ItemHolder {
+public class EquipRequirement extends AbstractRequirement implements ItemHolder {
 
     private final List<ItemStack> items = new ArrayList<>();
 
-    public ItemRequirement(Objective objective) {
+    public EquipRequirement(Objective objective) {
         super(objective);
     }
 
     @Override
     public RequirementType getType() {
-        return RequirementType.ITEM;
+        return RequirementType.EQUIP;
     }
 
     @Override
     public boolean isMet(Player player) {
+        if (player.getEquipment() == null) return false;
+
+        top:
         for (ItemStack item : items) {
-            if (!player.getInventory().containsAtLeast(item, item.getAmount()))
+            ItemStack[] contents = player.getEquipment().getArmorContents();
+            for (ItemStack it : contents)
+                if (it.isSimilar(item)) continue top;
                 return false;
         }
         return true;
