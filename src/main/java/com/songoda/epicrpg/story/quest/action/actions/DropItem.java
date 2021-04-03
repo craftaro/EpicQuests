@@ -26,20 +26,20 @@ public class DropItem extends AbstractAction {
 
     @Override
     public List<String> getDescription(ActionDataStore actionDataStore) {
-        PickupItemDataStore dataStore = (PickupItemDataStore) actionDataStore;
+        DropItemDataStore dataStore = (DropItemDataStore) actionDataStore;
         return dataStore.getItemStack() == null ? Collections.singletonList("None") : Collections.singletonList(TextUtils.formatText("&fItem: &6" + dataStore.getItemStack().getType().name()));
     }
 
     @Override
     public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-        PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
+        DropItemDataStore dataStore = (DropItemDataStore) activeAction.getActionDataStore();
 
         ItemStack item = event.getItemDrop().getItemStack();
 
         if (item.isSimilar(dataStore.getItemStack())) {
             performAction(activeAction, item.getAmount(), event.getPlayer());
         }
-
+        
         Player player = event.getPlayer();
 
         if (!dataStore.isBeingSetup(player)) return;
@@ -50,18 +50,18 @@ public class DropItem extends AbstractAction {
     @Override
     public ActiveAction setup(Player player, Objective objective) {
         player.sendMessage("Drop the item you would like assigned to this action.");
-        PickupItemDataStore dataStore = new PickupItemDataStore(objective);
+        DropItemDataStore dataStore = new DropItemDataStore(objective);
         dataStore.startSetup(player.getUniqueId());
 
         // Do setup here.
         return new ActiveAction(this, dataStore);
     }
 
-    public class PickupItemDataStore extends ActionDataStore {
+    public class DropItemDataStore extends ActionDataStore {
 
         private ItemStack itemStack;
 
-        public PickupItemDataStore(Objective objective) {
+        public DropItemDataStore(Objective objective) {
             super(objective);
         }
 
