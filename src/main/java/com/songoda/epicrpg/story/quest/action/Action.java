@@ -2,6 +2,7 @@ package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
+import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -26,6 +27,8 @@ public interface Action {
     void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction);
 
     void onDrop(PlayerDropItemEvent event, ActiveAction activeAction);
+
+    void onEquip(ArmorEquipEvent event, ActiveAction activeAction);
 
     void onEntityKill(EntityDeathEvent event, ActiveAction activeAction);
 

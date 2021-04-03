@@ -2,15 +2,7 @@ package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.action.actions.DropItem;
-import com.songoda.epicrpg.story.quest.action.actions.EnterRegion;
-import com.songoda.epicrpg.story.quest.action.actions.KillEntityType;
-import com.songoda.epicrpg.story.quest.action.actions.KillMythicMob;
-import com.songoda.epicrpg.story.quest.action.actions.MineBlock;
-import com.songoda.epicrpg.story.quest.action.actions.PickupItem;
-import com.songoda.epicrpg.story.quest.action.actions.RightClickBlock;
-import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizen;
-import com.songoda.epicrpg.story.quest.action.actions.RightClickEntity;
+import com.songoda.epicrpg.story.quest.action.actions.*;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -35,7 +27,8 @@ public class ActionManager {
                 new RightClickBlock(plugin),
                 new RightClickEntity(plugin),
                 new MineBlock(plugin),
-                new DropItem(plugin));
+                new DropItem(plugin),
+                new EquipItem(plugin));
 
         if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs"))
             registerAction(new KillMythicMob(plugin));
