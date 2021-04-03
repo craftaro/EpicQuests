@@ -35,19 +35,13 @@ public class GuiRequirements extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Requirement"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiRequirementTypes(plugin, player, objective));
-                });
+                (event) -> guiManager.showGUI(player, new GuiRequirementTypes(plugin, player, objective)));
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiObjective(plugin, player, objective));
-                });
+                (event) -> guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
 
 
         List<Requirement> requirements = objective.getRequirements();

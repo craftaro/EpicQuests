@@ -32,9 +32,7 @@ public class GuiDialogs extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         if (attachedSpeech == null) {
             setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Create Dialog"),
@@ -45,9 +43,7 @@ public class GuiDialogs extends Gui {
                     });
 
             setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                    (event) -> {
-                        guiManager.showGUI(player, new GuiMain(plugin, player));
-                    });
+                    (event) -> guiManager.showGUI(player, new GuiMain(plugin, player)));
         }
 
         List<Dialog> dialogs = dialogManager.getDialogs();

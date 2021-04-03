@@ -40,9 +40,7 @@ public class GuiObjective extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Retitle Objective"),
                 (event) -> {
@@ -53,9 +51,7 @@ public class GuiObjective extends Gui {
                 });
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Add Action"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiActionTypes(plugin, player, objective));
-                });
+                (event) -> guiManager.showGUI(player, new GuiActionTypes(plugin, player, objective)));
 
         setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.PINK_DYE, "Modify Requirements"),
                 (event) -> {
@@ -78,9 +74,7 @@ public class GuiObjective extends Gui {
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiQuest(plugin, player, objective.getQuest()));
-                });
+                (event) -> guiManager.showGUI(player, new GuiQuest(plugin, player, objective.getQuest())));
 
 
         List<ActiveAction> actions = actionManager.getActiveActions().stream()

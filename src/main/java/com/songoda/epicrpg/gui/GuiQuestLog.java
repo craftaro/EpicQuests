@@ -1,6 +1,7 @@
 package com.songoda.epicrpg.gui;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.gui.CustomizableGui;
 import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiUtils;
 import com.songoda.core.utils.TextUtils;
@@ -21,16 +22,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GuiQuestLog extends Gui {
+public class GuiQuestLog extends CustomizableGui {
 
     private final EpicRPG plugin;
     private final Player player;
     private final StoryPlayer storyPlayer;
     private final StoryManager storyManager;
 
-    private int storyCount = 0;
+    private final int storyCount;
 
     public GuiQuestLog(EpicRPG plugin, Player player) {
+        super(plugin, "questlog");
         this.plugin = plugin;
         this.player = player;
         this.storyPlayer = plugin.getContendentManager().getPlayer(player);
@@ -46,9 +48,7 @@ public class GuiQuestLog extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         List<Story> stories = storyManager.getStories();
         for (int i = 0; i < stories.size(); i++) {
@@ -64,11 +64,9 @@ public class GuiQuestLog extends Gui {
     }
 
     public void showQuests(Story story, boolean completed) {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
-        setButton(4, GuiUtils.createButtonItem(CompatibleMaterial.BELL,
+        setButton("objectives", 4, GuiUtils.createButtonItem(CompatibleMaterial.BELL,
                 storyPlayer.isSilent() ? "Click to show objectives." : "Click to hide objectives."),
                 (event) -> {
                     storyPlayer.setSilent(!storyPlayer.isSilent());
@@ -76,9 +74,9 @@ public class GuiQuestLog extends Gui {
                 });
 
         if (storyCount != 1)
-            setButton(5, 3, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, "Back"),
+            setButton("back", 5, 3, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, "Back"),
                     (event) -> show());
-        setButton(5, storyCount == 1 ? 3 : 4, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Exit"),
+        setButton("exit", 5, storyCount == 1 ? 3 : 4, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Exit"),
                 (event) -> player.closeInventory());
 
 
@@ -102,7 +100,7 @@ public class GuiQuestLog extends Gui {
 
         }
 
-        setButton(5, 5, GuiUtils.createButtonItem(CompatibleMaterial.BOOK,
+        setButton("quests", 5, 5, GuiUtils.createButtonItem(CompatibleMaterial.BOOK,
                 TextUtils.formatText(completed ? "&aOngoing Quests" : "&aCompleted Quests"), lore),
                 (event) -> {
                     setTitle(completed ? "Quest Log" : "Quest Log (Completed)");

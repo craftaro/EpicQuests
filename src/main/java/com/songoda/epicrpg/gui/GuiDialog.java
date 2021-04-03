@@ -42,9 +42,7 @@ public class GuiDialog extends Gui {
 
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         if (attachedSpeech == null)
             setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Speech"),
@@ -54,9 +52,7 @@ public class GuiDialog extends Gui {
                     });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiDialogs(plugin, player, attachedSpeech));
-                });
+                (event) -> guiManager.showGUI(player, new GuiDialogs(plugin, player, attachedSpeech)));
 
 
         List<Speech> messages = dialog.getMessages();
