@@ -1,6 +1,6 @@
 <p align="center">
 <img alt="EpicRPG"
-    src="https://proxy.songoda.com/200/https://cdn2.songoda.com/products/epicrpg/RU63AfqkNZXYmSIzbZodOpjJQUOiPkEBuVuHt8sx.png">
+    src="https://cdn2.songoda.com/products/epicrpg/RU63AfqkNZXYmSIzbZodOpjJQUOiPkEBuVuHt8sx.png">
 </p>
 
 <h1 align="center">EpicRPG</h1>
