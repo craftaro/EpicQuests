@@ -1,25 +1,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.songoda</groupId>
     <artifactId>EpicRPG</artifactId>
-    <modelVersion>4.0.0</modelVersion>
     <version>1.0.4b</version>
+
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>EpicRPG-${project.version}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
+
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
                 <version>1.5.3</version>
+
                 <executions>
                     <execution>
                         <phase>prepare-package</phase>
@@ -28,8 +34,10 @@
                         </goals>
                     </execution>
                 </executions>
+
                 <configuration>
                     <file>${project.build.directory}/classes/plugin.yml</file>
+
                     <replacements>
                         <replacement>
                             <token>maven-version-number</token>
@@ -38,10 +46,12 @@
                     </replacements>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.0</version>
+
                 <executions>
                     <execution>
                         <id>shaded</id>
@@ -49,15 +59,18 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+
                         <configuration>
                             <shadedArtifactAttached>false</shadedArtifactAttached>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>true</minimizeJar>
+
                             <artifactSet>
                                 <includes>
                                     <include>com.songoda:SongodaCore</include>
                                 </includes>
                             </artifactSet>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -68,6 +81,7 @@
                                     </excludes>
                                 </filter>
                             </filters>
+
                             <relocations>
                                 <relocation>
                                     <pattern>com.songoda.core</pattern>
@@ -80,24 +94,29 @@
             </plugin>
         </plugins>
     </build>
+
     <repositories>
         <repository>
             <id>public</id>
             <url>http://repo.songoda.com/repository/public/</url>
         </repository>
+
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
         <repository>
             <id>everything</id>
             <url>https://repo.citizensnpcs.co/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.songoda</groupId>
@@ -105,22 +124,26 @@
             <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.4</version>
+            <version>1.16.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>MythicMobs</artifactId>
             <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>net.citizensnpcs</groupId>
             <artifactId>citizens</artifactId>
             <version>2.0.26-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
