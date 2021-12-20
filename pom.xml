@@ -6,7 +6,7 @@
 
     <groupId>com.songoda</groupId>
     <artifactId>EpicRPG</artifactId>
-    <version>1.0.4b</version>
+    <version>1.1.0</version>
 
     <build>
         <defaultGoal>clean install</defaultGoal>
