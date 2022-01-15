@@ -12,11 +12,11 @@ public class Quest {
 
     private transient Story story;
 
-    private UUID uniqueId = UUID.randomUUID();
+    private final UUID uniqueId = UUID.randomUUID();
     private String name = "Unnamed Quest";
     private final List<UUID> questPrerequisites = new LinkedList<>();
     private final List<Reward> rewards = new LinkedList<>();
-    private final List<Requirement> requirements = new LinkedList<>();
+    private final List<Requirement> requirements = new LinkedList<>(); // ToDo: Confused as to why this is not used.
 
     private Region region;
 

@@ -17,7 +17,7 @@ public class GuiItems extends Gui {
 
     private EpicRPG plugin;
     private Player player;
-    private ItemHolder holder;
+    private final ItemHolder holder;
 
     public GuiItems(EpicRPG plugin, Player player, ItemHolder holder) {
         this.holder = holder;
@@ -50,8 +50,7 @@ public class GuiItems extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
+        reset();
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {

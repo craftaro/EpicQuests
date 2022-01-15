@@ -11,10 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class GuiMain extends Gui {
 
-    private final EpicRPG plugin;
-
     public GuiMain(EpicRPG plugin, Player player) {
-        this.plugin = plugin;
         setRows(3);
         setDefaultItem(null);
 

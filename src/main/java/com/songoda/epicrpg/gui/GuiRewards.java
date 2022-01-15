@@ -16,13 +16,11 @@ public class GuiRewards extends Gui {
 
     private final EpicRPG plugin;
     private final Player player;
-    private final StoryManager storyManager;
     private final Quest quest;
 
     public GuiRewards(EpicRPG plugin, Player player, Quest quest) {
         this.plugin = plugin;
         this.player = player;
-        this.storyManager = plugin.getStoryManager();
         this.quest = quest;
         setRows(6);
         setDefaultItem(null);
@@ -33,9 +31,7 @@ public class GuiRewards extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Reward"),
                 (event) -> {

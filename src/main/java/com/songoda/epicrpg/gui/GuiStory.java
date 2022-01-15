@@ -18,13 +18,11 @@ public class GuiStory extends Gui {
 
     private final EpicRPG plugin;
     private final Player player;
-    private final StoryManager storyManager;
     private final Story story;
 
     public GuiStory(EpicRPG plugin, Player player, Story story) {
         this.plugin = plugin;
         this.player = player;
-        this.storyManager = plugin.getStoryManager();
         this.story = story;
         setRows(6);
         setDefaultItem(null);
@@ -35,17 +33,13 @@ public class GuiStory extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Rename Story"),
-                (event) -> {
-                    ChatPrompt.showPrompt(plugin, player,
-                            "Enter a story name.",
-                            response -> story.setName(response.getMessage()))
-                            .setOnClose(() -> guiManager.showGUI(player, new GuiStory(plugin, player, story)));
-                });
+                (event) -> ChatPrompt.showPrompt(plugin, player,
+                        "Enter a story name.",
+                        response -> story.setName(response.getMessage()))
+                        .setOnClose(() -> guiManager.showGUI(player, new GuiStory(plugin, player, story))));
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Create Quest"),
                 (event) -> {
@@ -60,9 +54,7 @@ public class GuiStory extends Gui {
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> {
-                    guiManager.showGUI(player, new GuiStories(plugin, player));
-                });
+                (event) -> guiManager.showGUI(player, new GuiStories(plugin, player)));
 
 
         List<Quest> quests = story.getQuests();

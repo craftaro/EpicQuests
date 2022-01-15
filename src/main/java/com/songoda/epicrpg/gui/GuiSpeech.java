@@ -17,13 +17,11 @@ import java.util.List;
 public class GuiSpeech extends Gui {
 
     private final EpicRPG plugin;
-    private final DialogManager dialogManager;
     private final Player player;
     private final Speech speech;
 
     public GuiSpeech(EpicRPG plugin, Player player, Speech speech) {
         this.plugin = plugin;
-        this.dialogManager = plugin.getDialogManager();
         this.player = player;
         this.speech = speech;
         setRows(6);
@@ -35,9 +33,7 @@ public class GuiSpeech extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Message"),
                 (event) -> {

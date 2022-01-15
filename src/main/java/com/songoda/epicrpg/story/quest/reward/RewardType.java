@@ -7,7 +7,8 @@ import java.lang.reflect.Constructor;
 public enum RewardType {
 
     ITEM("ItemReward"),
-    COMMAND("CommandReward");
+    COMMAND("CommandReward"),
+    XP("XpReward");
 
     private final String className;
 

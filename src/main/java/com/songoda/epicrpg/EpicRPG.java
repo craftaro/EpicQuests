@@ -75,6 +75,7 @@ public class EpicRPG extends SongodaPlugin {
                         new CommandPartyCreate(this),
                         new CommandPartyDisband(this),
                         new CommandPartyInvite(this, contendentManager),
+                        new CommandPartyKick(this),
                         new CommandPartyLeave(this),
                         new CommandResetPlayer(this),
                         new CommandQuestLog(this));

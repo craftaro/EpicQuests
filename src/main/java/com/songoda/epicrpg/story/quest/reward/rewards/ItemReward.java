@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ItemReward extends AbstractReward implements ItemHolder {
 
-    private List<ItemStack> items = new ArrayList<>();
+    private final List<ItemStack> items = new ArrayList<>();
 
     public ItemReward(Quest quest) {
         super(quest);

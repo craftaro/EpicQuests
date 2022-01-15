@@ -30,7 +30,7 @@ public abstract class AbstractRequirement implements Requirement, AttachedSpeech
     public void reject(Player player) {
         Speech speech = EpicRPG.getInstance().getDialogManager().getSpeech(reject);
         if (speech == null) {
-            player.sendMessage("You have not met the requirements to complete this objective...");
+            EpicRPG.getInstance().getLocale().getMessage("general.requirements.not_met").sendMessage(player);
         } else {
             speech.sendMessages(player, speech.getDialog().getCitizen());
         }

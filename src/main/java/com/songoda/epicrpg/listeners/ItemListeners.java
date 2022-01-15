@@ -2,6 +2,7 @@ package com.songoda.epicrpg.listeners;
 
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
+import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,6 +32,13 @@ public class ItemListeners implements Listener {
 
         for (ActiveAction action : plugin.getActionManager().getActiveActions())
             action.getAction().onPickup(event, action);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onItemEquip(ArmorEquipEvent event) {
+
+        for (ActiveAction action : plugin.getActionManager().getActiveActions())
+            action.getAction().onEquip(event, action);
     }
 
 }

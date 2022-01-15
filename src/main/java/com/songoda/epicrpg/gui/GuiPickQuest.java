@@ -42,9 +42,7 @@ public class GuiPickQuest extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),

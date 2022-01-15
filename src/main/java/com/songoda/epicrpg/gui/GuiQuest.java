@@ -37,17 +37,13 @@ public class GuiQuest extends Gui {
     }
 
     public void show() {
-        if (inventory != null)
-            inventory.clear();
-        setActionForRange(0, 53, null);
+        reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Rename Quest"),
-                (event) -> {
-                    ChatPrompt.showPrompt(plugin, player,
-                            "Enter a Quest name.",
-                            response -> quest.setName(response.getMessage()))
-                            .setOnClose(() -> guiManager.showGUI(player, new GuiQuest(plugin, player, quest)));
-                });
+                (event) -> ChatPrompt.showPrompt(plugin, player,
+                        "Enter a Quest name.",
+                        response -> quest.setName(response.getMessage()))
+                        .setOnClose(() -> guiManager.showGUI(player, new GuiQuest(plugin, player, quest))));
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Create Objective"),
                 (event) -> {

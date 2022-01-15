@@ -7,6 +7,8 @@ general:
     objective: 'Objective: &d'
     idle: '&7Party Idle...'
     amount: '%title% &7(&d%current%&7/&a%goal%&7)'
+  requirements:
+    not_met: 'You have not met the requirements to complete this objective...'
 
 
 command:

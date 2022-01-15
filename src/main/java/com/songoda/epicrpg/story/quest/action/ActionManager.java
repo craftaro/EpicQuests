@@ -5,7 +5,13 @@ import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.actions.*;
 import org.bukkit.Bukkit;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ActionManager {
@@ -20,7 +26,9 @@ public class ActionManager {
                 new KillEntityType(plugin),
                 new RightClickBlock(plugin),
                 new RightClickEntity(plugin),
-                new MineBlock(plugin));
+                new MineBlock(plugin),
+                new DropItem(plugin),
+                new EquipItem(plugin));
 
         if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs"))
             registerAction(new KillMythicMob(plugin));

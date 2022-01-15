@@ -7,7 +7,7 @@ import java.util.*;
 public class ActiveQuest {
 
     private final UUID activeQuest;
-    private Map<UUID, RemainingObjective> remainingObjectives = new LinkedHashMap<>();
+    private final Map<UUID, RemainingObjective> remainingObjectives = new LinkedHashMap<>();
 
     private boolean focused;
 
