@@ -3,7 +3,7 @@ description: ${project.description}
 version: ${project.version}
 api-version: 1.13
 
-main: com.songoda.epicrpg.EpicRPG
+main: com.craftaro.epicrpg.EpicRPG
 depend:
   - Citizens
 softdepend:
