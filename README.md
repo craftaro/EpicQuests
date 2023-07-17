@@ -1,78 +1,45 @@
-<p align="center">
-<img alt="EpicRPG"
-    src="https://cdn2.songoda.com/products/epicrpg/RU63AfqkNZXYmSIzbZodOpjJQUOiPkEBuVuHt8sx.png">
-</p>
+<!--suppress HtmlDeprecatedAttribute -->
+<div align="center">
+<img src="https://craftaro.com/images/products/52/icons/RU63AfqkNZXYmSIzbZodOpjJQUOiPkEBuVuHt8sx.png" width="128px">
 
-<h1 align="center">EpicRPG</h1>
+# EpicRPG
+Create quests and stories your way with our extremely customizable and simplistically designed system
 
-<p align="center">
- <b>
-      Create quests and stories your way with our extremely customizable and simplistically designed system.
-  </b>
-</p>
 
-<p align="center">
-    <a href="https://discord.gg/songoda">
-        <img alt="Discord" src="https://img.shields.io/discord/293212540723396608?color=7289DA&label=Discord&logo=discord&logoColor=7289DA">
-    </a>
-    <a href="https://www.patreon.com/join/songoda">
-        <img alt="Patreon" src="https://img.shields.io/badge/-Support_on_Patreon-F96854.svg?logo=patreon&style=flat&logoColor=white">
-    </a>
-    <a href="https://www.patreon.com/join/songoda">
-        <img alt="Exclusive" src="https://img.shields.io/badge/-Patreon_Exclusive-052d49.svg?logo=addthis&style=flat&logoColor=F96854"> 
-    <br>
-    <img alt="Latest" src="https://img.shields.io/badge/-ver_1.0.4-4078C0.svg?logo=github&style=flat&logoColor=white&color=blue&label=Latest&labelColor=black">
-    <a href="https://app.codacy.com/gh/songoda/EpicRPG/dashboard">
-        <img alt="quality" src="https://img.shields.io/codacy/grade/51f5f0a445f14fa2817708fb53994f19">
-    </a>
-    <img alt="Last Updated" src="https://img.shields.io/github/last-commit/songoda/EpicRPG">
-    <br>
-    <a href="https://bstats.org/plugin/bukkit/EpicRPG/6963">
-        <img alt="Servers" src="https://img.shields.io/bstats/servers/6963">
-    </a>
-    <img alt="Maintained" src="https://img.shields.io/maintenance/yes/2020"> 
-</p>
+[![Discord][Discord shield]][Discord invite]
+[![Patreon][Patreon shield]][Patreon page]
+<br>
+[![Latest version][Latest version shield]][Marketplace page]
+[![bStats Servers][bStats shield]][bStats page]
+</div>
 
-## Table of Contents 
 
-*   [Introduction](#introduction)
-*   [Patreon](#patreon)
-*   [Marketplace](#marketplace)
-*   [Documentation](#documentation)
-*   [Support](#support)
-*   [Suggestions](#suggestions)
-
-## Introduction
-EpicRPG is a must have plugin for RPG servers or servers with quests.
-The plugin features a fully functional GUI interface that allows you to
-create, customize and edit quests.
-Create simple or complex quests such as, picking up an item, going into a specfic region,
-right-clicking a block or NPC, and mining blocks.
-The plugin also hooks into [Citizens](https://www.spigotmc.org/resources/citizens.13811/)
-to allow you to create and bind dialogue to NPCs all in one GUI,
-so your quests can flow and have mini scenes with backstories told by NPCs if you so desire.
-
-EpicRPG also features the option to customize and hide the objective bossbar,
-so players aren't constantly being reminded of a quest,
-but instead see a purple particle above the NPC's head who is the starting point of different quests. 
-
-## Patreon
-Join [our patreon](https://www.patreon.com/songoda) program to gain access to download EpicRPG
-on [our marketplace](https://songoda.com/marketplace/product/epicrpg-the-ultimate-rpg-story-plugin.364).
-
-## Marketplace
-You can visit [our marketplace](ttps://songoda.com/marketplace/product/epicrpg-the-ultimate-rpg-story-plugin.364)
-to download EpicRPG as well as take a look at many other fantastic plugins which are sure to catch your eye.
+## Download (Marketplace)
+You can visit [our marketplace][Marketplace page] to download EpicRPG as well as take a
+look at many other fantastic plugins which are sure to catch your eye.
 
 ## Documentation
-You can find all the information about EpicRPG, including dependencies,
-commands, permissions, incompatible plugins on [our wiki](https://wiki.songoda.com/Epic_RPG).
+You can find all the information about EpicRPG, including dependencies, commands, permissions and incompatible
+plugins on [our wiki][Plugin wiki].
+
 Feel free to also contribute to the wiki as a way to help others in the community with using the plugin.
-  
+
 ## Support
-If you encounter any issues while using the plugin,
-feel free to create a ticket on [our support desk](https://support.songoda.com).
+If you encounter any issues while using the plugin, feel free to contact us on
+[our Discord server][Discord invite].
 
 ## Suggestions
-For suggestions about features you think should be added to the plugin to increase its functionality,
-feel free to create a thread over on [our feedback site](https://feedback.songoda.com).
+For suggestions about features you think should be added to the plugin to increase its functionality, feel free to
+create a thread over on [our Discord server][Discord invite].
+
+
+[Marketplace page]: https://craftaro.com/marketplace/product/364
+[Plugin wiki]: https://wiki.craftaro.com/index.php/Epic_RPG
+[Patreon page]: https://www.patreon.com/join/songoda
+[Discord invite]: https://discord.gg/craftaro
+[bStats page]: https://bstats.org/plugin/bukkit/EpicRPG/6963
+
+[Patreon shield]: https://img.shields.io/badge/-Support_us_on_Patreon-F96854.svg?logo=patreon&style=flat&logoColor=white
+[Discord shield]: https://img.shields.io/discord/293212540723396608?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
+[bStats shield]: https://img.shields.io/bstats/servers/6963?label=Servers
+[Latest version shield]: https://img.shields.io/badge/dynamic/xml?style=flat&color=blue&logo=github&logoColor=white&label=Latest&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcraftaro%2FEpicRPG%2Fmaster%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D
