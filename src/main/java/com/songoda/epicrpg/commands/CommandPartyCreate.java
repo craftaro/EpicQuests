@@ -5,15 +5,12 @@ import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.contender.StoryParty;
 import com.songoda.epicrpg.story.contender.StoryPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 public class CommandPartyCreate extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandPartyCreate(EpicRPG plugin) {
@@ -26,15 +23,15 @@ public class CommandPartyCreate extends AbstractCommand {
 
         Player player = (Player) sender;
 
-        StoryContender contender = plugin.getContendentManager().getContender(player);
+        StoryContender contender = this.plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryParty) {
-            plugin.getLocale().getMessage("command.party.create.already").sendPrefixedMessage(player);
+            this.plugin.getLocale().getMessage("command.party.create.already").sendPrefixedMessage(player);
             return ReturnType.FAILURE;
         }
 
-        plugin.getContendentManager().createParty((StoryPlayer) contender);
-        plugin.getLocale().getMessage("command.party.create.success").sendPrefixedMessage(sender);
+        this.plugin.getContendentManager().createParty((StoryPlayer) contender);
+        this.plugin.getLocale().getMessage("command.party.create.success").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

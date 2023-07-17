@@ -21,7 +21,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class InteractListeners implements Listener {
-
     private final EpicRPG plugin;
 
     public InteractListeners(EpicRPG plugin) {
@@ -31,45 +30,54 @@ public class InteractListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent event) {
         if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_9)
-                && event.getHand() == EquipmentSlot.OFF_HAND) return;
+                && event.getHand() == EquipmentSlot.OFF_HAND) {
+            return;
+        }
 
         Player player = event.getPlayer();
-        ActiveSelection activeSelection = plugin.getSelectionManager().getActiveSelection(player);
+        ActiveSelection activeSelection = this.plugin.getSelectionManager().getActiveSelection(player);
 
         if (activeSelection != null && event.hasBlock()) {
-            activeSelection.commit(player, event.getClickedBlock().getLocation(), plugin);
+            activeSelection.commit(player, event.getClickedBlock().getLocation(), this.plugin);
             event.setCancelled(true);
             return;
         }
 
-        for (ActiveAction action : plugin.getActionManager().getActiveActions())
+        for (ActiveAction action : this.plugin.getActionManager().getActiveActions()) {
             action.getAction().onInteract(event, action);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractAtEntityEvent event) {
         if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_9)
-                && event.getHand() == EquipmentSlot.OFF_HAND) return;
+                && event.getHand() == EquipmentSlot.OFF_HAND) {
+            return;
+        }
 
-        for (ActiveAction action : plugin.getActionManager().getActiveActions())
+        for (ActiveAction action : this.plugin.getActionManager().getActiveActions()) {
             action.getAction().onInteractWithEntity(event, action);
+        }
 
-        StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(event.getPlayer());
+        StoryPlayer storyPlayer = this.plugin.getContendentManager().getPlayer(event.getPlayer());
         Entity rightClicked = event.getRightClicked();
         if (CitizensAPI.getNPCRegistry().isNPC(rightClicked)) {
             NPC npc = CitizensAPI.getNPCRegistry().getNPC(rightClicked);
-            if (npc == null) return;
+            if (npc == null) {
+                return;
+            }
             if (storyPlayer.isInDialogCreation()) {
-                plugin.getDialogManager().addDialog(npc.getId());
-                plugin.getGuiManager().showGUI(event.getPlayer(), new GuiDialogs(plugin, event.getPlayer(), null));
+                this.plugin.getDialogManager().addDialog(npc.getId());
+                this.plugin.getGuiManager().showGUI(event.getPlayer(), new GuiDialogs(this.plugin, event.getPlayer(), null));
                 storyPlayer.setInDialogCreation(false);
                 return;
             }
-            StoryContender storyContender = plugin.getContendentManager().getContender(event.getPlayer());
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                Dialog dialog = plugin.getDialogManager().getDialog(npc.getId());
-                if (dialog != null)
+            StoryContender storyContender = this.plugin.getContendentManager().getContender(event.getPlayer());
+            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                Dialog dialog = this.plugin.getDialogManager().getDialog(npc.getId());
+                if (dialog != null) {
                     dialog.sendMessages(event.getPlayer(), storyContender);
+                }
             }, 10L);
         }
     }

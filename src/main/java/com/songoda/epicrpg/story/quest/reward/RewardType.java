@@ -5,7 +5,6 @@ import com.songoda.epicrpg.story.quest.Quest;
 import java.lang.reflect.Constructor;
 
 public enum RewardType {
-
     ITEM("ItemReward"),
     COMMAND("CommandReward"),
     XP("XpReward");
@@ -19,7 +18,7 @@ public enum RewardType {
 
     public Reward init(Quest quest) {
         try {
-            Class<?> clazz = Class.forName("com.songoda.epicrpg.story.quest.reward.rewards." + className);
+            Class<?> clazz = Class.forName("com.songoda.epicrpg.story.quest.reward.rewards." + this.className);
             Constructor<?> ctor = clazz.getConstructor(Quest.class);
             return (Reward) ctor.newInstance(quest);
         } catch (ReflectiveOperationException e) {

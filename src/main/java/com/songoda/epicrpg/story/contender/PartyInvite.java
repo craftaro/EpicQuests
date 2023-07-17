@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.contender;
 import java.util.UUID;
 
 public class PartyInvite {
-
     private final UUID sender;
     private final UUID recipient;
 
@@ -13,10 +12,10 @@ public class PartyInvite {
     }
 
     public UUID getSender() {
-        return sender;
+        return this.sender;
     }
 
     public UUID getRecipient() {
-        return recipient;
+        return this.recipient;
     }
 }

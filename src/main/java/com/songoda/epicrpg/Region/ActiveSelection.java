@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class ActiveSelection {
-
     private final Quest quest;
 
     private Location pos1;
@@ -17,16 +16,16 @@ public class ActiveSelection {
     }
 
     public void commit(Player player, Location location, EpicRPG plugin) {
-        if (pos1 == null) {
-            pos1 = location;
+        if (this.pos1 == null) {
+            this.pos1 = location;
             player.sendMessage("Position 1 set.");
             return;
         }
 
-        quest.setRegion(new Region(pos1, location));
+        this.quest.setRegion(new Region(this.pos1, location));
         player.sendMessage("Region created!");
         plugin.getSelectionManager().removeActiveSelection(player);
-        plugin.getGuiManager().showGUI(player, new GuiQuest(plugin, player, quest));
+        plugin.getGuiManager().showGUI(player, new GuiQuest(plugin, player, this.quest));
     }
 
 }

@@ -1,7 +1,6 @@
 package com.songoda.epicrpg.dialog;
 
 import com.songoda.epicrpg.story.contender.StoryContender;
-import com.songoda.epicrpg.story.contender.StoryPlayer;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Player;
@@ -12,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Dialog {
-
     private int citizenId;
     private final List<Speech> messages = new LinkedList<>();
 
@@ -22,7 +20,7 @@ public class Dialog {
 
     public void sendMessages(Player player, StoryContender contender) {
         Speech speech = null;
-        List<Speech> speeches = new ArrayList<>(messages);
+        List<Speech> speeches = new ArrayList<>(this.messages);
         Collections.reverse(speeches);
         for (Speech s : speeches) {
             if (s.isDefaultDialog()
@@ -32,16 +30,18 @@ public class Dialog {
                 break;
             }
         }
-        if (speech == null) return;
+        if (speech == null) {
+            return;
+        }
         speech.sendMessages(player, getCitizen());
     }
 
     public int getCitizenId() {
-        return citizenId;
+        return this.citizenId;
     }
 
     public NPC getCitizen() {
-        return CitizensAPI.getNPCRegistry().getById(citizenId);
+        return CitizensAPI.getNPCRegistry().getById(this.citizenId);
     }
 
     public void setCitizenId(int citizenId) {
@@ -49,7 +49,7 @@ public class Dialog {
     }
 
     public List<Speech> getMessages() {
-        return Collections.unmodifiableList(messages);
+        return Collections.unmodifiableList(this.messages);
     }
 
     public void addMessage(Speech messages) {

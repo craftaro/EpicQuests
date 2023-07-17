@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemReward extends AbstractReward implements ItemHolder {
-
     private final List<ItemStack> items = new ArrayList<>();
 
     public ItemReward(Quest quest) {
@@ -35,25 +34,25 @@ public class ItemReward extends AbstractReward implements ItemHolder {
 
     @Override
     public void give(Player player) {
-        Map<Integer, ItemStack> overfilled = player.getInventory().addItem(items.toArray(new ItemStack[0]));
+        Map<Integer, ItemStack> overfilled = player.getInventory().addItem(this.items.toArray(new ItemStack[0]));
         for (ItemStack item : overfilled.values()) {
             player.getWorld().dropItemNaturally(player.getLocation(), item);
         }
     }
 
     public List<ItemStack> getItems() {
-        return Collections.unmodifiableList(items);
+        return Collections.unmodifiableList(this.items);
     }
 
     public void clearItems() {
-        items.clear();
+        this.items.clear();
     }
 
     public void addItem(ItemStack item) {
-        items.add(item);
+        this.items.add(item);
     }
 
     public void removeItem(ItemStack item) {
-        items.remove(item);
+        this.items.remove(item);
     }
 }

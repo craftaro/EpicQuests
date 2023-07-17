@@ -7,12 +7,10 @@ import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
 public class ActionDataStore {
-
     private final Objective objective;
     private UUID setter;
 
@@ -21,7 +19,7 @@ public class ActionDataStore {
     }
 
     public Objective getObjective() {
-        return objective;
+        return this.objective;
     }
 
     public void startSetup(Entity setter) {
@@ -37,12 +35,11 @@ public class ActionDataStore {
     }
 
     public boolean isBeingSetup(UUID setter) {
-        if (this.setter == null) return false;
-        return this.setter.equals(setter);
+        return this.setter != null && this.setter.equals(setter);
     }
 
     public void finishSetup(EpicRPG plugin, Player player, ActiveAction activeAction) {
-        setter = null;
+        this.setter = null;
 
         ChatPrompt.showPrompt(plugin, player,
                 "Enter a required amount.",

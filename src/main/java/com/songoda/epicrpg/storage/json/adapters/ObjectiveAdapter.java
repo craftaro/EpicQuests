@@ -1,6 +1,12 @@
 package com.songoda.epicrpg.storage.json.adapters;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.Story;
 import com.songoda.epicrpg.story.quest.Objective;
@@ -10,7 +16,6 @@ import java.lang.reflect.Type;
 import java.util.UUID;
 
 public class ObjectiveAdapter implements JsonSerializer<Objective>, JsonDeserializer<Objective> {
-
     private final EpicRPG plugin;
 
     public ObjectiveAdapter(EpicRPG plugin) {
@@ -18,13 +23,17 @@ public class ObjectiveAdapter implements JsonSerializer<Objective>, JsonDeserial
     }
 
     @Override
-    public Objective deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        for (Story story : plugin.getStoryManager().getStories())
-            for (Quest quest : story.getQuests())
-                for (Objective objective : quest.getObjectives())
-                    if (objective.getUniqueId().equals(UUID.fromString(jsonObject.get("uuid").getAsString())))
+    public Objective deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject jsonObject = json.getAsJsonObject();
+        for (Story story : this.plugin.getStoryManager().getStories()) {
+            for (Quest quest : story.getQuests()) {
+                for (Objective objective : quest.getObjectives()) {
+                    if (objective.getUniqueId().equals(UUID.fromString(jsonObject.get("uuid").getAsString()))) {
                         return objective;
+                    }
+                }
+            }
+        }
         return null;
     }
 

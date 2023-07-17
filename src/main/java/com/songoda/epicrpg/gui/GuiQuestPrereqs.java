@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class GuiQuestPrereqs extends Gui {
-
     private EpicRPG plugin;
     private Player player;
     private StoryManager storyManager;
@@ -39,7 +38,7 @@ public class GuiQuestPrereqs extends Gui {
         setRows(6);
         setDefaultItem(null);
 
-        setTitle((quest == null ? "Dialog" : quest.getName()) + " - prereqs");
+        setTitle((this.quest == null ? "Dialog" : this.quest.getName()) + " - prereqs");
 
         show();
     }
@@ -49,34 +48,39 @@ public class GuiQuestPrereqs extends Gui {
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Quest"),
                 (event) -> {
-                    if (quest == null)
-                        guiManager.showGUI(player, new GuiPickQuest(plugin, player, speech));
-                    else
-                        guiManager.showGUI(player, new GuiPickQuest(plugin, player, quest));
+                    if (this.quest == null) {
+                        this.guiManager.showGUI(this.player, new GuiPickQuest(this.plugin, this.player, this.speech));
+                    } else {
+                        this.guiManager.showGUI(this.player, new GuiPickQuest(this.plugin, this.player, this.quest));
+                    }
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {
-                    if (quest == null)
-                        guiManager.showGUI(player, new GuiSpeech(plugin, player, speech));
-                    else
-                        guiManager.showGUI(player, new GuiQuest(plugin, player, quest));
+                    if (this.quest == null) {
+                        this.guiManager.showGUI(this.player, new GuiSpeech(this.plugin, this.player, this.speech));
+                    } else {
+                        this.guiManager.showGUI(this.player, new GuiQuest(this.plugin, this.player, this.quest));
+                    }
                 });
 
 
-        List<UUID> prereqs = quest == null ? speech.getQuestPrerequisites() : quest.getQuestPrerequisites();
+        List<UUID> prereqs = this.quest == null ? this.speech.getQuestPrerequisites() : this.quest.getQuestPrerequisites();
         for (int i = 0; i < prereqs.size(); i++) {
             UUID uuid = prereqs.get(i);
-            Optional<Quest> optional = storyManager.getQuests().stream().filter(q -> q.getUniqueId().equals(uuid)).findFirst();
-            if (!optional.isPresent()) continue;
+            Optional<Quest> optional = this.storyManager.getQuests().stream().filter(q -> q.getUniqueId().equals(uuid)).findFirst();
+            if (!optional.isPresent()) {
+                continue;
+            }
             Quest quest = optional.get();
 
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, quest.getName()),
                     (event) -> {
-                        if (this.quest == null)
-                            speech.removeQuestPrerequisite(uuid);
-                        else
+                        if (this.quest == null) {
+                            this.speech.removeQuestPrerequisite(uuid);
+                        } else {
                             this.quest.removeQuestPrerequisite(uuid);
+                        }
                         show();
                     });
         }

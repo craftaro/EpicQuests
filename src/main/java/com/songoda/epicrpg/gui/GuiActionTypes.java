@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class GuiActionTypes extends Gui {
-
     public GuiActionTypes(EpicRPG plugin, Player player, Objective objective) {
         setRows(6);
         setDefaultItem(null);
@@ -23,7 +22,7 @@ public class GuiActionTypes extends Gui {
         setActionForRange(0, 53, null);
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.BARRIER, "Cancel"),
-                (event) -> guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
+                (event) -> this.guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
 
 
         List<Action> actions = actionManager.getActions();

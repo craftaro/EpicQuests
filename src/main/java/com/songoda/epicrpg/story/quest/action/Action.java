@@ -6,7 +6,6 @@ import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,7 +14,6 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import java.util.List;
 
 public interface Action {
-
     String getType();
 
     List<String> getDescription(ActionDataStore actionDataStore);
@@ -37,5 +35,4 @@ public interface Action {
     void moveTick(Player player, ActiveAction action);
 
     ActiveAction setup(Player player, Objective objective);
-
 }

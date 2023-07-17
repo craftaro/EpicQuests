@@ -3,12 +3,9 @@ package com.songoda.epicrpg.story.quest.action.actions;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,7 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class RightClickEntity extends AbstractAction {
-
     public RightClickEntity(EpicRPG plugin) {
         super(plugin);
     }
@@ -47,7 +43,7 @@ public class RightClickEntity extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setEntity(entity.getUniqueId());
-            dataStore.finishSetup(plugin, player, activeAction);
+            dataStore.finishSetup(this.plugin, player, activeAction);
         }
 
         if (entity.getUniqueId().equals(dataStore.getEntity()))
@@ -62,8 +58,7 @@ public class RightClickEntity extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class RightClickEntityDataStore extends ActionDataStore {
-
+    public static class RightClickEntityDataStore extends ActionDataStore {
         private UUID entity;
 
         public RightClickEntityDataStore(Objective objective) {
@@ -71,7 +66,7 @@ public class RightClickEntity extends AbstractAction {
         }
 
         public UUID getEntity() {
-            return entity;
+            return this.entity;
         }
 
         public void setEntity(UUID entity) {

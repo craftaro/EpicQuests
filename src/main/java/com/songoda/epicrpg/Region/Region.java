@@ -3,7 +3,6 @@ package com.songoda.epicrpg.Region;
 import org.bukkit.Location;
 
 public class Region {
-
     private Location pos1;
     private Location pos2;
 
@@ -13,7 +12,7 @@ public class Region {
     }
 
     public Location getPos1() {
-        return pos1;
+        return this.pos1;
     }
 
     public void setPos1(Location pos1) {
@@ -21,7 +20,7 @@ public class Region {
     }
 
     public Location getPos2() {
-        return pos2;
+        return this.pos2;
     }
 
     public void setPos2(Location pos2) {

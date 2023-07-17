@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class GuiPickQuest extends Gui {
-
     private EpicRPG plugin;
     private Player player;
     private Quest quest;
@@ -47,25 +46,26 @@ public class GuiPickQuest extends Gui {
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {
-                    if (quest != null)
-                        guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, quest));
-                    else
-                        guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, speech));
+                    if (this.quest != null) {
+                        this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.quest));
+                    } else {
+                        this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.speech));
+                    }
                 });
 
 
-        List<Quest> quests = storyManager.getQuests();
-        quests.remove(quest);
+        List<Quest> quests = this.storyManager.getQuests();
+        quests.remove(this.quest);
         for (int i = 0; i < quests.size(); i++) {
             Quest quest = quests.get(i);
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, quest.getName()),
                     (event) -> {
                         if (this.quest == null) {
                             this.speech.addQuestPrerequisite(quest);
-                            guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, this.speech));
+                            this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.speech));
                         } else {
                             this.quest.addQuestPrerequisite(quest);
-                            guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, this.quest));
+                            this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.quest));
                         }
                     });
         }

@@ -3,42 +3,51 @@ package com.songoda.epicrpg.story.quest;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 public class RemainingObjective {
-
     private final UUID uniqueId;
 
     private final Map<UUID, Integer> remainingActions = new HashMap<>();
 
     public RemainingObjective(Objective objective) {
         this.uniqueId = objective.getUniqueId();
-        for (ActiveAction activeAction : EpicRPG.getInstance().getActionManager().getActiveActionsByObjective(objective))
-            remainingActions.put(activeAction.getUniqueId(), activeAction.getAmount());
+        for (ActiveAction activeAction : EpicRPG.getInstance().getActionManager().getActiveActionsByObjective(objective)) {
+            this.remainingActions.put(activeAction.getUniqueId(), activeAction.getAmount());
+        }
     }
 
     public Set<UUID> getRemainingActions() {
-        return Collections.unmodifiableSet(remainingActions.keySet());
+        return Collections.unmodifiableSet(this.remainingActions.keySet());
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     public void removeAction(ActiveAction action) {
-        remainingActions.remove(action.getUniqueId());
+        this.remainingActions.remove(action.getUniqueId());
     }
 
     public void completeAction(ActiveAction action, int amount) {
-        if (!remainingActions.containsKey(action.getUniqueId())) return;
-        remainingActions.put(action.getUniqueId(), remainingActions.get(action.getUniqueId()) - amount);
+        if (!this.remainingActions.containsKey(action.getUniqueId())) {
+            return;
+        }
+        this.remainingActions.put(action.getUniqueId(), this.remainingActions.get(action.getUniqueId()) - amount);
         amount = getAmount(action);
-        if (amount <= 0) remainingActions.remove(action.getUniqueId());
+        if (amount <= 0) {
+            this.remainingActions.remove(action.getUniqueId());
+        }
     }
 
     public int getAmount(ActiveAction activeAction) {
-        if (!remainingActions.containsKey(activeAction.getUniqueId()))
+        if (!this.remainingActions.containsKey(activeAction.getUniqueId())) {
             return 0;
-        return remainingActions.get(activeAction.getUniqueId());
+        }
+        return this.remainingActions.get(activeAction.getUniqueId());
     }
 }

@@ -4,7 +4,6 @@ import com.songoda.core.utils.LocationUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
@@ -17,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class EnterRegion extends AbstractAction {
-
     public EnterRegion(EpicRPG plugin) {
         super(plugin);
     }
@@ -49,19 +47,20 @@ public class EnterRegion extends AbstractAction {
             } else if (dataStore.pos2 == null) {
                 dataStore.setPos2(location);
                 player.sendMessage("Setup complete!.");
-                dataStore.finishSetup(plugin, player, activeAction);
+                dataStore.finishSetup(this.plugin, player, activeAction);
             }
         }
     }
 
     @Override
-    public void moveTick(Player player, ActiveAction activeAction) {
-        EnterRegionDataStore dataStore = (EnterRegionDataStore) activeAction.getActionDataStore();
-        if (dataStore.getPos2() == null)
+    public void moveTick(Player player, ActiveAction action) {
+        EnterRegionDataStore dataStore = (EnterRegionDataStore) action.getActionDataStore();
+        if (dataStore.getPos2() == null) {
             return;
+        }
 
         if (LocationUtils.isInArea(player.getLocation(), dataStore.pos1, dataStore.pos2)) {
-            performAction(activeAction, 1, player);
+            performAction(action, 1, player);
         }
     }
 
@@ -73,8 +72,7 @@ public class EnterRegion extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class EnterRegionDataStore extends ActionDataStore {
-
+    public static class EnterRegionDataStore extends ActionDataStore {
         private EntityType entityType;
 
         private Location pos1;
@@ -85,7 +83,7 @@ public class EnterRegion extends AbstractAction {
         }
 
         public EntityType getEntityType() {
-            return entityType;
+            return this.entityType;
         }
 
         public void setEntityType(EntityType entityType) {
@@ -93,7 +91,7 @@ public class EnterRegion extends AbstractAction {
         }
 
         public Location getPos1() {
-            return pos1;
+            return this.pos1;
         }
 
         public void setPos1(Location pos1) {
@@ -101,12 +99,11 @@ public class EnterRegion extends AbstractAction {
         }
 
         public Location getPos2() {
-            return pos2;
+            return this.pos2;
         }
 
         public void setPos2(Location pos2) {
             this.pos2 = pos2;
         }
-
     }
 }

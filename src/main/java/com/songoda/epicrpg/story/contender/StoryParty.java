@@ -9,61 +9,60 @@ import java.util.Map;
 import java.util.UUID;
 
 public class StoryParty extends StoryContender {
-
-    private Map<UUID, MemberType> players = new HashMap<>();
+    private final Map<UUID, MemberType> players = new HashMap<>();
 
     public StoryParty(UUID uniqueId, StoryPlayer player) {
         super(uniqueId);
-        players.put(player.getUniqueId(), MemberType.LEADER);
+        this.players.put(player.getUniqueId(), MemberType.LEADER);
     }
 
     public StoryParty(StoryPlayer player) {
         super(UUID.randomUUID());
-        players.put(player.getUniqueId(), MemberType.LEADER);
+        this.players.put(player.getUniqueId(), MemberType.LEADER);
     }
 
     public void addPlayer(StoryPlayer player) {
-        players.put(player.getUniqueId(), MemberType.MEMBER);
+        this.players.put(player.getUniqueId(), MemberType.MEMBER);
         player.setParty(this);
     }
 
     public void removePlayer(StoryPlayer player) {
-        players.remove(player.getUniqueId());
+        this.players.remove(player.getUniqueId());
     }
 
     public boolean isLeader(StoryPlayer storyPlayer) {
-        return players.get(storyPlayer.getUniqueId()) == MemberType.LEADER;
+        return this.players.get(storyPlayer.getUniqueId()) == MemberType.LEADER;
     }
 
     public boolean isMember(StoryPlayer storyPlayer) {
-        return players.containsKey(storyPlayer.getUniqueId());
+        return this.players.containsKey(storyPlayer.getUniqueId());
     }
 
     public void disband() {
-        for (UUID uniqueId : players.keySet()) {
+        for (UUID uniqueId : this.players.keySet()) {
             StoryPlayer player = EpicRPG.getInstance().getContendentManager().getPlayer(uniqueId);
             player.setParty(null);
         }
-        players.clear();
+        this.players.clear();
     }
 
     @Override
     public void completeQuest(Quest quest) {
         ActiveQuest active = getActiveQuest(quest);
-        for (UUID uniqueId : players.keySet()) {
+        for (UUID uniqueId : this.players.keySet()) {
             StoryPlayer player = EpicRPG.getInstance().getContendentManager().getPlayer(uniqueId);
             player.addCompletedQuests(getCompletedQuests());
         }
-        activeQuests.remove(active);
+        this.activeQuests.remove(active);
     }
 
     public void swapQuest(Quest quest) {
-        activeQuests.clear();
+        this.activeQuests.clear();
         addActiveQuest(quest);
     }
 
     public void swapQuest(ActiveQuest quest) {
-        activeQuests.clear();
+        this.activeQuests.clear();
         addActiveQuest(quest);
     }
 }

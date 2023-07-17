@@ -1,7 +1,10 @@
-.idea/
-target/
-dependency-reduced-pom.xml
+## JetBrains IDEs
+/.idea/
 *.iml
-*.versionsBackup
-test/
+
+## Maven
+/**/target/
+dependency-reduced-pom.xml
+
+## Misc.
 .DS_Store

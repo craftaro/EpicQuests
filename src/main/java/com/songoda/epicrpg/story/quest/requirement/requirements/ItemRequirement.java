@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class ItemRequirement extends AbstractRequirement implements ItemHolder {
-
     private final List<ItemStack> items = new ArrayList<>();
 
     public ItemRequirement(Objective objective) {
@@ -28,17 +27,20 @@ public class ItemRequirement extends AbstractRequirement implements ItemHolder {
 
     @Override
     public boolean isMet(Player player) {
-        for (ItemStack item : items) {
-            if (!player.getInventory().containsAtLeast(item, item.getAmount()))
+        for (ItemStack item : this.items) {
+            if (!player.getInventory().containsAtLeast(item, item.getAmount())) {
                 return false;
+            }
         }
+
         return true;
     }
 
     @Override
     public void execute(Player player) {
-        for (ItemStack itemStack : items)
+        for (ItemStack itemStack : this.items) {
             player.getInventory().removeItem(itemStack);
+        }
     }
 
     @Override
@@ -48,18 +50,18 @@ public class ItemRequirement extends AbstractRequirement implements ItemHolder {
     }
 
     public List<ItemStack> getItems() {
-        return Collections.unmodifiableList(items);
+        return Collections.unmodifiableList(this.items);
     }
 
     public void clearItems() {
-        items.clear();
+        this.items.clear();
     }
 
     public void addItem(ItemStack item) {
-        items.add(item);
+        this.items.add(item);
     }
 
     public void removeItem(ItemStack item) {
-        items.remove(item);
+        this.items.remove(item);
     }
 }

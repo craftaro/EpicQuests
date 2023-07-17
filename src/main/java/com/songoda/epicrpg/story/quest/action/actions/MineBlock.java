@@ -4,7 +4,6 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
@@ -16,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MineBlock extends AbstractAction {
-
     public MineBlock(EpicRPG plugin) {
         super(plugin);
     }
@@ -35,20 +33,21 @@ public class MineBlock extends AbstractAction {
     }
 
     @Override
-    public void onBlockBreak(BlockBreakEvent event, ActiveAction activeAction) {
+    public void onBlockBreak(BlockBreakEvent event, ActiveAction action) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
 
-        RightClickBlockDataStore dataStore = (RightClickBlockDataStore) activeAction.getActionDataStore();
+        RightClickBlockDataStore dataStore = (RightClickBlockDataStore) action.getActionDataStore();
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setMaterial(CompatibleMaterial.getMaterial(block.getType()));
-            dataStore.finishSetup(plugin, player, activeAction);
+            dataStore.finishSetup(this.plugin, player, action);
             return;
         }
 
-        if (CompatibleMaterial.getMaterial(block.getType()) == dataStore.getMaterial())
-            performAction(activeAction, 1, player);
+        if (CompatibleMaterial.getMaterial(block.getType()) == dataStore.getMaterial()) {
+            performAction(action, 1, player);
+        }
     }
 
     @Override
@@ -59,8 +58,7 @@ public class MineBlock extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class RightClickBlockDataStore extends ActionDataStore {
-
+    public static class RightClickBlockDataStore extends ActionDataStore {
         private CompatibleMaterial material;
 
         public RightClickBlockDataStore(Objective objective) {
@@ -68,7 +66,7 @@ public class MineBlock extends AbstractAction {
         }
 
         public CompatibleMaterial getMaterial() {
-            return material;
+            return this.material;
         }
 
         public void setMaterial(CompatibleMaterial material) {

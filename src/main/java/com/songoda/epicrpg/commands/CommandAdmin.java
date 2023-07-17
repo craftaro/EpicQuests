@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CommandAdmin extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandAdmin(EpicRPG plugin) {
@@ -19,7 +18,7 @@ public class CommandAdmin extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
-        plugin.getGuiManager().showGUI((Player) sender, new GuiMain(plugin, (Player) sender));
+        this.plugin.getGuiManager().showGUI((Player) sender, new GuiMain(this.plugin, (Player) sender));
         return ReturnType.SUCCESS;
     }
 

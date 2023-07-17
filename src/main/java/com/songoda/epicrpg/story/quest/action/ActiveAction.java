@@ -6,11 +6,10 @@ import com.songoda.epicrpg.story.quest.Objective;
 import java.util.UUID;
 
 public class ActiveAction {
-
     private final UUID uniqueId = UUID.randomUUID();
     private final Action action;
     private int amount = 0;
-    private ActionDataStore actionDataStore;
+    private final ActionDataStore actionDataStore;
 
     public ActiveAction(Action action, int amount, ActionDataStore actionDataStore) {
         this.action = action;
@@ -18,17 +17,17 @@ public class ActiveAction {
         this.actionDataStore = actionDataStore;
     }
 
-    public ActiveAction(Action action,ActionDataStore actionDataStore) {
+    public ActiveAction(Action action, ActionDataStore actionDataStore) {
         this.action = action;
         this.actionDataStore = actionDataStore;
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     public Action getAction() {
-        return action;
+        return this.action;
     }
 
     public void setAmount(int amount) {
@@ -36,14 +35,14 @@ public class ActiveAction {
     }
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public ActionDataStore getActionDataStore() {
-        return actionDataStore;
+        return this.actionDataStore;
     }
 
     public Objective getObjective() {
-        return actionDataStore.getObjective();
+        return this.actionDataStore.getObjective();
     }
 }

@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GuiRewardTypes extends Gui {
-
     public GuiRewardTypes(EpicRPG plugin, Player player, Quest quest) {
         setRows(6);
         setDefaultItem(null);
@@ -24,7 +23,7 @@ public class GuiRewardTypes extends Gui {
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.BARRIER, "Cancel"),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiRewards(plugin, player, quest));
+                    this.guiManager.showGUI(player, new GuiRewards(plugin, player, quest));
                 });
 
 
@@ -36,8 +35,9 @@ public class GuiRewardTypes extends Gui {
                         player.closeInventory();
                         Reward reward = rewardType.init(quest);
                         quest.addReward(reward);
-                        if (reward != null)
+                        if (reward != null) {
                             reward.setup(player);
+                        }
                     });
         }
     }

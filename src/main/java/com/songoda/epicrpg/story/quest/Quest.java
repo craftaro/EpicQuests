@@ -6,10 +6,15 @@ import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import com.songoda.epicrpg.story.quest.reward.Reward;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class Quest {
-
     private transient Story story;
 
     private final UUID uniqueId = UUID.randomUUID();
@@ -30,37 +35,37 @@ public class Quest {
     }
 
     public Objective addObjective(Objective objective) {
-        objectives.put(objective.getUniqueId(), objective);
+        this.objectives.put(objective.getUniqueId(), objective);
         return objective;
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     public Objective getObjective(UUID uuid) {
-        return objectives.get(uuid);
+        return this.objectives.get(uuid);
     }
 
     public void removeObjective(Objective objective) {
-        objectives.remove(objective.getUniqueId());
+        this.objectives.remove(objective.getUniqueId());
     }
 
     public List<Objective> getObjectives() {
-        return new ArrayList<>(objectives.values());
+        return new ArrayList<>(this.objectives.values());
     }
 
     public void moveObjectiveToEnd(Objective objective) {
-        objectives.remove(objective.getUniqueId());
-        objectives.put(objective.getUniqueId(), objective);
+        this.objectives.remove(objective.getUniqueId());
+        this.objectives.put(objective.getUniqueId(), objective);
     }
 
     public Story getStory() {
-        return story;
+        return this.story;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -68,7 +73,7 @@ public class Quest {
     }
 
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
     public void setActive(boolean active) {
@@ -84,7 +89,7 @@ public class Quest {
     }
 
     public void addQuestPrerequisite(UUID quest) {
-        questPrerequisites.add(quest);
+        this.questPrerequisites.add(quest);
     }
 
     public void removeQuestPrerequisite(Quest quest) {
@@ -92,32 +97,33 @@ public class Quest {
     }
 
     public void removeQuestPrerequisite(UUID quest) {
-        questPrerequisites.remove(quest);
+        this.questPrerequisites.remove(quest);
     }
 
     public List<UUID> getQuestPrerequisites() {
-        return Collections.unmodifiableList(questPrerequisites);
+        return Collections.unmodifiableList(this.questPrerequisites);
     }
 
     public void addReward(Reward reward) {
-        rewards.add(reward);
+        this.rewards.add(reward);
     }
 
     public void removeReward(Reward reward) {
-        rewards.remove(reward);
+        this.rewards.remove(reward);
     }
 
     public List<Reward> getRewards() {
-        return Collections.unmodifiableList(rewards);
+        return Collections.unmodifiableList(this.rewards);
     }
 
     public void giveRewards(Player player) {
-        for (Reward reward : rewards)
+        for (Reward reward : this.rewards) {
             reward.give(player);
+        }
     }
 
     public boolean isOrdered() {
-        return ordered;
+        return this.ordered;
     }
 
     public void setOrdered(boolean ordered) {
@@ -125,7 +131,7 @@ public class Quest {
     }
 
     public Region getRegion() {
-        return region;
+        return this.region;
     }
 
     public void setRegion(Region region) {
@@ -138,14 +144,19 @@ public class Quest {
 
     @Override
     public int hashCode() {
-        return uniqueId.hashCode();
+        return this.uniqueId.hashCode();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Quest quest = (Quest) o;
-        return uniqueId.equals(quest.uniqueId);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Quest quest = (Quest) obj;
+        return this.uniqueId.equals(quest.uniqueId);
     }
 }

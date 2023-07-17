@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class DropItem extends AbstractAction {
-
     public DropItem(EpicRPG plugin) {
         super(plugin);
     }
@@ -39,12 +38,14 @@ public class DropItem extends AbstractAction {
         if (item.isSimilar(dataStore.getItemStack())) {
             performAction(activeAction, item.getAmount(), event.getPlayer());
         }
-        
+
         Player player = event.getPlayer();
 
-        if (!dataStore.isBeingSetup(player)) return;
+        if (!dataStore.isBeingSetup(player)) {
+            return;
+        }
         dataStore.setItemStack(event.getItemDrop().getItemStack());
-        dataStore.finishSetup(plugin, player, activeAction);
+        dataStore.finishSetup(this.plugin, player, activeAction);
     }
 
     @Override
@@ -57,8 +58,7 @@ public class DropItem extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class DropItemDataStore extends ActionDataStore {
-
+    public static class DropItemDataStore extends ActionDataStore {
         private ItemStack itemStack;
 
         public DropItemDataStore(Objective objective) {
@@ -66,7 +66,7 @@ public class DropItem extends AbstractAction {
         }
 
         public ItemStack getItemStack() {
-            return itemStack;
+            return this.itemStack;
         }
 
         public void setItemStack(ItemStack itemStack) {

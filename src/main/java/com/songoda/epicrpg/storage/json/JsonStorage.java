@@ -1,11 +1,22 @@
 package com.songoda.epicrpg.storage.json;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.dialog.Dialog;
-import com.songoda.epicrpg.storage.json.adapters.*;
+import com.songoda.epicrpg.storage.json.adapters.ActionAdapter;
+import com.songoda.epicrpg.storage.json.adapters.ActionDataStoreAdapter;
+import com.songoda.epicrpg.storage.json.adapters.ItemStackAdapter;
+import com.songoda.epicrpg.storage.json.adapters.LocationAdapter;
+import com.songoda.epicrpg.storage.json.adapters.ObjectiveAdapter;
+import com.songoda.epicrpg.storage.json.adapters.RequirementAdapter;
+import com.songoda.epicrpg.storage.json.adapters.RewardAdapter;
 import com.songoda.epicrpg.story.Story;
 import com.songoda.epicrpg.story.contender.StoryPlayer;
 import com.songoda.epicrpg.story.quest.Objective;
@@ -16,13 +27,16 @@ import com.songoda.epicrpg.story.quest.reward.Reward;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonStorage {
-
     private final EpicRPG plugin;
 
     private final String actionsDir;
@@ -67,7 +81,7 @@ public class JsonStorage {
             }
         };
 
-        gsonActions = new GsonBuilder().registerTypeAdapter(Action.class, new ActionAdapter(plugin))
+        this.gsonActions = new GsonBuilder().registerTypeAdapter(Action.class, new ActionAdapter(plugin))
                 .registerTypeAdapter(Objective.class, new ObjectiveAdapter(plugin))
                 .registerTypeAdapter(Location.class, new LocationAdapter())
                 .registerTypeAdapter(ActionDataStore.class, deserializer)
@@ -77,7 +91,7 @@ public class JsonStorage {
                 .enableComplexMapKeySerialization()
                 .setPrettyPrinting().create();
 
-        gsonStories = new GsonBuilder().enableComplexMapKeySerialization()
+        this.gsonStories = new GsonBuilder().enableComplexMapKeySerialization()
                 .registerTypeAdapter(Reward.class, deserializer)
                 .registerTypeAdapter(Reward.class, new RewardAdapter())
                 .registerTypeAdapter(Requirement.class, deserializer)
@@ -86,27 +100,29 @@ public class JsonStorage {
                 .registerTypeHierarchyAdapter(ItemStack.class, new ItemStackAdapter())
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().create();
 
-        gsonPlayers = new GsonBuilder().enableComplexMapKeySerialization()
+        this.gsonPlayers = new GsonBuilder().enableComplexMapKeySerialization()
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().create();
 
-        gsonDialog = new GsonBuilder().enableComplexMapKeySerialization()
+        this.gsonDialog = new GsonBuilder().enableComplexMapKeySerialization()
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().create();
 
     }
 
     public void loadActions() {
-        File dir = new File(actionsDir);
+        File dir = new File(this.actionsDir);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                if (!file.getName().endsWith(".json")) continue;
+                if (!file.getName().endsWith(".json")) {
+                    continue;
+                }
                 try {
                     JsonReader reader = new JsonReader(new FileReader(file.getPath()));
 
-                    ActiveAction action = gsonActions.fromJson(reader, ActiveAction.class);
-                    actionsLast.add(action.getUniqueId().toString());
+                    ActiveAction action = this.gsonActions.fromJson(reader, ActiveAction.class);
+                    this.actionsLast.add(action.getUniqueId().toString());
 
-                    plugin.getActionManager().addActiveAction(action);
+                    this.plugin.getActionManager().addActiveAction(action);
                     reader.close();
 
                 } catch (IOException e) {
@@ -120,23 +136,23 @@ public class JsonStorage {
     public void saveActions() {
         List<String> added = new ArrayList<>();
 
-        File dir = new File(actionsDir);
+        File dir = new File(this.actionsDir);
         dir.mkdir();
 
         // Save to file
-        for (ActiveAction action : plugin.getActionManager().getActiveActions()) {
+        for (ActiveAction action : this.plugin.getActionManager().getActiveActions()) {
 
             File file = new File(dir + File.separator + action.getUniqueId() + ".json");
             added.add(action.getUniqueId().toString());
 
             try (Writer writer = new FileWriter(file.getPath())) {
-                gsonActions.toJson(action, writer);
+                this.gsonActions.toJson(action, writer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        for (String string : actionsLast) {
+        for (String string : this.actionsLast) {
             if (!added.contains(string)) {
                 File file = new File(dir + File.separator + string + ".json");
                 if (!file.delete()) {
@@ -144,23 +160,25 @@ public class JsonStorage {
                 }
             }
         }
-        actionsLast.clear();
-        actionsLast.addAll(added);
+        this.actionsLast.clear();
+        this.actionsLast.addAll(added);
     }
 
     public void loadStories() {
-        File dir = new File(storiesDir);
+        File dir = new File(this.storiesDir);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                if (!file.getName().endsWith(".json")) continue;
+                if (!file.getName().endsWith(".json")) {
+                    continue;
+                }
                 try {
-                    storiesLast.add(file.getName().replace(".json", ""));
+                    this.storiesLast.add(file.getName().replace(".json", ""));
                     JsonReader reader = new JsonReader(new FileReader(file.getPath()));
 
-                    Story story = gsonStories.fromJson(reader, Story.class);
+                    Story story = this.gsonStories.fromJson(reader, Story.class);
 
-                    plugin.getStoryManager().addStory(story);
+                    this.plugin.getStoryManager().addStory(story);
                     reader.close();
 
                 } catch (IOException e) {
@@ -174,24 +192,24 @@ public class JsonStorage {
     public void saveStories() {
         List<String> added = new ArrayList<>();
 
-        File dir = new File(storiesDir);
+        File dir = new File(this.storiesDir);
         dir.mkdir();
 
         // Save to file
-        for (Story story : plugin.getStoryManager().getStories()) {
+        for (Story story : this.plugin.getStoryManager().getStories()) {
 
             added.add(story.getUniqueId().toString());
 
             File file = new File(dir + File.separator + story.getUniqueId() + ".json");
 
             try (Writer writer = new FileWriter(file.getPath())) {
-                gsonStories.toJson(story, writer);
+                this.gsonStories.toJson(story, writer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        for (String string : storiesLast) {
+        for (String string : this.storiesLast) {
             if (!added.contains(string)) {
                 File file = new File(dir + File.separator + string + ".json");
                 if (!file.delete()) {
@@ -199,23 +217,25 @@ public class JsonStorage {
                 }
             }
         }
-        storiesLast.clear();
-        storiesLast.addAll(added);
+        this.storiesLast.clear();
+        this.storiesLast.addAll(added);
     }
 
     public void loadDialogs() {
-        File dir = new File(dialogDir);
+        File dir = new File(this.dialogDir);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                if (!file.getName().endsWith(".json")) continue;
+                if (!file.getName().endsWith(".json")) {
+                    continue;
+                }
                 try {
-                    dialogsLast.add(file.getName().replace(".json", ""));
+                    this.dialogsLast.add(file.getName().replace(".json", ""));
                     JsonReader reader = new JsonReader(new FileReader(file.getPath()));
 
-                    Dialog dialog = gsonDialog.fromJson(reader, Dialog.class);
+                    Dialog dialog = this.gsonDialog.fromJson(reader, Dialog.class);
 
-                    plugin.getDialogManager().addDialog(dialog);
+                    this.plugin.getDialogManager().addDialog(dialog);
                     reader.close();
 
                 } catch (IOException e) {
@@ -229,24 +249,24 @@ public class JsonStorage {
     public void saveDialogs() {
         List<String> added = new ArrayList<>();
 
-        File dir = new File(dialogDir);
+        File dir = new File(this.dialogDir);
         dir.mkdir();
 
         // Save to file
-        for (Dialog dialog : plugin.getDialogManager().getDialogs()) {
+        for (Dialog dialog : this.plugin.getDialogManager().getDialogs()) {
 
             added.add(String.valueOf(dialog.getCitizenId()));
 
             File file = new File(dir + File.separator + dialog.getCitizenId() + ".json");
 
             try (Writer writer = new FileWriter(file.getPath())) {
-                gsonDialog.toJson(dialog, writer);
+                this.gsonDialog.toJson(dialog, writer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        for (String string : dialogsLast) {
+        for (String string : this.dialogsLast) {
             if (!added.contains(string)) {
                 File file = new File(dir + File.separator + string + ".json");
                 if (!file.delete()) {
@@ -254,23 +274,25 @@ public class JsonStorage {
                 }
             }
         }
-        dialogsLast.clear();
-        dialogsLast.addAll(added);
+        this.dialogsLast.clear();
+        this.dialogsLast.addAll(added);
     }
 
     public void loadPlayers() {
-        File dir = new File(playersDir);
+        File dir = new File(this.playersDir);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                if (!file.getName().endsWith(".json")) continue;
+                if (!file.getName().endsWith(".json")) {
+                    continue;
+                }
                 try {
-                    playersLast.add(file.getName().replace(".json", ""));
+                    this.playersLast.add(file.getName().replace(".json", ""));
                     JsonReader reader = new JsonReader(new FileReader(file.getPath()));
 
-                    StoryPlayer player = gsonPlayers.fromJson(reader, StoryPlayer.class);
+                    StoryPlayer player = this.gsonPlayers.fromJson(reader, StoryPlayer.class);
 
-                    plugin.getContendentManager().addPlayer(player);
+                    this.plugin.getContendentManager().addPlayer(player);
                     reader.close();
 
                 } catch (IOException e) {
@@ -284,24 +306,24 @@ public class JsonStorage {
     public void savePlayers() {
         List<String> added = new ArrayList<>();
 
-        File dir = new File(playersDir);
+        File dir = new File(this.playersDir);
         dir.mkdir();
 
         // Save to file
-        for (StoryPlayer player : plugin.getContendentManager().getPlayers()) {
+        for (StoryPlayer player : this.plugin.getContendentManager().getPlayers()) {
 
             added.add(player.getUniqueId().toString());
 
             File file = new File(dir + File.separator + player.getUniqueId() + ".json");
 
             try (Writer writer = new FileWriter(file.getPath())) {
-                gsonPlayers.toJson(player, writer);
+                this.gsonPlayers.toJson(player, writer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        for (String string : playersLast) {
+        for (String string : this.playersLast) {
             if (!added.contains(string)) {
                 File file = new File(dir + File.separator + string + ".json");
                 if (!file.delete()) {
@@ -309,7 +331,7 @@ public class JsonStorage {
                 }
             }
         }
-        playersLast.clear();
-        playersLast.addAll(added);
+        this.playersLast.clear();
+        this.playersLast.addAll(added);
     }
 }

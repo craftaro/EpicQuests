@@ -5,10 +5,14 @@ import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public class StoryContender {
-
     private final UUID uniqueId;
 
     protected final List<ActiveQuest> activeQuests = new ArrayList<>();
@@ -20,26 +24,26 @@ public class StoryContender {
 
     public ActiveQuest addActiveQuest(Quest quest) {
         ActiveQuest activeQuest = new ActiveQuest(quest);
-        activeQuests.add(activeQuest);
+        this.activeQuests.add(activeQuest);
         return activeQuest;
     }
 
     public ActiveQuest addActiveQuest(ActiveQuest quest) {
-        activeQuests.add(quest);
+        this.activeQuests.add(quest);
         return quest;
     }
 
     public UUID addCompletedQuest(UUID quest) {
-        completedQuests.add(quest);
+        this.completedQuests.add(quest);
         return quest;
     }
 
     public List<ActiveQuest> getActiveQuests() {
-        return Collections.unmodifiableList(activeQuests);
+        return Collections.unmodifiableList(this.activeQuests);
     }
 
     public Set<UUID> getCompletedQuests() {
-        return Collections.unmodifiableSet(completedQuests);
+        return Collections.unmodifiableSet(this.completedQuests);
     }
 
     public boolean hasCompletedQuest(UUID uniqueId) {
@@ -47,15 +51,16 @@ public class StoryContender {
     }
 
     public ActiveQuest getActiveQuest(Quest quest) {
-        for (ActiveQuest q : activeQuests) {
-            if (q.getActiveQuest().equals(quest.getUniqueId()))
-            return q;
+        for (ActiveQuest q : this.activeQuests) {
+            if (q.getActiveQuest().equals(quest.getUniqueId())) {
+                return q;
+            }
         }
         return null;
     }
 
     public ActiveQuest getNextQuest() {
-        for (ActiveQuest quest : activeQuests) {
+        for (ActiveQuest quest : this.activeQuests) {
             return quest;
         }
         return null;
@@ -63,8 +68,8 @@ public class StoryContender {
 
     public void completeQuest(Quest quest) {
         ActiveQuest active = getActiveQuest(quest);
-        completedQuests.add(active.getActiveQuest());
-        activeQuests.remove(active);
+        this.completedQuests.add(active.getActiveQuest());
+        this.activeQuests.remove(active);
     }
 
     protected boolean addCompletedQuests(Set<UUID> completedQuests) {
@@ -73,17 +78,23 @@ public class StoryContender {
 
     public boolean isObjectiveCompleted(Objective objective) {
         for (ActiveQuest activeQuest : getActiveQuests()) {
-            for (RemainingObjective remainingObjective : activeQuest.getRemainingObjectives().values())
-                if (remainingObjective.getUniqueId().equals(objective.getUniqueId()))
+            for (RemainingObjective remainingObjective : activeQuest.getRemainingObjectives().values()) {
+                if (remainingObjective.getUniqueId().equals(objective.getUniqueId())) {
                     return false;
+                }
+            }
         }
-        return completedQuests.contains(objective.getQuest().getUniqueId()) || isActiveQuest(objective.getQuest());
+
+        return this.completedQuests.contains(objective.getQuest().getUniqueId()) || isActiveQuest(objective.getQuest());
     }
 
     private boolean isActiveQuest(Quest quest) {
-        for (ActiveQuest activeQuest : activeQuests)
-            if (activeQuest.getActiveQuest().equals(quest.getUniqueId()))
+        for (ActiveQuest activeQuest : this.activeQuests) {
+            if (activeQuest.getActiveQuest().equals(quest.getUniqueId())) {
                 return true;
+            }
+        }
+
         return false;
     }
 
@@ -93,8 +104,9 @@ public class StoryContender {
     }
 
     public void toggleAllFocusedOff() {
-        for (ActiveQuest quest : activeQuests)
+        for (ActiveQuest quest : this.activeQuests) {
             quest.setFocused(false);
+        }
     }
 
     public void toggleFocus(Quest quest) {
@@ -103,20 +115,20 @@ public class StoryContender {
     }
 
     public void reset() {
-        activeQuests.clear();
-        completedQuests.clear();
+        this.activeQuests.clear();
+        this.completedQuests.clear();
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     @Override
     public String toString() {
         return "StoryContender{" +
-                "uniqueId=" + uniqueId +
-                ", activeQuests=" + activeQuests +
-                ", completedQuests=" + completedQuests +
+                "uniqueId=" + this.uniqueId +
+                ", activeQuests=" + this.activeQuests +
+                ", completedQuests=" + this.completedQuests +
                 '}';
     }
 }

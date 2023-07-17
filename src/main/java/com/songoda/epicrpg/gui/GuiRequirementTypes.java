@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GuiRequirementTypes extends Gui {
-
     public GuiRequirementTypes(EpicRPG plugin, Player player, Objective objective) {
         setRows(6);
         setDefaultItem(null);
@@ -24,7 +23,7 @@ public class GuiRequirementTypes extends Gui {
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.BARRIER, "Cancel"),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiRequirements(plugin, player, objective));
+                    this.guiManager.showGUI(player, new GuiRequirements(plugin, player, objective));
                 });
 
 

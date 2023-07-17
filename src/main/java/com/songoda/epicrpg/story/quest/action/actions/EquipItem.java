@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class EquipItem extends AbstractAction {
-
     public EquipItem(EpicRPG plugin) {
         super(plugin);
     }
@@ -36,11 +35,11 @@ public class EquipItem extends AbstractAction {
         EquipItemDataStore dataStore = (EquipItemDataStore) activeAction.getActionDataStore();
 
         ItemStack item = event.getNewArmorPiece();
-
-        if (!item.isSimilar(dataStore.getItemStack())) return;
+        if (!item.isSimilar(dataStore.getItemStack())) {
+            return;
+        }
 
         performAction(activeAction, item.getAmount(), event.getPlayer());
-
     }
 
     @Override
@@ -48,9 +47,11 @@ public class EquipItem extends AbstractAction {
         Player player = event.getPlayer();
         EquipItemDataStore dataStore = (EquipItemDataStore) activeAction.getActionDataStore();
 
-        if (!dataStore.isBeingSetup(player)) return;
+        if (!dataStore.isBeingSetup(player)) {
+            return;
+        }
         dataStore.setItemStack(event.getItemDrop().getItemStack());
-        dataStore.finishSetup(plugin, player, activeAction);
+        dataStore.finishSetup(this.plugin, player, activeAction);
     }
 
     @Override
@@ -63,8 +64,7 @@ public class EquipItem extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class EquipItemDataStore extends ActionDataStore {
-
+    public static class EquipItemDataStore extends ActionDataStore {
         private ItemStack itemStack;
 
         public EquipItemDataStore(Objective objective) {
@@ -72,7 +72,7 @@ public class EquipItem extends AbstractAction {
         }
 
         public ItemStack getItemStack() {
-            return itemStack;
+            return this.itemStack;
         }
 
         public void setItemStack(ItemStack itemStack) {

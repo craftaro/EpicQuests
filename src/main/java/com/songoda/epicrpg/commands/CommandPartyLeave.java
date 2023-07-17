@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CommandPartyLeave extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandPartyLeave(EpicRPG plugin) {
@@ -23,26 +22,26 @@ public class CommandPartyLeave extends AbstractCommand {
     protected ReturnType runCommand(CommandSender sender, String... args) {
         Player player = (Player) sender;
 
-        StoryContender contender = plugin.getContendentManager().getContender(player);
+        StoryContender contender = this.plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
         StoryParty storyParty = (StoryParty) contender;
-        StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
+        StoryPlayer storyPlayer = this.plugin.getContendentManager().getPlayer(player);
 
         if (storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().getMessage("command.party.leave.leader").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.leave.leader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
-        plugin.getQuestTask().remove(storyParty, player);
+        this.plugin.getQuestTask().remove(storyParty, player);
         storyPlayer.setParty(null);
         storyParty.removePlayer(storyPlayer);
 
-        plugin.getLocale().getMessage("command.party.leave.success").sendPrefixedMessage(sender);
+        this.plugin.getLocale().getMessage("command.party.leave.success").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

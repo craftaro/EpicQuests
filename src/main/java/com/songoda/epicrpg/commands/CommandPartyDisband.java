@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CommandPartyDisband extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandPartyDisband(EpicRPG plugin) {
@@ -24,23 +23,23 @@ public class CommandPartyDisband extends AbstractCommand {
 
         Player player = (Player) sender;
 
-        StoryContender contender = plugin.getContendentManager().getContender(player);
+        StoryContender contender = this.plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
-        StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
+        StoryPlayer storyPlayer = this.plugin.getContendentManager().getPlayer(player);
         StoryParty storyParty = storyPlayer.getParty();
 
         if (!storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
-        plugin.getQuestTask().removeAll(storyParty);
+        this.plugin.getQuestTask().removeAll(storyParty);
         storyParty.disband();
-        plugin.getLocale().getMessage("command.party.disband").sendPrefixedMessage(sender);
+        this.plugin.getLocale().getMessage("command.party.disband").sendPrefixedMessage(sender);
         return ReturnType.SUCCESS;
     }
 

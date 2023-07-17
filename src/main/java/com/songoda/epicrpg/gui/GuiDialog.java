@@ -6,7 +6,6 @@ import com.songoda.core.gui.GuiUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.AttachedSpeech;
 import com.songoda.epicrpg.dialog.Dialog;
-import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
@@ -20,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class GuiDialog extends Gui {
-
     private final EpicRPG plugin;
     private final Dialog dialog;
     private final Player player;
@@ -44,18 +42,19 @@ public class GuiDialog extends Gui {
     public void show() {
         reset();
 
-        if (attachedSpeech == null)
+        if (this.attachedSpeech == null) {
             setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Speech"),
                     (event) -> {
-                        dialog.addMessage(new Speech(dialog));
+                        this.dialog.addMessage(new Speech(this.dialog));
                         show();
                     });
+        }
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> guiManager.showGUI(player, new GuiDialogs(plugin, player, attachedSpeech)));
+                (event) -> this.guiManager.showGUI(this.player, new GuiDialogs(this.plugin, this.player, this.attachedSpeech)));
 
 
-        List<Speech> messages = dialog.getMessages();
+        List<Speech> messages = this.dialog.getMessages();
         for (int i = 0; i < messages.size(); i++) {
             Speech speech = messages.get(i);
             List<String> lore = new ArrayList<>(Collections.singletonList(""));
@@ -64,21 +63,22 @@ public class GuiDialog extends Gui {
                     ? Collections.singletonList(TextUtils.formatText("&cNothing here..."))
                     : TextUtils.condense(speech.getMessages().get(0)));
 
-            lore.addAll(Arrays.asList("", TextUtils.formatText(attachedSpeech == null ? "&fLeft-Click: &6to view" : "&fLeft-Click: &6to select"), TextUtils.formatText("&fRight-Click: &6to delete")));
+            lore.addAll(Arrays.asList("", TextUtils.formatText(this.attachedSpeech == null ? "&fLeft-Click: &6to view" : "&fLeft-Click: &6to select"), TextUtils.formatText("&fRight-Click: &6to delete")));
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, "Speech " + (i + 1), lore),
                     (event) -> {
                         if (event.clickType == ClickType.RIGHT) {
-                            dialog.removeSpeech(speech);
+                            this.dialog.removeSpeech(speech);
                         } else {
-                            if (attachedSpeech == null) {
-                                guiManager.showGUI(player, new GuiSpeech(plugin, player, speech));
+                            if (this.attachedSpeech == null) {
+                                this.guiManager.showGUI(this.player, new GuiSpeech(this.plugin, this.player, speech));
                                 show();
                             } else {
-                                attachedSpeech.setAttachedSpeech(speech.getUniqueId());
-                                if (attachedSpeech instanceof Objective)
-                                    guiManager.showGUI(player, new GuiObjective(plugin, player, (Objective) attachedSpeech));
-                                else
-                                    guiManager.showGUI(player, new GuiRequirements(plugin, player, ((Requirement) attachedSpeech).getObjective()));
+                                this.attachedSpeech.setAttachedSpeech(speech.getUniqueId());
+                                if (this.attachedSpeech instanceof Objective) {
+                                    this.guiManager.showGUI(this.player, new GuiObjective(this.plugin, this.player, (Objective) this.attachedSpeech));
+                                } else {
+                                    this.guiManager.showGUI(this.player, new GuiRequirements(this.plugin, this.player, ((Requirement) this.attachedSpeech).getObjective()));
+                                }
                             }
                         }
                     });

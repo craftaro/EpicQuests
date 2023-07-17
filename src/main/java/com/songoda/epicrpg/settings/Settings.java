@@ -4,10 +4,8 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.configuration.ConfigSetting;
 import com.songoda.epicrpg.EpicRPG;
-import org.bukkit.boss.BarColor;
 
 public class Settings {
-
     static final Config config = EpicRPG.getInstance().getCoreConfig();
 
     public static final ConfigSetting BOSS_BAR_COLOR = new ConfigSetting(config, "General.Boss Bar Color", "PINK",

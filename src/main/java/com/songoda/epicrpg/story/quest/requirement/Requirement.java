@@ -1,11 +1,9 @@
 package com.songoda.epicrpg.story.quest.requirement;
 
 import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.reward.RewardType;
 import org.bukkit.entity.Player;
 
 public interface Requirement {
-
     RequirementType getType();
 
     boolean isMet(Player player);
@@ -17,5 +15,4 @@ public interface Requirement {
     void reject(Player player);
 
     Objective getObjective();
-
 }

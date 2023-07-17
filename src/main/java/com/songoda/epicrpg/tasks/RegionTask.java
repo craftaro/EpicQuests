@@ -3,16 +3,10 @@ package com.songoda.epicrpg.tasks;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.Bukkit;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class RegionTask extends BukkitRunnable {
-
     private static RegionTask instance;
     private static EpicRPG plugin;
 
@@ -32,8 +26,10 @@ public class RegionTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        for (ActiveAction action : plugin.getActionManager().getActiveActions())
-            for (Player player : Bukkit.getOnlinePlayers())
+        for (ActiveAction action : plugin.getActionManager().getActiveActions()) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 action.getAction().moveTick(player, action);
+            }
+        }
     }
 }

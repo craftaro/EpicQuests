@@ -1,20 +1,13 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
-import com.songoda.core.input.ChatPrompt;
-import com.songoda.core.utils.ItemUtils;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -22,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class PickupItem extends AbstractAction {
-
     public PickupItem(EpicRPG plugin) {
         super(plugin);
     }
@@ -44,7 +36,9 @@ public class PickupItem extends AbstractAction {
 
         ItemStack item = event.getItem().getItemStack();
 
-        if (!item.isSimilar(dataStore.getItemStack())) return;
+        if (!item.isSimilar(dataStore.getItemStack())) {
+            return;
+        }
 
         performAction(activeAction, item.getAmount(), event.getPlayer());
 
@@ -55,9 +49,11 @@ public class PickupItem extends AbstractAction {
         Player player = event.getPlayer();
         PickupItemDataStore dataStore = (PickupItemDataStore) activeAction.getActionDataStore();
 
-        if (!dataStore.isBeingSetup(player)) return;
+        if (!dataStore.isBeingSetup(player)) {
+            return;
+        }
         dataStore.setItemStack(event.getItemDrop().getItemStack());
-        dataStore.finishSetup(plugin, player, activeAction);
+        dataStore.finishSetup(this.plugin, player, activeAction);
     }
 
     @Override
@@ -70,8 +66,7 @@ public class PickupItem extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class PickupItemDataStore extends ActionDataStore {
-
+    public static class PickupItemDataStore extends ActionDataStore {
         private ItemStack itemStack;
 
         public PickupItemDataStore(Objective objective) {
@@ -79,7 +74,7 @@ public class PickupItem extends AbstractAction {
         }
 
         public ItemStack getItemStack() {
-            return itemStack;
+            return this.itemStack;
         }
 
         public void setItemStack(ItemStack itemStack) {

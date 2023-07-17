@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class GuiDialogs extends Gui {
-
     private final EpicRPG plugin;
     private final DialogManager dialogManager;
     private final Player player;
@@ -34,30 +33,29 @@ public class GuiDialogs extends Gui {
     public void show() {
         reset();
 
-        if (attachedSpeech == null) {
+        if (this.attachedSpeech == null) {
             setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Create Dialog"),
                     (event) -> {
-                        plugin.getContendentManager().getPlayer(player).setInDialogCreation(true);
-                        player.sendMessage("Click a citizen to create a new dialog.");
-                        player.closeInventory();
+                        this.plugin.getContendentManager().getPlayer(this.player).setInDialogCreation(true);
+                        this.player.sendMessage("Click a citizen to create a new dialog.");
+                        this.player.closeInventory();
                     });
 
             setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                    (event) -> guiManager.showGUI(player, new GuiMain(plugin, player)));
+                    (event) -> this.guiManager.showGUI(this.player, new GuiMain(this.plugin, this.player)));
         }
 
-        List<Dialog> dialogs = dialogManager.getDialogs();
+        List<Dialog> dialogs = this.dialogManager.getDialogs();
         for (int i = 0; i < dialogs.size(); i++) {
             Dialog dialog = dialogs.get(i);
 
             if (dialog.getCitizen() == null) {
-                dialogManager.removeDialog(dialog);
+                this.dialogManager.removeDialog(dialog);
                 continue;
             }
 
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, dialog.getCitizen().getName()),
-                    (event) -> guiManager.showGUI(player, new GuiDialog(plugin, player, dialog, attachedSpeech)));
-
+                    (event) -> this.guiManager.showGUI(this.player, new GuiDialog(this.plugin, this.player, dialog, this.attachedSpeech)));
         }
     }
 }

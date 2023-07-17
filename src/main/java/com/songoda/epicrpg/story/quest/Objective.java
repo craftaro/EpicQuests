@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class Objective implements AttachedSpeech {
-
     private transient Quest quest;
 
     private final UUID uniqueId = UUID.randomUUID();
@@ -26,15 +25,15 @@ public class Objective implements AttachedSpeech {
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     public Quest getQuest() {
-        return quest;
+        return this.quest;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -46,19 +45,19 @@ public class Objective implements AttachedSpeech {
     }
 
     public List<Requirement> getRequirements() {
-        return Collections.unmodifiableList(requirements);
+        return Collections.unmodifiableList(this.requirements);
     }
 
     public void addRequirement(Requirement requirement) {
-        requirements.add(requirement);
+        this.requirements.add(requirement);
     }
 
     public void removeRequirement(Requirement requirement) {
-        requirements.remove(requirement);
+        this.requirements.remove(requirement);
     }
 
     public boolean isVisible() {
-        return visible;
+        return this.visible;
     }
 
     public void setVisible(boolean visible) {
@@ -67,12 +66,11 @@ public class Objective implements AttachedSpeech {
 
     @Override
     public UUID getAttachedSpeech() {
-        return attachedSpeech;
+        return this.attachedSpeech;
     }
 
     @Override
-    public void setAttachedSpeech(UUID linkedConversation) {
-        this.attachedSpeech = linkedConversation;
+    public void setAttachedSpeech(UUID rejection) {
+        this.attachedSpeech = rejection;
     }
-
 }

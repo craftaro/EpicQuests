@@ -5,10 +5,13 @@ import com.songoda.epicrpg.story.StoryManager;
 import com.songoda.epicrpg.story.quest.Quest;
 import org.bukkit.OfflinePlayer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class ContendentManager {
-
     private final StoryManager storyManager;
 
     private final Map<UUID, StoryPlayer> registeredPlayers = new HashMap<>();
@@ -19,16 +22,18 @@ public class ContendentManager {
     }
 
     public void addPlayer(StoryPlayer player) {
-        if (player == null) return;
-        registeredPlayers.put(player.getUniqueId(), player);
+        if (player == null) {
+            return;
+        }
+        this.registeredPlayers.put(player.getUniqueId(), player);
     }
 
     public StoryPlayer getPlayer(OfflinePlayer player) {
-        return registeredPlayers.computeIfAbsent(player.getUniqueId(), k -> new StoryPlayer(player.getUniqueId()));
+        return this.registeredPlayers.computeIfAbsent(player.getUniqueId(), uuid -> new StoryPlayer(player.getUniqueId()));
     }
 
     public StoryPlayer getPlayer(UUID uniqueId) {
-        return registeredPlayers.computeIfAbsent(uniqueId, k -> new StoryPlayer(uniqueId));
+        return this.registeredPlayers.computeIfAbsent(uniqueId, uuid -> new StoryPlayer(uniqueId));
     }
 
     public StoryContender getContender(OfflinePlayer player) {
@@ -36,13 +41,13 @@ public class ContendentManager {
     }
 
     public StoryContender getContender(UUID uniqueId) {
-        StoryPlayer storyPlayer = registeredPlayers.computeIfAbsent(uniqueId, k -> new StoryPlayer(uniqueId));
+        StoryPlayer storyPlayer = this.registeredPlayers.computeIfAbsent(uniqueId, uuid -> new StoryPlayer(uniqueId));
         StoryParty storyParty = storyPlayer.getParty();
         return storyParty == null ? storyPlayer : storyParty;
     }
 
     public List<StoryPlayer> getPlayers() {
-        return new ArrayList<>(registeredPlayers.values());
+        return new ArrayList<>(this.registeredPlayers.values());
     }
 
     public StoryParty createParty(StoryPlayer player) {
@@ -53,11 +58,12 @@ public class ContendentManager {
 
 
     public void discoverQuests(StoryContender contender) {
-        for (Story story : storyManager.getStories()) {
+        for (Story story : this.storyManager.getStories()) {
             for (Quest quest : story.getEnabledQuests()) {
                 if (contender.getCompletedQuests().stream().anyMatch(q -> quest.getUniqueId().equals(q))
-                        || contender.getActiveQuests().stream().anyMatch(q -> q.getActiveQuest().equals(quest.getUniqueId())))
+                        || contender.getActiveQuests().stream().anyMatch(q -> q.getActiveQuest().equals(quest.getUniqueId()))) {
                     continue;
+                }
                 if (contender.getCompletedQuests().containsAll(quest.getQuestPrerequisites())) {
                     contender.addActiveQuest(quest);
                 }
@@ -66,18 +72,18 @@ public class ContendentManager {
     }
 
     public PartyInvite addInvite(UUID sender, UUID recipient) {
-        return activeInvitations.put(recipient, new PartyInvite(sender, recipient));
+        return this.activeInvitations.put(recipient, new PartyInvite(sender, recipient));
     }
 
     public boolean removeInvite(UUID recipient) {
-        return activeInvitations.remove(recipient) != null;
+        return this.activeInvitations.remove(recipient) != null;
     }
 
     public PartyInvite getInvite(UUID recipient) {
-        return activeInvitations.get(recipient);
+        return this.activeInvitations.get(recipient);
     }
 
     public boolean isInvited(StoryPlayer storyPlayer) {
-        return activeInvitations.containsKey(storyPlayer.getUniqueId());
+        return this.activeInvitations.containsKey(storyPlayer.getUniqueId());
     }
 }

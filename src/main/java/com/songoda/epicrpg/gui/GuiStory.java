@@ -7,7 +7,6 @@ import com.songoda.core.input.ChatPrompt;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.Story;
-import com.songoda.epicrpg.story.StoryManager;
 import com.songoda.epicrpg.story.quest.Quest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -15,7 +14,6 @@ import org.bukkit.event.inventory.ClickType;
 import java.util.List;
 
 public class GuiStory extends Gui {
-
     private final EpicRPG plugin;
     private final Player player;
     private final Story story;
@@ -36,45 +34,47 @@ public class GuiStory extends Gui {
         reset();
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Rename Story"),
-                (event) -> ChatPrompt.showPrompt(plugin, player,
-                        "Enter a story name.",
-                        response -> story.setName(response.getMessage()))
-                        .setOnClose(() -> guiManager.showGUI(player, new GuiStory(plugin, player, story))));
+                (event) -> ChatPrompt.showPrompt(this.plugin, this.player,
+                                "Enter a story name.",
+                                response -> this.story.setName(response.getMessage()))
+                        .setOnClose(() -> this.guiManager.showGUI(this.player, new GuiStory(this.plugin, this.player, this.story))));
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Create Quest"),
                 (event) -> {
-                    story.addQuest(new Quest(story));
+                    this.story.addQuest(new Quest(this.story));
                     show();
                 });
 
-        setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE, story.isActive() ? "Active" : "Inactive"),
+        setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE, this.story.isActive() ? "Active" : "Inactive"),
                 (event) -> {
-                    story.setActive(!story.isActive());
+                    this.story.setActive(!this.story.isActive());
                     show();
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> guiManager.showGUI(player, new GuiStories(plugin, player)));
+                (event) -> this.guiManager.showGUI(this.player, new GuiStories(this.plugin, this.player)));
 
 
-        List<Quest> quests = story.getQuests();
+        List<Quest> quests = this.story.getQuests();
         for (int i = 0; i < quests.size(); i++) {
             Quest quest = quests.get(i);
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, quest.getName(),
-                    "",
-                    TextUtils.formatText("&fLeft-Click: &6to view"),
-                    TextUtils.formatText("&fRight-Click: &6to delete")),
+                            "",
+                            TextUtils.formatText("&fLeft-Click: &6to view"),
+                            TextUtils.formatText("&fRight-Click: &6to delete")),
                     (event) -> {
-                        if (event.clickType == ClickType.LEFT)
-                            guiManager.showGUI(player, new GuiQuest(plugin, player, quest));
-                        else if (event.clickType == ClickType.RIGHT)
-                            ChatPrompt.showPrompt(plugin, player,
-                                    "Type in 'DELETE' to confirm.",
-                                    response -> {
-                                        if (response.getMessage().trim().equalsIgnoreCase("delete"))
-                                            story.removeQuest(quest);
-                                    })
-                                    .setOnClose(() -> guiManager.showGUI(player, new GuiStory(plugin, player, story)));
+                        if (event.clickType == ClickType.LEFT) {
+                            this.guiManager.showGUI(this.player, new GuiQuest(this.plugin, this.player, quest));
+                        } else if (event.clickType == ClickType.RIGHT) {
+                            ChatPrompt.showPrompt(this.plugin, this.player,
+                                            "Type in 'DELETE' to confirm.",
+                                            response -> {
+                                                if (response.getMessage().trim().equalsIgnoreCase("delete")) {
+                                                    this.story.removeQuest(quest);
+                                                }
+                                            })
+                                    .setOnClose(() -> this.guiManager.showGUI(this.player, new GuiStory(this.plugin, this.player, this.story)));
+                        }
                     });
         }
     }

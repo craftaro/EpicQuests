@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.contender;
 import java.util.UUID;
 
 public class StoryPlayer extends StoryContender {
-
     private StoryParty party;
     private boolean inDialogCreation = false;
     private boolean silent;
@@ -13,7 +12,7 @@ public class StoryPlayer extends StoryContender {
     }
 
     public boolean isInDialogCreation() {
-        return inDialogCreation;
+        return this.inDialogCreation;
     }
 
     public void setInDialogCreation(boolean inDialogCreation) {
@@ -21,7 +20,7 @@ public class StoryPlayer extends StoryContender {
     }
 
     public StoryParty getParty() {
-        return party;
+        return this.party;
     }
 
     public void setParty(StoryParty party) {
@@ -29,7 +28,7 @@ public class StoryPlayer extends StoryContender {
     }
 
     public boolean isSilent() {
-        return silent;
+        return this.silent;
     }
 
     public void setSilent(boolean silent) {

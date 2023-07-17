@@ -7,7 +7,14 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.epicrpg.Region.SelectionManager;
-import com.songoda.epicrpg.commands.*;
+import com.songoda.epicrpg.commands.CommandAdmin;
+import com.songoda.epicrpg.commands.CommandPartyCreate;
+import com.songoda.epicrpg.commands.CommandPartyDisband;
+import com.songoda.epicrpg.commands.CommandPartyInvite;
+import com.songoda.epicrpg.commands.CommandPartyKick;
+import com.songoda.epicrpg.commands.CommandPartyLeave;
+import com.songoda.epicrpg.commands.CommandQuestLog;
+import com.songoda.epicrpg.commands.CommandResetPlayer;
 import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.listeners.BlockListeners;
 import com.songoda.epicrpg.listeners.EntityListeners;
@@ -27,7 +34,6 @@ import org.bukkit.plugin.PluginManager;
 import java.util.List;
 
 public class EpicRPG extends SongodaPlugin {
-
     private static EpicRPG INSTANCE;
 
     private final GuiManager guiManager = new GuiManager(this);
@@ -61,11 +67,11 @@ public class EpicRPG extends SongodaPlugin {
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         // Init Managers
-        storyManager = new StoryManager();
-        contendentManager = new ContendentManager(storyManager);
-        actionManager = new ActionManager(this);
-        dialogManager = new DialogManager();
-        selectionManager = new SelectionManager();
+        this.storyManager = new StoryManager();
+        this.contendentManager = new ContendentManager(this.storyManager);
+        this.actionManager = new ActionManager(this);
+        this.dialogManager = new DialogManager();
+        this.selectionManager = new SelectionManager();
 
         // Init Commands
         this.commandManager = new CommandManager(this);
@@ -74,7 +80,7 @@ public class EpicRPG extends SongodaPlugin {
                         new CommandResetPlayer(this),
                         new CommandPartyCreate(this),
                         new CommandPartyDisband(this),
-                        new CommandPartyInvite(this, contendentManager),
+                        new CommandPartyInvite(this, this.contendentManager),
                         new CommandPartyKick(this),
                         new CommandPartyLeave(this),
                         new CommandResetPlayer(this),
@@ -90,25 +96,25 @@ public class EpicRPG extends SongodaPlugin {
         // Enable Auto Saving
         int timeout = 15 * 60 * 20;
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
-            jsonStorage.saveStories();
-            jsonStorage.saveActions();
-            jsonStorage.savePlayers();
-            jsonStorage.saveDialogs();
+            this.jsonStorage.saveStories();
+            this.jsonStorage.saveActions();
+            this.jsonStorage.savePlayers();
+            this.jsonStorage.saveDialogs();
         }, timeout, timeout);
 
         // Start Tasks
-        questTask = QuestTask.startTask(this);
+        this.questTask = QuestTask.startTask(this);
         RegionTask.startTask(this);
         VisualizeTask.startTask(this);
     }
 
     @Override
     public void onPluginDisable() {
-        jsonStorage.saveStories();
-        jsonStorage.saveActions();
-        jsonStorage.savePlayers();
-        jsonStorage.saveDialogs();
-        questTask.flush();
+        this.jsonStorage.saveStories();
+        this.jsonStorage.saveActions();
+        this.jsonStorage.savePlayers();
+        this.jsonStorage.saveDialogs();
+        this.questTask.flush();
     }
 
     @Override
@@ -116,10 +122,10 @@ public class EpicRPG extends SongodaPlugin {
         // Load from file
         getDataFolder().mkdir();
         this.jsonStorage = new JsonStorage(this);
-        jsonStorage.loadStories();
-        jsonStorage.loadActions();
-        jsonStorage.loadPlayers();
-        jsonStorage.loadDialogs();
+        this.jsonStorage.loadStories();
+        this.jsonStorage.loadActions();
+        this.jsonStorage.loadPlayers();
+        this.jsonStorage.loadDialogs();
 
     }
 
@@ -133,34 +139,34 @@ public class EpicRPG extends SongodaPlugin {
     }
 
     public SelectionManager getSelectionManager() {
-        return selectionManager;
+        return this.selectionManager;
     }
 
     public StoryManager getStoryManager() {
-        return storyManager;
+        return this.storyManager;
     }
 
     public ContendentManager getContendentManager() {
-        return contendentManager;
+        return this.contendentManager;
     }
 
     public ActionManager getActionManager() {
-        return actionManager;
+        return this.actionManager;
     }
 
     public CommandManager getCommandManager() {
-        return commandManager;
+        return this.commandManager;
     }
 
     public GuiManager getGuiManager() {
-        return guiManager;
+        return this.guiManager;
     }
 
     public DialogManager getDialogManager() {
-        return dialogManager;
+        return this.dialogManager;
     }
 
     public QuestTask getQuestTask() {
-        return questTask;
+        return this.questTask;
     }
 }

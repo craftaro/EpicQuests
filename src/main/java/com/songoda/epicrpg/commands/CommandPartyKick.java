@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CommandPartyKick extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandPartyKick(EpicRPG plugin) {
@@ -23,43 +22,45 @@ public class CommandPartyKick extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
-        if (args.length != 2) return ReturnType.SYNTAX_ERROR;
+        if (args.length != 2) {
+            return ReturnType.SYNTAX_ERROR;
+        }
         Player player = (Player) sender;
 
-        StoryContender contender = plugin.getContendentManager().getContender(player);
+        StoryContender contender = this.plugin.getContendentManager().getContender(player);
 
         if (contender instanceof StoryPlayer) {
-            plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.notinparty").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
         StoryParty storyParty = (StoryParty) contender;
-        StoryPlayer storyPlayer = plugin.getContendentManager().getPlayer(player);
+        StoryPlayer storyPlayer = this.plugin.getContendentManager().getPlayer(player);
 
         if (!storyParty.isLeader(storyPlayer)) {
-            plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
+            this.plugin.getLocale().getMessage("command.party.notleader").sendPrefixedMessage(sender);
             return ReturnType.FAILURE;
         }
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
         if (!offlinePlayer.hasPlayedBefore()) {
-            plugin.getLocale().newMessage("&cThis player does not exist.").sendPrefixedMessage(player);
+            this.plugin.getLocale().newMessage("&cThis player does not exist.").sendPrefixedMessage(player);
             return ReturnType.FAILURE;
         }
 
-        StoryPlayer them = plugin.getContendentManager().getPlayer(player);
+        StoryPlayer them = this.plugin.getContendentManager().getPlayer(player);
 
         if (!storyParty.isMember(them)) {
-            plugin.getLocale().newMessage("&cThis player is not in your party...").sendPrefixedMessage(player);
+            this.plugin.getLocale().newMessage("&cThis player is not in your party...").sendPrefixedMessage(player);
             return ReturnType.FAILURE;
         }
 
-        plugin.getQuestTask().remove(storyParty, player);
+        this.plugin.getQuestTask().remove(storyParty, player);
         storyPlayer.setParty(null);
         storyParty.removePlayer(storyPlayer);
 
-        plugin.getLocale().newMessage("&aYou kicked " + offlinePlayer.getName() + " successfully!").sendPrefixedMessage(player);
+        this.plugin.getLocale().newMessage("&aYou kicked " + offlinePlayer.getName() + " successfully!").sendPrefixedMessage(player);
         return ReturnType.SUCCESS;
     }
 

@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GuiObjective extends Gui {
-
     private final EpicRPG plugin;
     private final Player player;
     private final ActionManager actionManager;
@@ -29,7 +28,7 @@ public class GuiObjective extends Gui {
     public GuiObjective(EpicRPG plugin, Player player, Objective objective) {
         this.plugin = plugin;
         this.player = player;
-        actionManager = plugin.getActionManager();
+        this.actionManager = plugin.getActionManager();
         this.objective = objective;
         setRows(6);
         setDefaultItem(null);
@@ -44,41 +43,41 @@ public class GuiObjective extends Gui {
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Retitle Objective"),
                 (event) -> {
-                    ChatPrompt.showPrompt(plugin, player,
-                            "Enter a title.",
-                            response -> objective.setTitle(response.getMessage()))
-                            .setOnClose(() -> guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
+                    ChatPrompt.showPrompt(this.plugin, this.player,
+                                    "Enter a title.",
+                                    response -> this.objective.setTitle(response.getMessage()))
+                            .setOnClose(() -> this.guiManager.showGUI(this.player, new GuiObjective(this.plugin, this.player, this.objective)));
                 });
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Add Action"),
-                (event) -> guiManager.showGUI(player, new GuiActionTypes(plugin, player, objective)));
+                (event) -> this.guiManager.showGUI(this.player, new GuiActionTypes(this.plugin, this.player, this.objective)));
 
         setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.PINK_DYE, "Modify Requirements"),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiRequirements(plugin, player, objective));
+                    this.guiManager.showGUI(this.player, new GuiRequirements(this.plugin, this.player, this.objective));
                     show();
                 });
 
-        Speech speech = plugin.getDialogManager().getSpeech(objective.getAttachedSpeech());
+        Speech speech = this.plugin.getDialogManager().getSpeech(this.objective.getAttachedSpeech());
         setButton(0, 3, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE, "Attach Speech",
-                TextUtils.formatText("&fAttached to: &6" + (speech == null ? "NONE" : speech.getDialog().getCitizen().getName()))),
+                        TextUtils.formatText("&fAttached to: &6" + (speech == null ? "NONE" : speech.getDialog().getCitizen().getName()))),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiDialogs(plugin, player, objective));
+                    this.guiManager.showGUI(this.player, new GuiDialogs(this.plugin, this.player, this.objective));
                     show();
                 });
 
-        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.PURPLE_DYE, objective.isVisible() ? "Visible" : "Invisible"),
+        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.PURPLE_DYE, this.objective.isVisible() ? "Visible" : "Invisible"),
                 (event) -> {
-                    objective.setVisible(!objective.isVisible());
+                    this.objective.setVisible(!this.objective.isVisible());
                     show();
                 });
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
-                (event) -> guiManager.showGUI(player, new GuiQuest(plugin, player, objective.getQuest())));
+                (event) -> this.guiManager.showGUI(this.player, new GuiQuest(this.plugin, this.player, this.objective.getQuest())));
 
 
-        List<ActiveAction> actions = actionManager.getActiveActions().stream()
-                .filter(a -> a.getObjective() == objective).collect(Collectors.toList());
+        List<ActiveAction> actions = this.actionManager.getActiveActions().stream()
+                .filter(a -> a.getObjective() == this.objective).collect(Collectors.toList());
         for (int i = 0; i < actions.size(); i++) {
             ActiveAction activeAction = actions.get(i);
             Action action = activeAction.getAction();
@@ -89,15 +88,15 @@ public class GuiObjective extends Gui {
                     TextUtils.formatText("&fLeft-Click: &6to setup"),
                     TextUtils.formatText("&fRight-Click: &6to delete")));
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER,
-                    action.getType(), lore),
+                            action.getType(), lore),
                     (event) -> {
                         if (event.clickType == ClickType.LEFT) {
-                            player.closeInventory();
-                            actionManager.addActiveAction(action.setup(player, objective));
-                            actionManager.removeActiveAction(activeAction);
+                            this.player.closeInventory();
+                            this.actionManager.addActiveAction(action.setup(this.player, this.objective));
+                            this.actionManager.removeActiveAction(activeAction);
                             show();
                         } else if (event.clickType == ClickType.RIGHT) {
-                            actionManager.removeActiveAction(activeAction);
+                            this.actionManager.removeActiveAction(activeAction);
                             show();
                         }
                     });

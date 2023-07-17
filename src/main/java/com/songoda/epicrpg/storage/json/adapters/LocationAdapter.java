@@ -1,10 +1,12 @@
 package com.songoda.epicrpg.storage.json.adapters;
 
-import com.google.gson.*;
-import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.story.Story;
-import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.Quest;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,13 +14,11 @@ import org.bukkit.World;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
-
     @Override
-    public Location deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
+    public Location deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject jsonObject = json.getAsJsonObject();
         String str = jsonObject.get("location").getAsString().replace("/", ".");
         List<String> args = Arrays.asList(str.split("\\s*:\\s*"));
 
@@ -28,10 +28,12 @@ public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializ
     }
 
     @Override
-    public JsonElement serialize(Location location, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(Location location, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject json = new JsonObject();
-        if (location == null || location.getWorld() == null)
+        if (location == null || location.getWorld() == null) {
             return json;
+        }
+
         String w = location.getWorld().getName();
         double x = location.getX();
         double y = location.getY();

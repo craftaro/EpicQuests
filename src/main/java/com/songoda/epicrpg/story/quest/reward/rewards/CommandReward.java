@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class CommandReward extends AbstractReward {
-
     private final List<String> commands = new ArrayList<>();
 
     public CommandReward(Quest quest) {
@@ -34,22 +33,26 @@ public class CommandReward extends AbstractReward {
     @Override
     public void give(Player player) {
         Bukkit.getScheduler().runTask(EpicRPG.getInstance(), () -> {
-            for (String command : commands)
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),
-                        command.replace("@p", player.getName())
-                        .replace("%player%", player.getName()));
+            for (String command : this.commands) {
+                Bukkit.getServer().dispatchCommand(
+                        Bukkit.getConsoleSender(),
+                        command
+                                .replace("@p", player.getName())
+                                .replace("%player%", player.getName())
+                );
+            }
         });
     }
 
     public List<String> getCommands() {
-        return Collections.unmodifiableList(commands);
+        return Collections.unmodifiableList(this.commands);
     }
 
     public void addCommand(String command) {
-        commands.add(command);
+        this.commands.add(command);
     }
 
     public void removeCommand(String command) {
-        commands.remove(command);
+        this.commands.remove(command);
     }
 }

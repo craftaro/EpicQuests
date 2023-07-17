@@ -2,7 +2,16 @@ package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
-import com.songoda.epicrpg.story.quest.action.actions.*;
+import com.songoda.epicrpg.story.quest.action.actions.DropItem;
+import com.songoda.epicrpg.story.quest.action.actions.EnterRegion;
+import com.songoda.epicrpg.story.quest.action.actions.EquipItem;
+import com.songoda.epicrpg.story.quest.action.actions.KillEntityType;
+import com.songoda.epicrpg.story.quest.action.actions.KillMythicMob;
+import com.songoda.epicrpg.story.quest.action.actions.MineBlock;
+import com.songoda.epicrpg.story.quest.action.actions.PickupItem;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickBlock;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickCitizen;
+import com.songoda.epicrpg.story.quest.action.actions.RightClickEntity;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -15,7 +24,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ActionManager {
-
     private final Map<String, Action> registeredActions = new HashMap<>();
     private final Set<ActiveAction> activeActions = new HashSet<>();
 
@@ -30,42 +38,43 @@ public class ActionManager {
                 new DropItem(plugin),
                 new EquipItem(plugin));
 
-        if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs"))
+        if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs")) {
             registerAction(new KillMythicMob(plugin));
+        }
     }
 
     public Action getAction(String key) {
-        return registeredActions.get(key);
+        return this.registeredActions.get(key);
     }
 
     public List<Action> getActions() {
-        return new ArrayList<>(registeredActions.values());
+        return new ArrayList<>(this.registeredActions.values());
     }
 
     public Set<ActiveAction> getActiveActions() {
-        return Collections.unmodifiableSet(new HashSet<>(activeActions));
+        return Collections.unmodifiableSet(new HashSet<>(this.activeActions));
     }
 
     public List<ActiveAction> getActiveActionsByObjective(Objective objective) {
-        return activeActions.stream().filter(a -> a.getObjective() == objective).collect(Collectors.toList());
+        return this.activeActions.stream().filter(a -> a.getObjective() == objective).collect(Collectors.toList());
     }
 
     public void registerAction(AbstractAction action) {
-        registeredActions.put(action.getType(), action);
+        this.registeredActions.put(action.getType(), action);
     }
 
     public void registerActions(AbstractAction... actions) {
-        for (AbstractAction action : actions)
+        for (AbstractAction action : actions) {
             registerAction(action);
+        }
     }
 
     public ActiveAction addActiveAction(ActiveAction activeAction) {
-        activeActions.add(activeAction);
+        this.activeActions.add(activeAction);
         return activeAction;
     }
 
     public void removeActiveAction(ActiveAction action) {
-        activeActions.remove(action);
+        this.activeActions.remove(action);
     }
-
 }

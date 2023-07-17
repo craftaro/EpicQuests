@@ -1,7 +1,6 @@
 package com.songoda.epicrpg.Region;
 
 public class ActiveView {
-
     private final Region region;
     private final long start;
 
@@ -11,10 +10,10 @@ public class ActiveView {
     }
 
     public Region getRegion() {
-        return region;
+        return this.region;
     }
 
     public long getStart() {
-        return start;
+        return this.start;
     }
 }

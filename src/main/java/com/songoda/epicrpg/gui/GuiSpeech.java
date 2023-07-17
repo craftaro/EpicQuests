@@ -5,7 +5,6 @@ import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiUtils;
 import com.songoda.core.input.ChatPrompt;
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.dialog.DialogManager;
 import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.utils.TextUtils;
 import org.bukkit.entity.Player;
@@ -15,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GuiSpeech extends Gui {
-
     private final EpicRPG plugin;
     private final Player player;
     private final Speech speech;
@@ -37,34 +35,36 @@ public class GuiSpeech extends Gui {
 
         setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Message"),
                 (event) -> {
-                    ChatPrompt.showPrompt(plugin, player,
-                            "Enter a Message. You may use @p to include the players name.",
-                            response -> speech.addMessage(response.getMessage()))
-                            .setOnClose(() -> guiManager.showGUI(player, new GuiSpeech(plugin, player, speech)));
+                    ChatPrompt.showPrompt(this.plugin, this.player,
+                                    "Enter a Message. You may use @p to include the players name.",
+                                    response -> this.speech.addMessage(response.getMessage()))
+                            .setOnClose(() -> this.guiManager.showGUI(this.player, new GuiSpeech(this.plugin, this.player, this.speech)));
                 });
 
         setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE,
-                speech.isDefaultDialog() ? "Default" : "Not default"),
+                        this.speech.isDefaultDialog() ? "Default" : "Not default"),
                 (event) -> {
-                    speech.setDefaultDialog(!speech.isDefaultDialog());
-                    if (speech.isDefaultDialog())
-                        speech.clearQuestPrerequisites();
+                    this.speech.setDefaultDialog(!this.speech.isDefaultDialog());
+                    if (this.speech.isDefaultDialog()) {
+                        this.speech.clearQuestPrerequisites();
+                    }
                     show();
                 });
 
-        if (!speech.isDefaultDialog())
+        if (!this.speech.isDefaultDialog()) {
             setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.PURPLE_DYE, "Modify Prerequisites"),
                     (event) -> {
-                        guiManager.showGUI(player, new GuiQuestPrereqs(plugin, player, speech));
+                        this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.speech));
                         show();
                     });
+        }
 
         setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
                 (event) -> {
-                    guiManager.showGUI(player, new GuiDialog(plugin, player, speech.getDialog(), null));
+                    this.guiManager.showGUI(this.player, new GuiDialog(this.plugin, this.player, this.speech.getDialog(), null));
                 });
 
-        List<String> messages = speech.getMessages();
+        List<String> messages = this.speech.getMessages();
 
         for (int i = 0; i < messages.size(); i++) {
             String message = messages.get(i);
@@ -72,10 +72,11 @@ public class GuiSpeech extends Gui {
             lore.addAll(Arrays.asList("", TextUtils.formatText("&fLeft-Click: &6to move to the end"), TextUtils.formatText("&fRight-Click: &6to delete")));
             setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, lore),
                     (event) -> {
-                        if (event.clickType == ClickType.RIGHT)
-                            speech.removeMessage(message);
-                        else if (event.clickType == ClickType.LEFT)
-                            speech.moveMessageToEnd(message);
+                        if (event.clickType == ClickType.RIGHT) {
+                            this.speech.removeMessage(message);
+                        } else if (event.clickType == ClickType.LEFT) {
+                            this.speech.moveMessageToEnd(message);
+                        }
                         show();
                     });
         }

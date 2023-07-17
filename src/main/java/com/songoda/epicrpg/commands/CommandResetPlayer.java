@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class CommandResetPlayer extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandResetPlayer(EpicRPG plugin) {
@@ -19,20 +18,22 @@ public class CommandResetPlayer extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
-        if (args.length != 1) return ReturnType.SYNTAX_ERROR;
+        if (args.length != 1) {
+            return ReturnType.SYNTAX_ERROR;
+        }
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
-        plugin.getContendentManager().getPlayer(offlinePlayer).reset();
+        this.plugin.getContendentManager().getPlayer(offlinePlayer).reset();
 
-        plugin.getLocale().getMessage("command.resetplayer.success")
+        this.plugin.getLocale().getMessage("command.resetplayer.success")
                 .processPlaceholder("player", offlinePlayer.getName())
                 .sendPrefixedMessage(sender);
 
-        if (offlinePlayer.isOnline())
-            plugin.getLocale().getMessage("command.resetplayer.reset")
+        if (offlinePlayer.isOnline()) {
+            this.plugin.getLocale().getMessage("command.resetplayer.reset")
                     .sendPrefixedMessage(offlinePlayer.getPlayer());
-
+        }
 
         return ReturnType.SUCCESS;
     }

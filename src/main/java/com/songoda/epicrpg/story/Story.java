@@ -9,7 +9,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Story {
-
     private final UUID uniqueId = UUID.randomUUID();
     private String name = "Unnamed Story";
     private final List<Quest> quests = new LinkedList<>();
@@ -17,28 +16,28 @@ public class Story {
     private boolean active = false;
 
     public Quest addQuest(Quest quest) {
-        quests.add(quest);
+        this.quests.add(quest);
         return quest;
     }
 
     public void removeQuest(Quest quest) {
-        quests.remove(quest);
+        this.quests.remove(quest);
     }
 
     public UUID getUniqueId() {
-        return uniqueId;
+        return this.uniqueId;
     }
 
     public List<Quest> getQuests() {
-        return Collections.unmodifiableList(quests);
+        return Collections.unmodifiableList(this.quests);
     }
 
     public List<Quest> getEnabledQuests() {
-        return quests.stream().filter(Quest::isActive).collect(Collectors.toList());
+        return this.quests.stream().filter(Quest::isActive).collect(Collectors.toList());
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -46,7 +45,7 @@ public class Story {
     }
 
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
     public void setActive(boolean active) {

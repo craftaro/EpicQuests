@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public abstract class AbstractRequirement implements Requirement, AttachedSpeech {
-
     private transient Objective objective;
     private UUID reject;
 
@@ -19,7 +18,7 @@ public abstract class AbstractRequirement implements Requirement, AttachedSpeech
 
     @Override
     public Objective getObjective() {
-        return objective;
+        return this.objective;
     }
 
     public void setObjective(Objective objective) {
@@ -28,7 +27,7 @@ public abstract class AbstractRequirement implements Requirement, AttachedSpeech
 
     @Override
     public void reject(Player player) {
-        Speech speech = EpicRPG.getInstance().getDialogManager().getSpeech(reject);
+        Speech speech = EpicRPG.getInstance().getDialogManager().getSpeech(this.reject);
         if (speech == null) {
             EpicRPG.getInstance().getLocale().getMessage("general.requirements.not_met").sendMessage(player);
         } else {
@@ -38,11 +37,11 @@ public abstract class AbstractRequirement implements Requirement, AttachedSpeech
 
     @Override
     public UUID getAttachedSpeech() {
-        return reject;
+        return this.reject;
     }
 
     @Override
-    public void setAttachedSpeech(UUID reject) {
-        this.reject = reject;
+    public void setAttachedSpeech(UUID rejection) {
+        this.reject = rejection;
     }
 }

@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class GuiMain extends Gui {
-
     public GuiMain(EpicRPG plugin, Player player) {
         setRows(3);
         setDefaultItem(null);
@@ -31,11 +30,10 @@ public class GuiMain extends Gui {
         mirrorFill(0, 1, true, true, glass2);
 
         setButton(1, 3, GuiUtils.createButtonItem(CompatibleMaterial.BOOK, TextUtils.formatText("&9&lDialog")),
-                (event) -> guiManager.showGUI(player, new GuiDialogs(plugin, player, null)));
+                (event) -> this.guiManager.showGUI(player, new GuiDialogs(plugin, player, null)));
 
         setButton(1, 5, GuiUtils.createButtonItem(CompatibleMaterial.WRITTEN_BOOK, TextUtils.formatText("&a&lStories")), (event) ->
-                guiManager.showGUI(player, new GuiStories(plugin, player)));
+                this.guiManager.showGUI(player, new GuiStories(plugin, player)));
 
     }
-
 }

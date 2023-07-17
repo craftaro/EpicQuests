@@ -2,7 +2,6 @@ package com.songoda.epicrpg.commands;
 
 import com.songoda.core.commands.AbstractCommand;
 import com.songoda.epicrpg.EpicRPG;
-import com.songoda.epicrpg.gui.GuiMain;
 import com.songoda.epicrpg.gui.GuiQuestLog;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,7 +9,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CommandQuestLog extends AbstractCommand {
-
     private final EpicRPG plugin;
 
     public CommandQuestLog(EpicRPG plugin) {
@@ -20,7 +18,7 @@ public class CommandQuestLog extends AbstractCommand {
 
     @Override
     protected ReturnType runCommand(CommandSender sender, String... args) {
-        plugin.getGuiManager().showGUI((Player) sender, new GuiQuestLog(plugin, (Player) sender));
+        this.plugin.getGuiManager().showGUI((Player) sender, new GuiQuestLog(this.plugin, (Player) sender));
         return ReturnType.SUCCESS;
     }
 

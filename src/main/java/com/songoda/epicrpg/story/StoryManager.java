@@ -7,55 +7,64 @@ import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import com.songoda.epicrpg.story.quest.reward.AbstractReward;
 import com.songoda.epicrpg.story.quest.reward.Reward;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 public class StoryManager {
-
     private final List<Story> stories = new LinkedList<>();
 
     public Story addStory(Story story) {
         for (Quest quest : story.getQuests()) {
             quest.setStory(story);
-            for (Reward reward : quest.getRewards())
+            for (Reward reward : quest.getRewards()) {
                 ((AbstractReward) reward).setQuest(quest);
+            }
             for (Objective objective : quest.getObjectives()) {
-                for (Requirement requirement : objective.getRequirements())
+                for (Requirement requirement : objective.getRequirements()) {
                     ((AbstractRequirement) requirement).setObjective(objective);
+                }
                 objective.setQuest(quest);
             }
         }
-        stories.add(story);
+        this.stories.add(story);
         return story;
     }
 
     public void removeStory(Story story) {
-        stories.remove(story);
+        this.stories.remove(story);
     }
 
     public List<Story> getStories() {
-        return Collections.unmodifiableList(stories);
+        return Collections.unmodifiableList(this.stories);
     }
 
     public List<Quest> getQuests() {
         List<Quest> quests = new ArrayList<>();
-        for (Story story : stories)
-            if (story.isActive())
+        for (Story story : this.stories) {
+            if (story.isActive()) {
                 quests.addAll(story.getQuests());
+            }
+        }
         return quests;
     }
 
     public Quest getQuest(UUID activeQuest) {
         for (Quest quest : getQuests()) {
-            if (activeQuest.equals(quest.getUniqueId()))
+            if (activeQuest.equals(quest.getUniqueId())) {
                 return quest;
+            }
         }
         return null;
     }
 
     public Quest getEnabledQuest(UUID activeQuest) {
         for (Quest quest : getQuests()) {
-            if (activeQuest.equals(quest.getUniqueId()) && quest.isActive())
+            if (activeQuest.equals(quest.getUniqueId()) && quest.isActive()) {
                 return quest;
+            }
         }
         return null;
     }

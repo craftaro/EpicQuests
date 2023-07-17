@@ -19,8 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractAction implements Action {
-
-    protected transient final EpicRPG plugin;
+    protected final transient EpicRPG plugin;
 
     public AbstractAction(EpicRPG plugin) {
         this.plugin = plugin;
@@ -36,32 +35,26 @@ public abstract class AbstractAction implements Action {
 
     @Override
     public void onPickup(PlayerPickupItemEvent event, ActiveAction activeAction) {
-
     }
 
     @Override
     public void onDrop(PlayerDropItemEvent event, ActiveAction activeAction) {
-
     }
 
     @Override
     public void onEquip(ArmorEquipEvent event, ActiveAction activeAction) {
-
     }
 
     @Override
     public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
-
     }
 
     @Override
     public void onBlockBreak(BlockBreakEvent event, ActiveAction action) {
-
     }
 
     @Override
     public void moveTick(Player player, ActiveAction action) {
-
     }
 
     protected boolean performAction(ActiveAction activeAction, int amount, Player player) {
@@ -73,23 +66,27 @@ public abstract class AbstractAction implements Action {
                 continue;
             }
 
-            Iterator<RemainingObjective> remainingObjectives
-                    = activeQuest.getRemainingObjectives().values().iterator();
+            Iterator<RemainingObjective> remainingObjectives = activeQuest.getRemainingObjectives().values().iterator();
 
-            if (remainingObjectives.hasNext() && !remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId()))
+            if (remainingObjectives.hasNext() && !remainingObjectives.next().getUniqueId().equals(activeAction.getObjective().getUniqueId())) {
                 continue;
+            }
             List<Requirement> requirements = activeAction.getObjective().getRequirements();
-            for (Requirement requirement : requirements)
+            for (Requirement requirement : requirements) {
                 if (!requirement.isMet(player)) {
                     requirement.reject(player);
                     return false;
                 }
-            for (Requirement requirement : requirements)
+            }
+            for (Requirement requirement : requirements) {
                 requirement.execute(player);
+            }
             Speech speech = plugin.getDialogManager().getSpeech(activeAction.getObjective().getAttachedSpeech());
-            if (activeQuest.completeAction(activeAction, amount, activeAction.getObjective()))
-                if (speech != null)
+            if (activeQuest.completeAction(activeAction, amount, activeAction.getObjective())) {
+                if (speech != null) {
                     speech.sendMessages(player, speech.getDialog().getCitizen());
+                }
+            }
 
             contender.toggleAllFocusedOff();
             activeQuest.setFocused(true);

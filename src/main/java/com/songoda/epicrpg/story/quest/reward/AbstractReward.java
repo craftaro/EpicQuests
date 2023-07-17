@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.quest.reward;
 import com.songoda.epicrpg.story.quest.Quest;
 
 public abstract class AbstractReward implements Reward {
-
     private transient Quest quest;
 
     public AbstractReward(Quest quest) {
@@ -12,7 +11,7 @@ public abstract class AbstractReward implements Reward {
 
     @Override
     public Quest getQuest() {
-        return quest;
+        return this.quest;
     }
 
     public void setQuest(Quest quest) {

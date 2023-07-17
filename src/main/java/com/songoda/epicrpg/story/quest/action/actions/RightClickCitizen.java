@@ -3,7 +3,6 @@ package com.songoda.epicrpg.story.quest.action.actions;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
@@ -11,18 +10,12 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import java.util.Collections;
 import java.util.List;
 
 public class RightClickCitizen extends AbstractAction {
-
     public RightClickCitizen(EpicRPG plugin) {
         super(plugin);
     }
@@ -36,10 +29,11 @@ public class RightClickCitizen extends AbstractAction {
     public List<String> getDescription(ActionDataStore actionDataStore) {
         RightClickCitizenDataStore dataStore = (RightClickCitizenDataStore) actionDataStore;
         NPC npc = CitizensAPI.getNPCRegistry().getById(dataStore.citizenId);
-        if (npc != null)
+        if (npc != null) {
             return Collections.singletonList(TextUtils.formatText("&fCitizen Name: &6" + CitizensAPI.getNPCRegistry().getById(dataStore.citizenId).getName()));
-        else
+        } else {
             return Collections.singletonList(TextUtils.formatText("&cThe attached citizen could not be found!"));
+        }
     }
 
     @Override
@@ -49,16 +43,19 @@ public class RightClickCitizen extends AbstractAction {
 
         RightClickCitizenDataStore dataStore = (RightClickCitizenDataStore) activeAction.getActionDataStore();
 
-        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) return;
-
-        if (dataStore.isBeingSetup(event.getPlayer())) {
-            dataStore.setCitizenId(CitizensAPI.getNPCRegistry().getNPC(entity).getId());
-            dataStore.finishSetup(plugin, player, activeAction);
+        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) {
             return;
         }
 
-        if (CitizensAPI.getNPCRegistry().getNPC(entity).getId() == dataStore.getCitizenId())
+        if (dataStore.isBeingSetup(event.getPlayer())) {
+            dataStore.setCitizenId(CitizensAPI.getNPCRegistry().getNPC(entity).getId());
+            dataStore.finishSetup(this.plugin, player, activeAction);
+            return;
+        }
+
+        if (CitizensAPI.getNPCRegistry().getNPC(entity).getId() == dataStore.getCitizenId()) {
             performAction(activeAction, 1, player);
+        }
     }
 
     @Override
@@ -69,8 +66,7 @@ public class RightClickCitizen extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class RightClickCitizenDataStore extends ActionDataStore {
-
+    public static class RightClickCitizenDataStore extends ActionDataStore {
         private int citizenId;
 
         public RightClickCitizenDataStore(Objective objective) {
@@ -78,7 +74,7 @@ public class RightClickCitizen extends AbstractAction {
         }
 
         public int getCitizenId() {
-            return citizenId;
+            return this.citizenId;
         }
 
         public void setCitizenId(int citizenId) {

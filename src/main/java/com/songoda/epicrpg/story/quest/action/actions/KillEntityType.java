@@ -1,10 +1,8 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
-import com.songoda.core.input.ChatPrompt;
 import com.songoda.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
-import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
@@ -12,16 +10,12 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import java.util.Collections;
 import java.util.List;
 
 public class KillEntityType extends AbstractAction {
-
     public KillEntityType(EpicRPG plugin) {
         super(plugin);
     }
@@ -47,7 +41,7 @@ public class KillEntityType extends AbstractAction {
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
             dataStore.setEntityType(entity.getType());
-            dataStore.finishSetup(plugin, player, activeAction);
+            dataStore.finishSetup(this.plugin, player, activeAction);
         }
     }
 
@@ -55,10 +49,13 @@ public class KillEntityType extends AbstractAction {
     public void onEntityKill(EntityDeathEvent event, ActiveAction activeAction) {
         KillEntityTypeDataStore dataStore = (KillEntityTypeDataStore) activeAction.getActionDataStore();
         Player player = event.getEntity().getKiller();
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
 
-        if (dataStore.getEntityType() == event.getEntityType())
+        if (dataStore.getEntityType() == event.getEntityType()) {
             performAction(activeAction, 1, event.getEntity().getKiller());
+        }
     }
 
     @Override
@@ -69,8 +66,7 @@ public class KillEntityType extends AbstractAction {
         return new ActiveAction(this, dataStore);
     }
 
-    public class KillEntityTypeDataStore extends ActionDataStore {
-
+    public static class KillEntityTypeDataStore extends ActionDataStore {
         private EntityType entityType;
 
         public KillEntityTypeDataStore(Objective objective) {
@@ -78,7 +74,7 @@ public class KillEntityType extends AbstractAction {
         }
 
         public EntityType getEntityType() {
-            return entityType;
+            return this.entityType;
         }
 
         public void setEntityType(EntityType entityType) {
