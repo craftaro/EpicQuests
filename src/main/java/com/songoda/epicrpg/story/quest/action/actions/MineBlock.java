@@ -1,7 +1,8 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.compatibility.CompatibleMaterial;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
@@ -27,9 +28,8 @@ public class MineBlock extends AbstractAction {
     @Override
     public List<String> getDescription(ActionDataStore actionDataStore) {
         RightClickBlockDataStore dataStore = (RightClickBlockDataStore) actionDataStore;
-        CompatibleMaterial material = dataStore.getMaterial();
-        return Collections.singletonList(TextUtils.formatText("&fBlock: &6"
-                + (dataStore.getMaterial() == null ? "Undefined" : material.name())));
+        XMaterial material = dataStore.getMaterial();
+        return Collections.singletonList(TextUtils.formatText("&fBlock: &6" + (dataStore.getMaterial() == null ? "Undefined" : material.name())));
     }
 
     @Override
@@ -40,12 +40,12 @@ public class MineBlock extends AbstractAction {
         RightClickBlockDataStore dataStore = (RightClickBlockDataStore) action.getActionDataStore();
 
         if (dataStore.isBeingSetup(event.getPlayer())) {
-            dataStore.setMaterial(CompatibleMaterial.getMaterial(block.getType()));
+            dataStore.setMaterial(CompatibleMaterial.getMaterial(block.getType()).get());
             dataStore.finishSetup(this.plugin, player, action);
             return;
         }
 
-        if (CompatibleMaterial.getMaterial(block.getType()) == dataStore.getMaterial()) {
+        if (CompatibleMaterial.getMaterial(block.getType()).orElse(null) == dataStore.getMaterial()) {
             performAction(action, 1, player);
         }
     }
@@ -59,17 +59,17 @@ public class MineBlock extends AbstractAction {
     }
 
     public static class RightClickBlockDataStore extends ActionDataStore {
-        private CompatibleMaterial material;
+        private XMaterial material;
 
         public RightClickBlockDataStore(Objective objective) {
             super(objective);
         }
 
-        public CompatibleMaterial getMaterial() {
+        public XMaterial getMaterial() {
             return this.material;
         }
 
-        public void setMaterial(CompatibleMaterial material) {
+        public void setMaterial(XMaterial material) {
             this.material = material;
         }
     }

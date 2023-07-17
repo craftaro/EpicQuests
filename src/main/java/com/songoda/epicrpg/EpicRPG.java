@@ -1,11 +1,11 @@
 package com.songoda.epicrpg;
 
-import com.songoda.core.SongodaCore;
-import com.songoda.core.SongodaPlugin;
-import com.songoda.core.commands.CommandManager;
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.configuration.Config;
-import com.songoda.core.gui.GuiManager;
+import com.craftaro.core.SongodaCore;
+import com.craftaro.core.SongodaPlugin;
+import com.craftaro.core.commands.CommandManager;
+import com.craftaro.core.configuration.Config;
+import com.craftaro.core.gui.GuiManager;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.Region.SelectionManager;
 import com.songoda.epicrpg.commands.CommandAdmin;
 import com.songoda.epicrpg.commands.CommandPartyCreate;
@@ -60,7 +60,7 @@ public class EpicRPG extends SongodaPlugin {
     @Override
     public void onPluginEnable() {
         // Run Songoda Updater
-        SongodaCore.registerPlugin(this, 364, CompatibleMaterial.COMPASS);
+        SongodaCore.registerPlugin(this, 364, XMaterial.COMPASS);
 
         // Setup Config
         Settings.setupConfig();

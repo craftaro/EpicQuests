@@ -1,6 +1,6 @@
 package com.songoda.epicrpg.commands;
 
-import com.songoda.core.commands.AbstractCommand;
+import com.craftaro.core.commands.AbstractCommand;
 import com.songoda.epicrpg.EpicRPG;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

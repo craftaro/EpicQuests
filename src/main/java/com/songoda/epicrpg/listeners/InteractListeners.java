@@ -1,6 +1,6 @@
 package com.songoda.epicrpg.listeners;
 
-import com.songoda.core.compatibility.ServerVersion;
+import com.craftaro.core.compatibility.ServerVersion;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.Region.ActiveSelection;
 import com.songoda.epicrpg.dialog.Dialog;

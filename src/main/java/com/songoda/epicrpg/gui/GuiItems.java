@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
 import com.songoda.epicrpg.story.quest.reward.Reward;
@@ -52,7 +52,7 @@ public class GuiItems extends Gui {
     public void show() {
         reset();
 
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                 (event) -> {
                     save();
                     if (this.holder instanceof Requirement) {

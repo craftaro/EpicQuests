@@ -1,6 +1,6 @@
 package com.songoda.epicrpg.data;
 
-import com.songoda.core.input.ChatPrompt;
+import com.craftaro.core.input.ChatPrompt;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.gui.GuiObjective;
 import com.songoda.epicrpg.story.quest.Objective;

@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.Action;
@@ -21,14 +21,13 @@ public class GuiActionTypes extends Gui {
 
         setActionForRange(0, 53, null);
 
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.BARRIER, "Cancel"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.BARRIER, "Cancel"),
                 (event) -> this.guiManager.showGUI(player, new GuiObjective(plugin, player, objective)));
 
-
         List<Action> actions = actionManager.getActions();
-        for (int i = 0; i < actions.size(); i++) {
+        for (int i = 0; i < actions.size(); ++i) {
             Action action = actions.get(i);
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, action.getType()),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, action.getType()),
                     (event) -> {
                         player.closeInventory();
                         actionManager.addActiveAction(action.setup(player, objective));

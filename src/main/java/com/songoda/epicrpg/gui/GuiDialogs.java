@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.AttachedSpeech;
 import com.songoda.epicrpg.dialog.Dialog;
@@ -34,14 +34,14 @@ public class GuiDialogs extends Gui {
         reset();
 
         if (this.attachedSpeech == null) {
-            setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Create Dialog"),
+            setButton(0, 0, GuiUtils.createButtonItem(XMaterial.GREEN_DYE, "Create Dialog"),
                     (event) -> {
                         this.plugin.getContendentManager().getPlayer(this.player).setInDialogCreation(true);
                         this.player.sendMessage("Click a citizen to create a new dialog.");
                         this.player.closeInventory();
                     });
 
-            setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+            setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                     (event) -> this.guiManager.showGUI(this.player, new GuiMain(this.plugin, this.player)));
         }
 
@@ -54,7 +54,7 @@ public class GuiDialogs extends Gui {
                 continue;
             }
 
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, dialog.getCitizen().getName()),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, dialog.getCitizen().getName()),
                     (event) -> this.guiManager.showGUI(this.player, new GuiDialog(this.plugin, this.player, dialog, this.attachedSpeech)));
         }
     }

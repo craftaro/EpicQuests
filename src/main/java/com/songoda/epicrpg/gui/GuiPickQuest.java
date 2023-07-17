@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.story.StoryManager;
@@ -43,8 +43,7 @@ public class GuiPickQuest extends Gui {
     public void show() {
         reset();
 
-
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                 (event) -> {
                     if (this.quest != null) {
                         this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.quest));
@@ -53,12 +52,11 @@ public class GuiPickQuest extends Gui {
                     }
                 });
 
-
         List<Quest> quests = this.storyManager.getQuests();
         quests.remove(this.quest);
         for (int i = 0; i < quests.size(); i++) {
             Quest quest = quests.get(i);
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, quest.getName()),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, quest.getName()),
                     (event) -> {
                         if (this.quest == null) {
                             this.speech.addQuestPrerequisite(quest);

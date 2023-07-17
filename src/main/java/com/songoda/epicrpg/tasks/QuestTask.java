@@ -1,9 +1,9 @@
 package com.songoda.epicrpg.tasks;
 
-import com.songoda.core.compatibility.CompatibleParticleHandler;
-import com.songoda.core.compatibility.CompatibleSound;
-import com.songoda.core.utils.LocationUtils;
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.compatibility.CompatibleParticleHandler;
+import com.craftaro.core.compatibility.CompatibleSound;
+import com.craftaro.core.utils.LocationUtils;
+import com.craftaro.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.settings.Settings;

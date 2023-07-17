@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.dialog.AttachedSpeech;
 import com.songoda.epicrpg.dialog.Dialog;
@@ -43,16 +43,15 @@ public class GuiDialog extends Gui {
         reset();
 
         if (this.attachedSpeech == null) {
-            setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Speech"),
+            setButton(0, 0, GuiUtils.createButtonItem(XMaterial.GREEN_DYE, "Add Speech"),
                     (event) -> {
                         this.dialog.addMessage(new Speech(this.dialog));
                         show();
                     });
         }
 
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                 (event) -> this.guiManager.showGUI(this.player, new GuiDialogs(this.plugin, this.player, this.attachedSpeech)));
-
 
         List<Speech> messages = this.dialog.getMessages();
         for (int i = 0; i < messages.size(); i++) {
@@ -64,7 +63,7 @@ public class GuiDialog extends Gui {
                     : TextUtils.condense(speech.getMessages().get(0)));
 
             lore.addAll(Arrays.asList("", TextUtils.formatText(this.attachedSpeech == null ? "&fLeft-Click: &6to view" : "&fLeft-Click: &6to select"), TextUtils.formatText("&fRight-Click: &6to delete")));
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, "Speech " + (i + 1), lore),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, "Speech " + (i + 1), lore),
                     (event) -> {
                         if (event.clickType == ClickType.RIGHT) {
                             this.dialog.removeSpeech(speech);

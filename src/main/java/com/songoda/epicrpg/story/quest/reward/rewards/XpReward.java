@@ -1,7 +1,7 @@
 package com.songoda.epicrpg.story.quest.reward.rewards;
 
-import com.songoda.core.input.ChatPrompt;
-import com.songoda.core.utils.NumberUtils;
+import com.craftaro.core.input.ChatPrompt;
+import com.craftaro.core.utils.NumberUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.gui.GuiRewards;
 import com.songoda.epicrpg.story.quest.Quest;

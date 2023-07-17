@@ -1,6 +1,6 @@
 package com.songoda.epicrpg.story.quest.action.actions;
 
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;

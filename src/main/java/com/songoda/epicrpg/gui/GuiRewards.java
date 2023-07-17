@@ -1,8 +1,8 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.reward.Reward;
@@ -31,10 +31,10 @@ public class GuiRewards extends Gui {
     public void show() {
         reset();
 
-        setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Add Reward"),
+        setButton(0, 0, GuiUtils.createButtonItem(XMaterial.GREEN_DYE, "Add Reward"),
                 (event) -> this.guiManager.showGUI(this.player, new GuiRewardTypes(this.plugin, this.player, this.quest)));
 
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                 (event) -> this.guiManager.showGUI(this.player, new GuiQuest(this.plugin, this.player, this.quest)));
 
 
@@ -42,7 +42,7 @@ public class GuiRewards extends Gui {
         for (int i = 0; i < rewards.size(); i++) {
             Reward reward = rewards.get(i);
 
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, reward.getType().name()),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, reward.getType().name()),
                     (event) -> {
                         if (event.clickType == ClickType.RIGHT) {
                             this.quest.removeReward(reward);

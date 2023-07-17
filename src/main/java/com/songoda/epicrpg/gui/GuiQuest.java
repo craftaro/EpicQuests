@@ -1,10 +1,10 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.Gui;
-import com.songoda.core.gui.GuiUtils;
-import com.songoda.core.input.ChatPrompt;
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.gui.Gui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.input.ChatPrompt;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.Region.Region;
 import com.songoda.epicrpg.story.quest.Objective;
@@ -37,38 +37,38 @@ public class GuiQuest extends Gui {
     public void show() {
         reset();
 
-        setButton(0, 0, GuiUtils.createButtonItem(CompatibleMaterial.GREEN_DYE, "Rename Quest"),
+        setButton(0, 0, GuiUtils.createButtonItem(XMaterial.GREEN_DYE, "Rename Quest"),
                 (event) -> ChatPrompt.showPrompt(this.plugin, this.player,
                                 "Enter a Quest name.",
                                 response -> this.quest.setName(response.getMessage()))
                         .setOnClose(() -> this.guiManager.showGUI(this.player, new GuiQuest(this.plugin, this.player, this.quest))));
 
-        setButton(0, 1, GuiUtils.createButtonItem(CompatibleMaterial.BLUE_DYE, "Create Objective"),
+        setButton(0, 1, GuiUtils.createButtonItem(XMaterial.BLUE_DYE, "Create Objective"),
                 (event) -> {
                     this.quest.addObjective(new Objective(this.quest));
                     show();
                 });
 
-        setButton(0, 2, GuiUtils.createButtonItem(CompatibleMaterial.RED_DYE, this.quest.isActive() ? "Active" : "Inactive"),
+        setButton(0, 2, GuiUtils.createButtonItem(XMaterial.RED_DYE, this.quest.isActive() ? "Active" : "Inactive"),
                 (event) -> {
                     this.quest.setActive(!this.quest.isActive());
                     show();
                 });
 
-        setButton(0, 3, GuiUtils.createButtonItem(CompatibleMaterial.PURPLE_DYE, "Modify Prerequisites"),
+        setButton(0, 3, GuiUtils.createButtonItem(XMaterial.PURPLE_DYE, "Modify Prerequisites"),
                 (event) -> {
                     this.guiManager.showGUI(this.player, new GuiQuestPrereqs(this.plugin, this.player, this.quest));
                     show();
                 });
 
-        setButton(0, 4, GuiUtils.createButtonItem(CompatibleMaterial.YELLOW_DYE, "Modify Rewards"),
+        setButton(0, 4, GuiUtils.createButtonItem(XMaterial.YELLOW_DYE, "Modify Rewards"),
                 (event) -> {
                     this.guiManager.showGUI(this.player, new GuiRewards(this.plugin, this.player, this.quest));
                     show();
                 });
 
         Region region = this.quest.getRegion();
-        setButton(0, 5, GuiUtils.createButtonItem(CompatibleMaterial.ORANGE_DYE, "Modify Focus Region",
+        setButton(0, 5, GuiUtils.createButtonItem(XMaterial.ORANGE_DYE, "Modify Focus Region",
                         region != null ? Arrays.asList("Right-Click: to show region.", "Left-Click: to clear.")
                                 : Collections.singletonList("Click to set region.")),
                 (event) -> {
@@ -91,16 +91,15 @@ public class GuiQuest extends Gui {
                     }
                 });
 
-        setButton(0, 8, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Back"),
+        setButton(0, 8, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Back"),
                 (event) -> {
                     this.guiManager.showGUI(this.player, new GuiStory(this.plugin, this.player, this.quest.getStory()));
                 });
 
-
         List<Objective> objectives = this.quest.getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
-            setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, objective.getTitle(),
+            setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, objective.getTitle(),
                             "",
                             TextUtils.formatText("&fLeft-Click: &6to view"),
                             TextUtils.formatText("&fMiddle-Click: &6to move to end"),

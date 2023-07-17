@@ -1,6 +1,6 @@
 package com.songoda.epicrpg.commands;
 
-import com.songoda.core.commands.AbstractCommand;
+import com.craftaro.core.commands.AbstractCommand;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.gui.GuiQuestLog;
 import org.bukkit.command.CommandSender;

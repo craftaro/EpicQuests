@@ -1,9 +1,9 @@
 package com.songoda.epicrpg.gui;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.gui.CustomizableGui;
-import com.songoda.core.gui.GuiUtils;
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.gui.CustomizableGui;
+import com.craftaro.core.gui.GuiUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.utils.TextUtils;
 import com.songoda.epicrpg.EpicRPG;
 import com.songoda.epicrpg.story.Story;
 import com.songoda.epicrpg.story.StoryManager;
@@ -56,7 +56,7 @@ public class GuiQuestLog extends CustomizableGui {
                 break;
             }
             if (story.isActive()) {
-                setButton(i + 9, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, story.getName()),
+                setButton(i + 9, GuiUtils.createButtonItem(XMaterial.PAPER, story.getName()),
                         (event) -> showQuests(story, false));
             }
         }
@@ -65,7 +65,7 @@ public class GuiQuestLog extends CustomizableGui {
     public void showQuests(Story story, boolean completed) {
         reset();
 
-        setButton("objectives", 4, GuiUtils.createButtonItem(CompatibleMaterial.BELL,
+        setButton("objectives", 4, GuiUtils.createButtonItem(XMaterial.BELL,
                         this.storyPlayer.isSilent() ? "Click to show objectives." : "Click to hide objectives."),
                 (event) -> {
                     this.storyPlayer.setSilent(!this.storyPlayer.isSilent());
@@ -73,10 +73,10 @@ public class GuiQuestLog extends CustomizableGui {
                 });
 
         if (this.storyCount != 1) {
-            setButton("back", 5, 3, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, "Back"),
+            setButton("back", 5, 3, GuiUtils.createButtonItem(XMaterial.ARROW, "Back"),
                     (event) -> show());
         }
-        setButton("exit", 5, this.storyCount == 1 ? 3 : 4, GuiUtils.createButtonItem(CompatibleMaterial.OAK_DOOR, "Exit"),
+        setButton("exit", 5, this.storyCount == 1 ? 3 : 4, GuiUtils.createButtonItem(XMaterial.OAK_DOOR, "Exit"),
                 (event) -> this.player.closeInventory());
 
 
@@ -100,7 +100,7 @@ public class GuiQuestLog extends CustomizableGui {
 
         }
 
-        setButton("quests", 5, 5, GuiUtils.createButtonItem(CompatibleMaterial.BOOK,
+        setButton("quests", 5, 5, GuiUtils.createButtonItem(XMaterial.BOOK,
                         TextUtils.formatText(completed ? "&aOngoing Quests" : "&aCompleted Quests"), lore),
                 (event) -> {
                     setTitle(completed ? "Quest Log" : "Quest Log (Completed)");
@@ -153,7 +153,7 @@ public class GuiQuestLog extends CustomizableGui {
                 }
             }
 
-            setButton(i, GuiUtils.createButtonItem(CompatibleMaterial.PAPER,
+            setButton(i, GuiUtils.createButtonItem(XMaterial.PAPER,
                     TextUtils.formatText("&d" + quest.getName()),
                     objectivesLore), (event) -> {
                 if (!questCompleted) {
