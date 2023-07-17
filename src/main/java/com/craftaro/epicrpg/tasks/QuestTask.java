@@ -1,9 +1,11 @@
 package com.craftaro.epicrpg.tasks;
 
 import com.craftaro.core.compatibility.CompatibleParticleHandler;
-import com.craftaro.core.compatibility.CompatibleSound;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.core.utils.LocationUtils;
 import com.craftaro.core.utils.TextUtils;
+import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.Region.Region;
 import com.craftaro.epicrpg.settings.Settings;
 import com.craftaro.epicrpg.story.contender.ContendentManager;
 import com.craftaro.epicrpg.story.contender.StoryContender;
@@ -16,8 +18,6 @@ import com.craftaro.epicrpg.story.quest.RemainingObjective;
 import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.story.quest.action.actions.RightClickBlock;
 import com.craftaro.epicrpg.story.quest.action.actions.RightClickCitizen;
-import com.craftaro.epicrpg.EpicRPG;
-import com.craftaro.epicrpg.Region.Region;
 import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -107,7 +107,7 @@ public class QuestTask extends BukkitRunnable {
                 }
 
                 if (activeQuest.getRemainingObjectives().isEmpty()) {
-                    CompatibleSound.UI_TOAST_CHALLENGE_COMPLETE.play(player);
+                    XSound.UI_TOAST_CHALLENGE_COMPLETE.play(player);
                     contender.completeQuest(quest);
                     quest.giveRewards(player);
                     continue;
