@@ -5,14 +5,19 @@ import com.songoda.epicrpg.dialog.AttachedSpeech;
 import com.songoda.epicrpg.dialog.Speech;
 import com.songoda.epicrpg.story.quest.Objective;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
 public abstract class AbstractRequirement implements Requirement, AttachedSpeech {
+    private final transient EpicRPG plugin;
+
     private transient Objective objective;
     private UUID reject;
 
     public AbstractRequirement(Objective objective) {
+        this.plugin = JavaPlugin.getPlugin(EpicRPG.class);
+
         this.objective = objective;
     }
 
@@ -27,9 +32,9 @@ public abstract class AbstractRequirement implements Requirement, AttachedSpeech
 
     @Override
     public void reject(Player player) {
-        Speech speech = EpicRPG.getInstance().getDialogManager().getSpeech(this.reject);
+        Speech speech = this.plugin.getDialogManager().getSpeech(this.reject);
         if (speech == null) {
-            EpicRPG.getInstance().getLocale().getMessage("general.requirements.not_met").sendMessage(player);
+            this.plugin.getLocale().getMessage("general.requirements.not_met").sendMessage(player);
         } else {
             speech.sendMessages(player, speech.getDialog().getCitizen());
         }

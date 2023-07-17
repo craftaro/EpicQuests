@@ -58,11 +58,10 @@ public abstract class AbstractAction implements Action {
     }
 
     protected boolean performAction(ActiveAction activeAction, int amount, Player player) {
-        EpicRPG plugin = EpicRPG.getInstance();
-        StoryContender contender = plugin.getContendentManager().getContender(player);
+        StoryContender contender = this.plugin.getContendentManager().getContender(player);
         for (ActiveQuest activeQuest : contender.getActiveQuests()) {
             if (activeAction.getObjective() == null) {
-                plugin.getActionManager().removeActiveAction(activeAction);
+                this.plugin.getActionManager().removeActiveAction(activeAction);
                 continue;
             }
 
@@ -81,7 +80,7 @@ public abstract class AbstractAction implements Action {
             for (Requirement requirement : requirements) {
                 requirement.execute(player);
             }
-            Speech speech = plugin.getDialogManager().getSpeech(activeAction.getObjective().getAttachedSpeech());
+            Speech speech = this.plugin.getDialogManager().getSpeech(activeAction.getObjective().getAttachedSpeech());
             if (activeQuest.completeAction(activeAction, amount, activeAction.getObjective())) {
                 if (speech != null) {
                     speech.sendMessages(player, speech.getDialog().getCitizen());

@@ -34,8 +34,6 @@ import org.bukkit.plugin.PluginManager;
 import java.util.List;
 
 public class EpicRPG extends SongodaPlugin {
-    private static EpicRPG INSTANCE;
-
     private final GuiManager guiManager = new GuiManager(this);
     private StoryManager storyManager;
     private ContendentManager contendentManager;
@@ -48,13 +46,16 @@ public class EpicRPG extends SongodaPlugin {
 
     private QuestTask questTask;
 
+    /**
+     * @deprecated Use {@link #getPlugin(Class)} instead
+     */
+    @Deprecated
     public static EpicRPG getInstance() {
-        return INSTANCE;
+        return getPlugin(EpicRPG.class);
     }
 
     @Override
     public void onPluginLoad() {
-        INSTANCE = this;
     }
 
     @Override

@@ -8,12 +8,17 @@ import com.songoda.epicrpg.story.quest.Quest;
 import com.songoda.epicrpg.story.quest.reward.AbstractReward;
 import com.songoda.epicrpg.story.quest.reward.RewardType;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class XpReward extends AbstractReward {
+    private final EpicRPG plugin;
+
     private int xp;
 
     public XpReward(Quest quest) {
         super(quest);
+
+        this.plugin = JavaPlugin.getPlugin(EpicRPG.class);
     }
 
     @Override
@@ -23,8 +28,8 @@ public class XpReward extends AbstractReward {
 
     @Override
     public void setup(Player player) {
-        EpicRPG plugin = EpicRPG.getInstance();
-        ChatPrompt.showPrompt(plugin, player,
+
+        ChatPrompt.showPrompt(this.plugin, player,
                         "Enter an xp amount.",
                         response -> {
                             String msg = response.getMessage();
@@ -32,7 +37,7 @@ public class XpReward extends AbstractReward {
                                 this.xp = Integer.parseInt(msg);
                             }
                         })
-                .setOnClose(() -> plugin.getGuiManager().showGUI(player, new GuiRewards(plugin, player, getQuest())));
+                .setOnClose(() -> this.plugin.getGuiManager().showGUI(player, new GuiRewards(this.plugin, player, getQuest())));
     }
 
     @Override

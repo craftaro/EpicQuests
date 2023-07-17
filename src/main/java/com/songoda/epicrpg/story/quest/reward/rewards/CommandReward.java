@@ -7,16 +7,20 @@ import com.songoda.epicrpg.story.quest.reward.AbstractReward;
 import com.songoda.epicrpg.story.quest.reward.RewardType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CommandReward extends AbstractReward {
+    private final EpicRPG plugin;
+
     private final List<String> commands = new ArrayList<>();
 
     public CommandReward(Quest quest) {
         super(quest);
+        this.plugin = JavaPlugin.getPlugin(EpicRPG.class);
     }
 
     @Override
@@ -26,13 +30,12 @@ public class CommandReward extends AbstractReward {
 
     @Override
     public void setup(Player player) {
-        EpicRPG plugin = EpicRPG.getInstance();
-        plugin.getGuiManager().showGUI(player, new GuiCommands(plugin, player, this));
+        this.plugin.getGuiManager().showGUI(player, new GuiCommands(this.plugin, player, this));
     }
 
     @Override
     public void give(Player player) {
-        Bukkit.getScheduler().runTask(EpicRPG.getInstance(), () -> {
+        Bukkit.getScheduler().runTask(this.plugin, () -> {
             for (String command : this.commands) {
                 Bukkit.getServer().dispatchCommand(
                         Bukkit.getConsoleSender(),

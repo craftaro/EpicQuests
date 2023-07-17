@@ -8,16 +8,20 @@ import com.songoda.epicrpg.story.quest.requirement.RequirementType;
 import com.songoda.epicrpg.utils.ItemHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ItemRequirement extends AbstractRequirement implements ItemHolder {
+    private final EpicRPG plugin;
+
     private final List<ItemStack> items = new ArrayList<>();
 
     public ItemRequirement(Objective objective) {
         super(objective);
+        this.plugin = JavaPlugin.getPlugin(EpicRPG.class);
     }
 
     @Override
@@ -45,8 +49,7 @@ public class ItemRequirement extends AbstractRequirement implements ItemHolder {
 
     @Override
     public void setup(Player player) {
-        EpicRPG plugin = EpicRPG.getInstance();
-        plugin.getGuiManager().showGUI(player, new GuiItems(plugin, player, this));
+        this.plugin.getGuiManager().showGUI(player, new GuiItems(this.plugin, player, this));
     }
 
     public List<ItemStack> getItems() {

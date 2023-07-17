@@ -4,9 +4,10 @@ import com.craftaro.core.compatibility.CompatibleMaterial;
 import com.craftaro.core.configuration.Config;
 import com.craftaro.core.configuration.ConfigSetting;
 import com.songoda.epicrpg.EpicRPG;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Settings {
-    static final Config config = EpicRPG.getInstance().getCoreConfig();
+    static final Config config = JavaPlugin.getPlugin(EpicRPG.class).getCoreConfig();
 
     public static final ConfigSetting BOSS_BAR_COLOR = new ConfigSetting(config, "General.Boss Bar Color", "PINK",
             "What color should the boss bars we use be?",

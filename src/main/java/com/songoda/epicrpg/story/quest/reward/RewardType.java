@@ -11,7 +11,6 @@ public enum RewardType {
 
     private final String className;
 
-
     RewardType(String className) {
         this.className = className;
     }
@@ -21,8 +20,8 @@ public enum RewardType {
             Class<?> clazz = Class.forName("com.songoda.epicrpg.story.quest.reward.rewards." + this.className);
             Constructor<?> ctor = clazz.getConstructor(Quest.class);
             return (Reward) ctor.newInstance(quest);
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
+        } catch (ReflectiveOperationException ex) {
+            ex.printStackTrace();
         }
         return null;
     }

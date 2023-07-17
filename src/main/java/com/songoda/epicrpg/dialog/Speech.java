@@ -15,25 +15,27 @@ public class Speech {
     private final UUID uniqueId = UUID.randomUUID();
 
     private transient Dialog dialog;
+    private final transient EpicRPG plugin;
 
     private final List<UUID> questPrerequisites = new LinkedList<>();
     private boolean defaultDialog = false;
 
     private final List<String> messages = new LinkedList<>();
 
-    public Speech(Dialog dialog) {
+    public Speech(Dialog dialog, EpicRPG plugin) {
         this.dialog = dialog;
+        this.plugin = plugin;
     }
 
     public void sendMessages(Player player, NPC npc) {
         int timeout = 0;
         for (String message : getMessages()) {
-            Bukkit.getScheduler().runTaskLater(EpicRPG.getInstance(), () -> {
-                String m = message
+            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                String msg = message
                         .replace("@p", player.getName())
                         .replace("%player%", player.getName());
                 if (player.isOnline()) {
-                    EpicRPG.getInstance().getLocale().newMessage("[NPC] " + npc.getName() + ": " + m).sendMessage(player);
+                    this.plugin.getLocale().newMessage("[NPC] " + npc.getName() + ": " + msg).sendMessage(player);
                 }
             }, timeout);
             timeout += 20;

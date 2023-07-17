@@ -16,7 +16,7 @@ public class RemainingObjective {
 
     public RemainingObjective(Objective objective) {
         this.uniqueId = objective.getUniqueId();
-        for (ActiveAction activeAction : EpicRPG.getInstance().getActionManager().getActiveActionsByObjective(objective)) {
+        for (ActiveAction activeAction : EpicRPG.getPlugin(EpicRPG.class).getActionManager().getActiveActionsByObjective(objective)) {
             this.remainingActions.put(activeAction.getUniqueId(), activeAction.getAmount());
         }
     }
