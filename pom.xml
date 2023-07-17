@@ -8,117 +8,100 @@
     <artifactId>EpicRPG</artifactId>
     <version>1.1.6</version>
 
-    <build>
-        <defaultGoal>clean install</defaultGoal>
-        <finalName>EpicRPG-${project.version}</finalName>
+    <name>EpicRPG</name>
+    <description>Create quests and stories your way with our extremely customizable and simplistically designed system</description>
+    <url>https://craftaro.com/marketplace/product/364</url>
 
+    <properties>
+        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <issueManagement>
+        <url>https://discord.gg/craftaro</url>
+        <system>Discord server</system>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/craftaro/EpicRPG</url>
+        <connection>scm:git:git://github.com/craftaro/EpicRPG.git</connection>
+    </scm>
+
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
-
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <file>${project.build.directory}/classes/plugin.yml</file>
-
-                    <replacements>
-                        <replacement>
-                            <token>maven-version-number</token>
-                            <value>${project.version}</value>
-                        </replacement>
-                    </replacements>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0-SNAPSHOT</version>
+                <version>3.4.1</version>
 
                 <executions>
                     <execution>
-                        <id>shaded</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
 
                         <configuration>
+                            <finalName>${project.name}-${project.version}</finalName>
+
                             <shadedArtifactAttached>false</shadedArtifactAttached>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <useDependencyReducedPomInJar>true</useDependencyReducedPomInJar>
                             <minimizeJar>true</minimizeJar>
-
-                            <artifactSet>
-                                <includes>
-                                    <include>com.songoda:SongodaCore</include>
-                                </includes>
-                            </artifactSet>
-
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
 
                             <relocations>
                                 <relocation>
                                     <pattern>com.songoda.core</pattern>
-                                    <shadedPattern>${project.groupId}.epicrpg.core</shadedPattern>
+                                    <shadedPattern>com.songoda.epicrpg.core</shadedPattern>
                                 </relocation>
                             </relocations>
+
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+
+                                    <excludes>
+                                        <exclude>META-INF/**</exclude>
+                                        <exclude>LICENSE</exclude>
+                                        <exclude>LICENSE.**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
-    </build>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-        </pluginRepository>
-    </pluginRepositories>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
+            <id>SpigotMC</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
 
         <repository>
-            <id>songoda-public</id>
-            <url>https://repo.songoda.com/repository/public/</url>
+            <id>citizens-repo</id>
+            <url>https://maven.citizensnpcs.co/repo</url>
         </repository>
 
         <repository>
-            <id>citizens2</id>
-            <url>https://repo.citizensnpcs.co/</url>
+            <id>lumine-releases</id>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
+        </repository>
+
+        <repository>
+            <id>songoda-public</id>
+            <url>https://repo.craftaro.com/repository/public/</url>
         </repository>
     </repositories>
 
@@ -130,6 +113,7 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -147,8 +131,15 @@
         <dependency>
             <groupId>net.citizensnpcs</groupId>
             <artifactId>citizens-main</artifactId>
-            <version>2.0.29-SNAPSHOT</version>
+            <version>2.0.32-SNAPSHOT</version>
             <scope>provided</scope>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

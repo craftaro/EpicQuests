@@ -1,14 +1,22 @@
-name: EpicRPG
-description: EpicRPG
-version: maven-version-number
-main: com.songoda.epicrpg.EpicRPG
-author: songoda
-depend: [ Citizens ]
-softdepend: [ ModdedCore, MythicMobs ]
+name: ${project.name}
+description: ${project.description}
+version: ${project.version}
 api-version: 1.13
+
+main: com.songoda.epicrpg.EpicRPG
+depend:
+  - Citizens
+softdepend:
+  - ModdedCore
+  - MythicMobs
+
+author: Craftaro
+website: ${project.url}
+
 commands:
   EpicRPG:
     description: Reloads the configuration file
     default: true
-    aliases: [ rpg ]
+    aliases:
+      - rpg
     usage: /epicrpg reload
