@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.listeners;
 
-import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

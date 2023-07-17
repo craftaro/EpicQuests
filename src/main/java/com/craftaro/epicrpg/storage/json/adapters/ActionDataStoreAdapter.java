@@ -1,11 +1,11 @@
 package com.craftaro.epicrpg.storage.json.adapters;
 
+import com.craftaro.epicrpg.data.ActionDataStore;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.craftaro.epicrpg.data.ActionDataStore;
 
 import java.lang.reflect.Type;
 

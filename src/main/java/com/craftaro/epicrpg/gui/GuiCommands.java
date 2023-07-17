@@ -4,9 +4,9 @@ import com.craftaro.core.gui.Gui;
 import com.craftaro.core.gui.GuiUtils;
 import com.craftaro.core.input.ChatPrompt;
 import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.story.quest.reward.rewards.CommandReward;
 import com.craftaro.epicrpg.utils.TextUtils;
-import com.craftaro.epicrpg.EpicRPG;
 import org.bukkit.entity.Player;
 
 import java.util.List;

@@ -1,5 +1,9 @@
 package com.craftaro.epicrpg.storage.json.adapters;
 
+import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.Story;
+import com.craftaro.epicrpg.story.quest.Objective;
+import com.craftaro.epicrpg.story.quest.Quest;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -7,10 +11,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.craftaro.epicrpg.EpicRPG;
-import com.craftaro.epicrpg.story.Story;
-import com.craftaro.epicrpg.story.quest.Objective;
-import com.craftaro.epicrpg.story.quest.Quest;
 
 import java.lang.reflect.Type;
 import java.util.UUID;

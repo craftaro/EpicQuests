@@ -1,10 +1,10 @@
 package com.craftaro.epicrpg.data;
 
 import com.craftaro.core.input.ChatPrompt;
-import com.craftaro.epicrpg.story.quest.Objective;
-import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.gui.GuiObjective;
+import com.craftaro.epicrpg.story.quest.Objective;
+import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 

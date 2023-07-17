@@ -1,12 +1,12 @@
 package com.craftaro.epicrpg.commands;
 
 import com.craftaro.core.commands.AbstractCommand;
+import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.story.contender.ContendentManager;
 import com.craftaro.epicrpg.story.contender.PartyInvite;
 import com.craftaro.epicrpg.story.contender.StoryContender;
 import com.craftaro.epicrpg.story.contender.StoryParty;
 import com.craftaro.epicrpg.story.contender.StoryPlayer;
-import com.craftaro.epicrpg.EpicRPG;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;

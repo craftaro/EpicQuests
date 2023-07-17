@@ -1,8 +1,8 @@
 package com.craftaro.epicrpg.story.contender;
 
-import com.craftaro.epicrpg.story.quest.Quest;
 import com.craftaro.epicrpg.story.Story;
 import com.craftaro.epicrpg.story.StoryManager;
+import com.craftaro.epicrpg.story.quest.Quest;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;

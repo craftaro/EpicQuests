@@ -1,5 +1,7 @@
 package com.craftaro.epicrpg.story.quest.action;
 
+import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.quest.Objective;
 import com.craftaro.epicrpg.story.quest.action.actions.DropItem;
 import com.craftaro.epicrpg.story.quest.action.actions.EnterRegion;
 import com.craftaro.epicrpg.story.quest.action.actions.EquipItem;
@@ -10,8 +12,6 @@ import com.craftaro.epicrpg.story.quest.action.actions.PickupItem;
 import com.craftaro.epicrpg.story.quest.action.actions.RightClickBlock;
 import com.craftaro.epicrpg.story.quest.action.actions.RightClickCitizen;
 import com.craftaro.epicrpg.story.quest.action.actions.RightClickEntity;
-import com.craftaro.epicrpg.EpicRPG;
-import com.craftaro.epicrpg.story.quest.Objective;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;

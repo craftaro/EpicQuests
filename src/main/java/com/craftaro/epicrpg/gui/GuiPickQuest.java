@@ -3,10 +3,10 @@ package com.craftaro.epicrpg.gui;
 import com.craftaro.core.gui.Gui;
 import com.craftaro.core.gui.GuiUtils;
 import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.dialog.Speech;
 import com.craftaro.epicrpg.story.StoryManager;
 import com.craftaro.epicrpg.story.quest.Quest;
-import com.craftaro.epicrpg.EpicRPG;
 import org.bukkit.entity.Player;
 
 import java.util.List;

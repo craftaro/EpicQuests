@@ -1,13 +1,13 @@
 package com.craftaro.epicrpg.listeners;
 
 import com.craftaro.core.compatibility.ServerVersion;
-import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.Region.ActiveSelection;
 import com.craftaro.epicrpg.dialog.Dialog;
 import com.craftaro.epicrpg.gui.GuiDialogs;
 import com.craftaro.epicrpg.story.contender.StoryContender;
 import com.craftaro.epicrpg.story.contender.StoryPlayer;
+import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;

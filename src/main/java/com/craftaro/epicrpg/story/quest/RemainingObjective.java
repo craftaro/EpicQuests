@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.story.quest;
 
-import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package com.craftaro.epicrpg.story.contender;
 
+import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.story.quest.ActiveQuest;
 import com.craftaro.epicrpg.story.quest.Quest;
-import com.craftaro.epicrpg.EpicRPG;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;

@@ -1,5 +1,8 @@
 package com.craftaro.epicrpg.storage.json;
 
+import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.data.ActionDataStore;
+import com.craftaro.epicrpg.dialog.Dialog;
 import com.craftaro.epicrpg.storage.json.adapters.ActionAdapter;
 import com.craftaro.epicrpg.storage.json.adapters.ActionDataStoreAdapter;
 import com.craftaro.epicrpg.storage.json.adapters.ItemStackAdapter;
@@ -7,6 +10,7 @@ import com.craftaro.epicrpg.storage.json.adapters.LocationAdapter;
 import com.craftaro.epicrpg.storage.json.adapters.ObjectiveAdapter;
 import com.craftaro.epicrpg.storage.json.adapters.RequirementAdapter;
 import com.craftaro.epicrpg.storage.json.adapters.RewardAdapter;
+import com.craftaro.epicrpg.story.Story;
 import com.craftaro.epicrpg.story.contender.StoryPlayer;
 import com.craftaro.epicrpg.story.quest.Objective;
 import com.craftaro.epicrpg.story.quest.action.Action;
@@ -20,10 +24,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
-import com.craftaro.epicrpg.EpicRPG;
-import com.craftaro.epicrpg.data.ActionDataStore;
-import com.craftaro.epicrpg.dialog.Dialog;
-import com.craftaro.epicrpg.story.Story;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 

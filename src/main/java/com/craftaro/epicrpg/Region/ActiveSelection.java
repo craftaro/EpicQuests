@@ -1,8 +1,8 @@
 package com.craftaro.epicrpg.Region;
 
-import com.craftaro.epicrpg.story.quest.Quest;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.gui.GuiQuest;
+import com.craftaro.epicrpg.story.quest.Quest;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

@@ -5,12 +5,12 @@ import com.craftaro.core.gui.GuiUtils;
 import com.craftaro.core.input.ChatPrompt;
 import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.core.utils.TextUtils;
+import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.dialog.Speech;
 import com.craftaro.epicrpg.story.quest.Objective;
 import com.craftaro.epicrpg.story.quest.action.Action;
 import com.craftaro.epicrpg.story.quest.action.ActionManager;
 import com.craftaro.epicrpg.story.quest.action.ActiveAction;
-import com.craftaro.epicrpg.EpicRPG;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 

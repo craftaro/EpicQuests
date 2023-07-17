@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.story.quest;
 
-import com.craftaro.epicrpg.story.quest.requirement.Requirement;
 import com.craftaro.epicrpg.dialog.AttachedSpeech;
+import com.craftaro.epicrpg.story.quest.requirement.Requirement;
 
 import java.util.Collections;
 import java.util.LinkedList;

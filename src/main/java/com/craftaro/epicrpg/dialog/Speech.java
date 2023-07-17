@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.dialog;
 
-import com.craftaro.epicrpg.story.quest.Quest;
 import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.quest.Quest;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.tasks;
 
-import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import com.craftaro.epicrpg.EpicRPG;
+import com.craftaro.epicrpg.story.quest.action.ActiveAction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

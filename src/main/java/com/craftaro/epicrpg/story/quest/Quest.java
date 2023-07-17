@@ -1,9 +1,9 @@
 package com.craftaro.epicrpg.story.quest;
 
-import com.craftaro.epicrpg.story.quest.requirement.Requirement;
-import com.craftaro.epicrpg.story.quest.reward.Reward;
 import com.craftaro.epicrpg.Region.Region;
 import com.craftaro.epicrpg.story.Story;
+import com.craftaro.epicrpg.story.quest.requirement.Requirement;
+import com.craftaro.epicrpg.story.quest.reward.Reward;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
