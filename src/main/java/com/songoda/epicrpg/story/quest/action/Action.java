@@ -2,7 +2,7 @@ package com.songoda.epicrpg.story.quest.action;
 
 import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
-import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
+import io.lumine.mythic.bukkit.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;

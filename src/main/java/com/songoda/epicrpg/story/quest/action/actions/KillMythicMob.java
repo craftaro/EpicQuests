@@ -6,10 +6,10 @@ import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.mobs.ActiveMob;
-import io.lumine.xikage.mythicmobs.mobs.MobManager;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
+import io.lumine.mythic.api.mobs.MythicMob;
+import io.lumine.mythic.bukkit.MythicBukkit;
+import io.lumine.mythic.core.mobs.ActiveMob;
+import io.lumine.mythic.core.mobs.MobExecutor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -32,7 +32,7 @@ public class KillMythicMob extends AbstractAction {
     public List<String> getDescription(ActionDataStore actionDataStore) {
         KillMythicMobDataStore dataStore = (KillMythicMobDataStore) actionDataStore;
 
-        MythicMob mob = MythicMobs.inst()
+        MythicMob mob = MythicBukkit.inst()
                 .getMobManager()
                 .getMobTypes()
                 .stream()
@@ -54,7 +54,7 @@ public class KillMythicMob extends AbstractAction {
 
         KillMythicMobDataStore dataStore = (KillMythicMobDataStore) activeAction.getActionDataStore();
 
-        MobManager mobManager = MythicMobs.inst().getMobManager();
+        MobExecutor mobManager = MythicBukkit.inst().getMobManager();
 
         if (!mobManager.isActiveMob(event.getRightClicked().getUniqueId())
                 || !dataStore.isBeingSetup(event.getPlayer())) {
@@ -73,7 +73,7 @@ public class KillMythicMob extends AbstractAction {
             return;
         }
 
-        MobManager mobManager = MythicMobs.inst().getMobManager();
+        MobExecutor mobManager = MythicBukkit.inst().getMobManager();
 
         if (!mobManager.isActiveMob(event.getEntity().getUniqueId())) {
             return;

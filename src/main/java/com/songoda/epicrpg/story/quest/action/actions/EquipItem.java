@@ -6,7 +6,7 @@ import com.songoda.epicrpg.data.ActionDataStore;
 import com.songoda.epicrpg.story.quest.Objective;
 import com.songoda.epicrpg.story.quest.action.AbstractAction;
 import com.songoda.epicrpg.story.quest.action.ActiveAction;
-import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
+import io.lumine.mythic.bukkit.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;

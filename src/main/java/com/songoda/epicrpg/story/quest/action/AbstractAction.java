@@ -6,7 +6,7 @@ import com.songoda.epicrpg.story.contender.StoryContender;
 import com.songoda.epicrpg.story.quest.ActiveQuest;
 import com.songoda.epicrpg.story.quest.RemainingObjective;
 import com.songoda.epicrpg.story.quest.requirement.Requirement;
-import io.lumine.xikage.mythicmobs.utils.events.extra.ArmorEquipEvent;
+import io.lumine.mythic.bukkit.utils.events.extra.ArmorEquipEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
