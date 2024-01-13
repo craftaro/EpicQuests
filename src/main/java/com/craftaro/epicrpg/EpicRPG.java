@@ -4,9 +4,7 @@ import com.craftaro.core.SongodaCore;
 import com.craftaro.core.SongodaPlugin;
 import com.craftaro.core.commands.CommandManager;
 import com.craftaro.core.configuration.Config;
-import com.craftaro.core.dependency.Dependency;
 import com.craftaro.core.gui.GuiManager;
-import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.epicrpg.Region.SelectionManager;
 import com.craftaro.epicrpg.commands.CommandAdmin;
 import com.craftaro.epicrpg.commands.CommandPartyCreate;
@@ -29,12 +27,11 @@ import com.craftaro.epicrpg.story.quest.action.ActionManager;
 import com.craftaro.epicrpg.tasks.QuestTask;
 import com.craftaro.epicrpg.tasks.RegionTask;
 import com.craftaro.epicrpg.tasks.VisualizeTask;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class EpicRPG extends SongodaPlugin {
     private final GuiManager guiManager = new GuiManager(this);
@@ -55,11 +52,6 @@ public class EpicRPG extends SongodaPlugin {
     @Deprecated
     public static EpicRPG getInstance() {
         return getPlugin(EpicRPG.class);
-    }
-
-    @Override
-    protected Set<Dependency> getDependencies() {
-        return new HashSet<>();
     }
 
     @Override
