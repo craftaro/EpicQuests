@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.tasks;
 
 import com.craftaro.core.compatibility.CompatibleParticleHandler;
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XSound;
+import com.craftaro.third_party.com.cryptomorin.xseries.XSound;
 import com.craftaro.core.utils.LocationUtils;
 import com.craftaro.core.utils.TextUtils;
 import com.craftaro.epicrpg.EpicRPG;

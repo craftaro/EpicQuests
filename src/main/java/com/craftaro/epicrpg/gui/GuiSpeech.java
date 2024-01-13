@@ -3,7 +3,7 @@ package com.craftaro.epicrpg.gui;
 import com.craftaro.core.gui.Gui;
 import com.craftaro.core.gui.GuiUtils;
 import com.craftaro.core.input.ChatPrompt;
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.dialog.Speech;
 import com.craftaro.epicrpg.utils.TextUtils;

@@ -2,7 +2,7 @@ package com.craftaro.epicrpg.gui;
 
 import com.craftaro.core.gui.Gui;
 import com.craftaro.core.gui.GuiUtils;
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.story.quest.requirement.Requirement;
 import com.craftaro.epicrpg.story.quest.reward.Reward;

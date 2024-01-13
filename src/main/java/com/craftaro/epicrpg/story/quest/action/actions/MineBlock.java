@@ -1,7 +1,7 @@
 package com.craftaro.epicrpg.story.quest.action.actions;
 
 import com.craftaro.core.compatibility.CompatibleMaterial;
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.core.utils.TextUtils;
 import com.craftaro.epicrpg.EpicRPG;
 import com.craftaro.epicrpg.data.ActionDataStore;
