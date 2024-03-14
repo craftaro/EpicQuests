@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class StoryParty extends StoryContender {
-    private final EpicRPG plugin;
 
     private final Map<UUID, MemberType> players = new HashMap<>();
 
@@ -20,8 +19,6 @@ public class StoryParty extends StoryContender {
 
     public StoryParty(UUID uniqueId, StoryPlayer player) {
         super(uniqueId);
-        this.plugin = JavaPlugin.getPlugin(EpicRPG.class);
-
         this.players.put(player.getUniqueId(), MemberType.LEADER);
     }
 
@@ -43,8 +40,9 @@ public class StoryParty extends StoryContender {
     }
 
     public void disband() {
+        EpicRPG plugin = JavaPlugin.getPlugin(EpicRPG.class);
         for (UUID uniqueId : this.players.keySet()) {
-            StoryPlayer player = this.plugin.getContendentManager().getPlayer(uniqueId);
+            StoryPlayer player = plugin.getContendentManager().getPlayer(uniqueId);
             player.setParty(null);
         }
         this.players.clear();
@@ -52,9 +50,10 @@ public class StoryParty extends StoryContender {
 
     @Override
     public void completeQuest(Quest quest) {
+        EpicRPG plugin = JavaPlugin.getPlugin(EpicRPG.class);
         ActiveQuest active = getActiveQuest(quest);
         for (UUID uniqueId : this.players.keySet()) {
-            StoryPlayer player = this.plugin.getContendentManager().getPlayer(uniqueId);
+            StoryPlayer player = plugin.getContendentManager().getPlayer(uniqueId);
             player.addCompletedQuests(getCompletedQuests());
         }
         this.activeQuests.remove(active);

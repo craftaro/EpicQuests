@@ -45,7 +45,7 @@ public class GuiDialog extends Gui {
         if (this.attachedSpeech == null) {
             setButton(0, 0, GuiUtils.createButtonItem(XMaterial.GREEN_DYE, "Add Speech"),
                     (event) -> {
-                        this.dialog.addMessage(new Speech(this.dialog, this.plugin));
+                        this.dialog.addMessage(new Speech(this.dialog));
                         show();
                     });
         }
