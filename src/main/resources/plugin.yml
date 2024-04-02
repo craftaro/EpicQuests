@@ -3,20 +3,19 @@ description: ${project.description}
 version: ${project.version}
 api-version: 1.13
 
-main: com.craftaro.epicrpg.EpicRPG
+main: com.songoda.epicquests.EpicQuests
 depend:
   - Citizens
 softdepend:
-  - ModdedCore
   - MythicMobs
 
-author: Craftaro
+author: Songoda
 website: ${project.url}
 
 commands:
-  EpicRPG:
+  EpicQuests:
     description: Reloads the configuration file
     default: true
     aliases:
-      - rpg
-    usage: /epicrpg reload
+      - quest
+    usage: /epicquests reload
