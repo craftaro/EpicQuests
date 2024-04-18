@@ -1,21 +1,20 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <div align="center">
-<img src="https://craftaro.com/images/products/52/icons/RU63AfqkNZXYmSIzbZodOpjJQUOiPkEBuVuHt8sx.png" width="128px">
+<img src="docs/Logo.png" width="128px">
 
 # EpicQuests
 Create quests and stories your way with our extremely customizable and simplistically designed system
 
 
 [![Discord][Discord shield]][Discord invite]
-[![Patreon][Patreon shield]][Patreon page]
 <br>
-[![Latest version][Latest version shield]][Marketplace page]
+[![Latest version][Latest version shield]][Plugin page]
 [![bStats Servers][bStats shield]][bStats page]
 </div>
 
 
 ## Download (Marketplace)
-You can visit [our marketplace][Marketplace page] to download EpicQuests as well as take a
+You can visit [our marketplace][Plugin page] to download EpicQuests as well as take a
 look at many other fantastic plugins which are sure to catch your eye.
 
 ## Documentation
@@ -33,13 +32,12 @@ For suggestions about features you think should be added to the plugin to increa
 create a thread over on [our Discord server][Discord invite].
 
 
-[Marketplace page]: https://craftaro.com/marketplace/product/364
-[Plugin wiki]: https://wiki.craftaro.com/index.php/Epic_Quests
-[Patreon page]: https://www.patreon.com/join/songoda
-[Discord invite]: https://discord.gg/craftaro
-[bStats page]: https://bstats.org/plugin/bukkit/EpicQuests/6963
+[Plugin page]: https://songoda.com/product/10
+[Plugin wiki]: https://songoda.notion.site/EpicQuests-c7f0fbefed1b4d32a0e76da303a5b5fb
+[Discord invite]: https://discord.gg/7TXM8xr2Ng
 
-[Patreon shield]: https://img.shields.io/badge/-Support_us_on_Patreon-F96854.svg?logo=patreon&style=flat&logoColor=white
-[Discord shield]: https://img.shields.io/discord/293212540723396608?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
-[bStats shield]: https://img.shields.io/bstats/servers/6963?label=Servers
+[Discord shield]: https://img.shields.io/discord/1214289374506917889?color=5865F2&label=Discord&logo=discord&logoColor=5865F2
 [Latest version shield]: https://img.shields.io/badge/dynamic/xml?style=flat&color=blue&logo=github&logoColor=white&label=Latest&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcraftaro%2FEpicQuests%2Fmaster%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D
+
+[bStats page]: https://bstats.org/plugin/bukkit/EpicRPG/6963
+[bStats shield]: https://img.shields.io/bstats/servers/6963?label=Servers
